@@ -11,7 +11,6 @@ struct DiscoverView: View {
     @State var searchText = ""
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            BusquedaTextField(searchingText: $searchText)
             LazyVStack(alignment: .leading){
                 topAnimeView(showing: .airing)
                     .frame(height: 300)
@@ -24,6 +23,7 @@ struct DiscoverView: View {
                 Spacer()
             }
         }.padding(.horizontal)
+            .background(Color.gray.opacity(0.1))
     }
 }
 

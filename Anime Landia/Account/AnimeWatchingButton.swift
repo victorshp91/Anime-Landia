@@ -12,6 +12,7 @@ struct AnimeWatchingButton: View {
     @State private var selectedOption = HelpersFunctions.animeWatchingOptions.completed
     
     @State private var iconImage: Image = Image(systemName: "")
+    var changeOptionImageSize: CGFloat
     
      private var iconColor: Color {
         switch selectedOption {
@@ -76,16 +77,26 @@ struct AnimeWatchingButton: View {
                     }
                     
                 } label: {
-                    Image(systemName: icoImage).foregroundStyle(iconColor)
-                        .font(.title)
-                        .background(.white)
+                    Circle()
+                        .foregroundColor(Color.black.opacity(0.8))
+                        .frame(width: changeOptionImageSize+10, height: changeOptionImageSize+10)
+                        .overlay(
+                            Image(systemName: icoImage)
+                                .resizable()
+                                .font(.title2)
+                                .frame(width: changeOptionImageSize, height: changeOptionImageSize)
+                                .foregroundColor(iconColor)
+                            
+                        ).padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 5))
+
+                  
                 }
             }
-            Spacer()
+     
         }.ignoresSafeArea()
     }
 }
 
 #Preview {
-    AnimeWatchingButton()
+    AnimeWatchingButton(changeOptionImageSize: 20)
 }

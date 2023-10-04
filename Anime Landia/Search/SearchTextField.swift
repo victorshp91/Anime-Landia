@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchTextField: View {
     @Binding var searchingText: String
-    
+    var onSearch: () -> Void // Cierre para la acción de búsqueda
     var body: some View {
         
         TextField("By Name", text: $searchingText)
@@ -17,6 +17,10 @@ struct SearchTextField: View {
             .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 20))
             .background(Color.gray.opacity(0.2))
             .cornerRadius(10)
+            .onSubmit {
+                                // Ejecuta el cierre para la acción de búsqueda desde la vista secundaria
+                                onSearch()
+                            }
         
             .overlay(
                 HStack {
@@ -34,7 +38,7 @@ struct SearchTextField: View {
                         }, label: {
                             Image(systemName: "x.circle.fill")
                                 .foregroundColor(.gray)
-                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
+                                .frame(minWidth: 0, maxWidth: 50, alignment: .trailing)
                                 .padding(.trailing, 10)
                                 .font(.title2)
                         })
@@ -46,5 +50,5 @@ struct SearchTextField: View {
 }
 
 #Preview {
-    SearchTextField(searchingText: Binding.constant(""))
+    SearchTextField(searchingText: Binding.constant(""), onSearch: {})
 }

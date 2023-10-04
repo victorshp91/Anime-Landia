@@ -43,7 +43,7 @@ struct TopCharactersView: View {
                     
                 }
             }else {
-                Text("Cargando datos...")
+                HelpersFunctions().loadingView()
                 
             }
             

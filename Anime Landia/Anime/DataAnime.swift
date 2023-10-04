@@ -12,6 +12,10 @@ struct AnimeData: Codable {
     let data: [Anime]
 }
 
+struct OnlyAnimeData: Codable {
+    let data: Anime
+}
+
 struct Pagination: Codable {
     let last_visible_page: Int
     let has_next_page: Bool

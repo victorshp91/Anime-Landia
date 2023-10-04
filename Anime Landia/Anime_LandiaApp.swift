@@ -11,7 +11,9 @@ import SwiftUI
 struct Anime_LandiaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView{
+                TabBarMenu()
+            }
         }
     }
 }

@@ -22,12 +22,16 @@ struct RandomAnimeView: View {
                     .bold()
                     .font(.callout)
                             HStack(alignment: .top, spacing: 10) {
-                                WebImage(url: URL(string: data.images?.jpg.large_image_url ?? ""))
-                                    .resizable()
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .frame(width: 150, height: 230)
-                                    .scaledToFill()
-                                    .shadow(radius: 5)
+                                ZStack(alignment: .topTrailing){
+                                    WebImage(url: URL(string: data.images?.jpg.large_image_url ?? ""))
+                                        .resizable()
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        .frame(width: 150, height: 230)
+                                        .scaledToFill()
+                                        .shadow(radius: 5)
+                                    
+                                    AnimeWatchingButton(changeOptionImageSize: 20)
+                                }
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text(data.title ?? "N/A")

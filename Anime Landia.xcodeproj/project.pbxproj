@@ -7,13 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F0AE3A32ACCFD0A001F4405 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AE3A22ACCFD0A001F4405 /* AccountView.swift */; };
+		2F0AE3A52ACD043F001F4405 /* AnimeWatchingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AE3A42ACD043F001F4405 /* AnimeWatchingButton.swift */; };
+		2F0AE3A72ACD203E001F4405 /* usuarioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AE3A62ACD203E001F4405 /* usuarioData.swift */; };
+		2F5F37452ACA4982002A752C /* RandomCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37442ACA4982002A752C /* RandomCharacterView.swift */; };
+		2F5F37472ACA51A4002A752C /* CharacterAnimeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37462ACA51A4002A752C /* CharacterAnimeListView.swift */; };
+		2F5F37492ACA69CD002A752C /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37482ACA69CD002A752C /* SearchTextField.swift */; };
+		2F5F374C2ACA6C85002A752C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F374B2ACA6C85002A752C /* SearchView.swift */; };
+		2F6046EB2AC8A290000EDFCF /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6046EA2AC8A290000EDFCF /* DiscoverView.swift */; };
+		2F6046ED2AC8AC53000EDFCF /* DataCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6046EC2AC8AC53000EDFCF /* DataCharacter.swift */; };
+		2F6046EF2AC8AEA8000EDFCF /* TopCharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6046EE2AC8AEA8000EDFCF /* TopCharactersView.swift */; };
 		2F7A4EDA2AC88B8600D4F2E8 /* Anime_LandiaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4ED92AC88B8600D4F2E8 /* Anime_LandiaApp.swift */; };
-		2F7A4EDC2AC88B8600D4F2E8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4EDB2AC88B8600D4F2E8 /* ContentView.swift */; };
+		2F7A4EDC2AC88B8600D4F2E8 /* topAnimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4EDB2AC88B8600D4F2E8 /* topAnimeView.swift */; };
 		2F7A4EDE2AC88B8800D4F2E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F7A4EDD2AC88B8800D4F2E8 /* Assets.xcassets */; };
 		2F7A4EE22AC88B8800D4F2E8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F7A4EE12AC88B8800D4F2E8 /* Preview Assets.xcassets */; };
 		2F7A4EEC2AC88B8800D4F2E8 /* Anime_LandiaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4EEB2AC88B8800D4F2E8 /* Anime_LandiaTests.swift */; };
 		2F7A4EF62AC88B8800D4F2E8 /* Anime_LandiaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4EF52AC88B8800D4F2E8 /* Anime_LandiaUITests.swift */; };
 		2F7A4EF82AC88B8800D4F2E8 /* Anime_LandiaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4EF72AC88B8800D4F2E8 /* Anime_LandiaUITestsLaunchTests.swift */; };
+		2F7A4F052AC88BB200D4F2E8 /* DataAnime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4F042AC88BB200D4F2E8 /* DataAnime.swift */; };
+		2F7A4F0A2AC896F800D4F2E8 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2F7A4F092AC896F800D4F2E8 /* SDWebImageSwiftUI */; };
+		2FE2CC622AC8BEBF00E4E1C1 /* AnimeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC612AC8BEBF00E4E1C1 /* AnimeDetailsView.swift */; };
+		2FE2CC642AC8DE1F00E4E1C1 /* StreamingDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC632AC8DE1F00E4E1C1 /* StreamingDetailsView.swift */; };
+		2FE2CC662AC8ECCE00E4E1C1 /* TrailerVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC652AC8ECCE00E4E1C1 /* TrailerVideoView.swift */; };
+		2FE2CC692AC8ED4E00E4E1C1 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE2CC682AC8ED4E00E4E1C1 /* YouTubePlayerKit */; };
+		2FE2CC6B2AC8F0C300E4E1C1 /* TabBarMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC6A2AC8F0C200E4E1C1 /* TabBarMenu.swift */; };
+		2FE2CC6F2AC8F59900E4E1C1 /* CharacterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC6E2AC8F59900E4E1C1 /* CharacterDetailsView.swift */; };
+		2FE2CC712AC8FBE200E4E1C1 /* HelpersFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */; };
+		2FE2CC752AC90B5900E4E1C1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC742AC90B5900E4E1C1 /* HomeView.swift */; };
+		2FE2CC782AC90FBA00E4E1C1 /* RandomAnimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC772AC90FBA00E4E1C1 /* RandomAnimeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +55,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F0AE3A22ACCFD0A001F4405 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		2F0AE3A42ACD043F001F4405 /* AnimeWatchingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeWatchingButton.swift; sourceTree = "<group>"; };
+		2F0AE3A62ACD203E001F4405 /* usuarioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = usuarioData.swift; sourceTree = "<group>"; };
+		2F5F37442ACA4982002A752C /* RandomCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCharacterView.swift; sourceTree = "<group>"; };
+		2F5F37462ACA51A4002A752C /* CharacterAnimeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAnimeListView.swift; sourceTree = "<group>"; };
+		2F5F37482ACA69CD002A752C /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		2F5F374B2ACA6C85002A752C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		2F6046EA2AC8A290000EDFCF /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		2F6046EC2AC8AC53000EDFCF /* DataCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCharacter.swift; sourceTree = "<group>"; };
+		2F6046EE2AC8AEA8000EDFCF /* TopCharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCharactersView.swift; sourceTree = "<group>"; };
 		2F7A4ED62AC88B8600D4F2E8 /* Anime Landia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Landia.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F7A4ED92AC88B8600D4F2E8 /* Anime_LandiaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaApp.swift; sourceTree = "<group>"; };
-		2F7A4EDB2AC88B8600D4F2E8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2F7A4EDB2AC88B8600D4F2E8 /* topAnimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = topAnimeView.swift; sourceTree = "<group>"; };
 		2F7A4EDD2AC88B8800D4F2E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F7A4EDF2AC88B8800D4F2E8 /* Anime_Landia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Anime_Landia.entitlements; sourceTree = "<group>"; };
 		2F7A4EE12AC88B8800D4F2E8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -45,6 +76,15 @@
 		2F7A4EF12AC88B8800D4F2E8 /* Anime LandiaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Anime LandiaUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F7A4EF52AC88B8800D4F2E8 /* Anime_LandiaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaUITests.swift; sourceTree = "<group>"; };
 		2F7A4EF72AC88B8800D4F2E8 /* Anime_LandiaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2F7A4F042AC88BB200D4F2E8 /* DataAnime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAnime.swift; sourceTree = "<group>"; };
+		2FE2CC612AC8BEBF00E4E1C1 /* AnimeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetailsView.swift; sourceTree = "<group>"; };
+		2FE2CC632AC8DE1F00E4E1C1 /* StreamingDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingDetailsView.swift; sourceTree = "<group>"; };
+		2FE2CC652AC8ECCE00E4E1C1 /* TrailerVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerVideoView.swift; sourceTree = "<group>"; };
+		2FE2CC6A2AC8F0C200E4E1C1 /* TabBarMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarMenu.swift; sourceTree = "<group>"; };
+		2FE2CC6E2AC8F59900E4E1C1 /* CharacterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsView.swift; sourceTree = "<group>"; };
+		2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpersFunctions.swift; sourceTree = "<group>"; };
+		2FE2CC742AC90B5900E4E1C1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		2FE2CC772AC90FBA00E4E1C1 /* RandomAnimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAnimeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +92,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FE2CC692AC8ED4E00E4E1C1 /* YouTubePlayerKit in Frameworks */,
+				2F7A4F0A2AC896F800D4F2E8 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +114,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F0AE3A12ACCFCC2001F4405 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				2F0AE3A22ACCFD0A001F4405 /* AccountView.swift */,
+				2F0AE3A42ACD043F001F4405 /* AnimeWatchingButton.swift */,
+				2F0AE3A62ACD203E001F4405 /* usuarioData.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		2F5F374A2ACA6BDC002A752C /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2F5F37482ACA69CD002A752C /* SearchTextField.swift */,
+				2F5F374B2ACA6C85002A752C /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		2F7A4ECD2AC88B8600D4F2E8 = {
 			isa = PBXGroup;
 			children = (
@@ -96,7 +157,14 @@
 			isa = PBXGroup;
 			children = (
 				2F7A4ED92AC88B8600D4F2E8 /* Anime_LandiaApp.swift */,
-				2F7A4EDB2AC88B8600D4F2E8 /* ContentView.swift */,
+				2FE2CC6A2AC8F0C200E4E1C1 /* TabBarMenu.swift */,
+				2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */,
+				2F0AE3A12ACCFCC2001F4405 /* Account */,
+				2F5F374A2ACA6BDC002A752C /* Search */,
+				2FE2CC762AC90F6D00E4E1C1 /* Home */,
+				2FE2CC602AC8BE9A00E4E1C1 /* Discover */,
+				2FE2CC6C2AC8F47300E4E1C1 /* Anime */,
+				2FE2CC6D2AC8F58700E4E1C1 /* Character */,
 				2F7A4EDD2AC88B8800D4F2E8 /* Assets.xcassets */,
 				2F7A4EDF2AC88B8800D4F2E8 /* Anime_Landia.entitlements */,
 				2F7A4EE02AC88B8800D4F2E8 /* Preview Content */,
@@ -129,6 +197,47 @@
 			path = "Anime LandiaUITests";
 			sourceTree = "<group>";
 		};
+		2FE2CC602AC8BE9A00E4E1C1 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				2F7A4EDB2AC88B8600D4F2E8 /* topAnimeView.swift */,
+				2F6046EE2AC8AEA8000EDFCF /* TopCharactersView.swift */,
+				2F6046EA2AC8A290000EDFCF /* DiscoverView.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		2FE2CC6C2AC8F47300E4E1C1 /* Anime */ = {
+			isa = PBXGroup;
+			children = (
+				2FE2CC612AC8BEBF00E4E1C1 /* AnimeDetailsView.swift */,
+				2FE2CC652AC8ECCE00E4E1C1 /* TrailerVideoView.swift */,
+				2FE2CC632AC8DE1F00E4E1C1 /* StreamingDetailsView.swift */,
+				2F7A4F042AC88BB200D4F2E8 /* DataAnime.swift */,
+			);
+			path = Anime;
+			sourceTree = "<group>";
+		};
+		2FE2CC6D2AC8F58700E4E1C1 /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				2F6046EC2AC8AC53000EDFCF /* DataCharacter.swift */,
+				2FE2CC6E2AC8F59900E4E1C1 /* CharacterDetailsView.swift */,
+				2F5F37462ACA51A4002A752C /* CharacterAnimeListView.swift */,
+			);
+			path = Character;
+			sourceTree = "<group>";
+		};
+		2FE2CC762AC90F6D00E4E1C1 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2FE2CC742AC90B5900E4E1C1 /* HomeView.swift */,
+				2FE2CC772AC90FBA00E4E1C1 /* RandomAnimeView.swift */,
+				2F5F37442ACA4982002A752C /* RandomCharacterView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,6 +254,10 @@
 			dependencies = (
 			);
 			name = "Anime Landia";
+			packageProductDependencies = (
+				2F7A4F092AC896F800D4F2E8 /* SDWebImageSwiftUI */,
+				2FE2CC682AC8ED4E00E4E1C1 /* YouTubePlayerKit */,
+			);
 			productName = "Anime Landia";
 			productReference = 2F7A4ED62AC88B8600D4F2E8 /* Anime Landia.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +330,10 @@
 				Base,
 			);
 			mainGroup = 2F7A4ECD2AC88B8600D4F2E8;
+			packageReferences = (
+				2F7A4F082AC896F800D4F2E8 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				2FE2CC672AC8ED4E00E4E1C1 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */,
+			);
 			productRefGroup = 2F7A4ED72AC88B8600D4F2E8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,8 +376,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F7A4EDC2AC88B8600D4F2E8 /* ContentView.swift in Sources */,
+				2F6046EF2AC8AEA8000EDFCF /* TopCharactersView.swift in Sources */,
+				2F5F374C2ACA6C85002A752C /* SearchView.swift in Sources */,
+				2FE2CC782AC90FBA00E4E1C1 /* RandomAnimeView.swift in Sources */,
+				2F0AE3A52ACD043F001F4405 /* AnimeWatchingButton.swift in Sources */,
+				2F7A4F052AC88BB200D4F2E8 /* DataAnime.swift in Sources */,
+				2F6046ED2AC8AC53000EDFCF /* DataCharacter.swift in Sources */,
+				2FE2CC752AC90B5900E4E1C1 /* HomeView.swift in Sources */,
+				2F7A4EDC2AC88B8600D4F2E8 /* topAnimeView.swift in Sources */,
+				2FE2CC6B2AC8F0C300E4E1C1 /* TabBarMenu.swift in Sources */,
+				2FE2CC622AC8BEBF00E4E1C1 /* AnimeDetailsView.swift in Sources */,
+				2FE2CC642AC8DE1F00E4E1C1 /* StreamingDetailsView.swift in Sources */,
+				2FE2CC712AC8FBE200E4E1C1 /* HelpersFunctions.swift in Sources */,
+				2F5F37492ACA69CD002A752C /* SearchTextField.swift in Sources */,
+				2F5F37472ACA51A4002A752C /* CharacterAnimeListView.swift in Sources */,
+				2F0AE3A32ACCFD0A001F4405 /* AccountView.swift in Sources */,
+				2F0AE3A72ACD203E001F4405 /* usuarioData.swift in Sources */,
+				2FE2CC662AC8ECCE00E4E1C1 /* TrailerVideoView.swift in Sources */,
 				2F7A4EDA2AC88B8600D4F2E8 /* Anime_LandiaApp.swift in Sources */,
+				2F5F37452ACA4982002A752C /* RandomCharacterView.swift in Sources */,
+				2F6046EB2AC8A290000EDFCF /* DiscoverView.swift in Sources */,
+				2FE2CC6F2AC8F59900E4E1C1 /* CharacterDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +753,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2F7A4F082AC896F800D4F2E8 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.3;
+			};
+		};
+		2FE2CC672AC8ED4E00E4E1C1 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SvenTiigi/YouTubePlayerKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2F7A4F092AC896F800D4F2E8 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2F7A4F082AC896F800D4F2E8 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		2FE2CC682AC8ED4E00E4E1C1 /* YouTubePlayerKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FE2CC672AC8ED4E00E4E1C1 /* XCRemoteSwiftPackageReference "YouTubePlayerKit" */;
+			productName = YouTubePlayerKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2F7A4ECE2AC88B8600D4F2E8 /* Project object */;
 }

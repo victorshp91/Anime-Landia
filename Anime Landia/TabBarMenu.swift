@@ -9,7 +9,40 @@ import SwiftUI
 
 struct TabBarMenu: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+            NavigationStack{
+                HomeView()
+                 
+            } .tabItem {
+                Label("Home", systemImage: "circle.circle.fill")
+               
+            }
+            NavigationStack{
+                DiscoverView()
+                 
+            } .tabItem {
+                Label("Discover", systemImage: "binoculars")
+                  
+            }
+            
+            NavigationStack{
+                SearchView()
+                 
+            } .tabItem {
+                Label("Search", systemImage: "magnifyingglass.circle.fill")
+                  
+            }
+            
+            NavigationStack{
+                AccountView()
+                 
+            } .tabItem {
+                Label("Account", systemImage: "person.circle.fill")
+                  
+            }
+            
+        }.accentColor(.cyan)
+
     }
 }
 
