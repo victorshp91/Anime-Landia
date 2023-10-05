@@ -30,7 +30,7 @@ struct RandomAnimeView: View {
                                         .scaledToFill()
                                         .shadow(radius: 5)
                                     
-                                    AnimeWatchingButton(changeOptionImageSize: 20)
+                                    AnimeWatchingButton(animeId: randomAnime?.mal_id ?? 0, changeOptionImageSize: 20)
                                 }
                                 
                                 VStack(alignment: .leading, spacing: 10) {

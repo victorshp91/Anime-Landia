@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct AnimeWatchingButton: View {
+    var animeId: Int
+    @State var watching: [Favorito] = []
+    @State var selectedOption = HelpersFunctions.animeWatchingOptions.none
     
-    @State private var selectedOption = HelpersFunctions.animeWatchingOptions.completed
-    
-    @State private var iconImage: Image = Image(systemName: "")
+    @State  var iconImage: Image = Image(systemName: "")
     var changeOptionImageSize: CGFloat
     
-     private var iconColor: Color {
+      var iconColor: Color {
         switch selectedOption {
         case .watching:
             return Color.blue
@@ -27,7 +28,7 @@ struct AnimeWatchingButton: View {
         }
     }
     
-    private var icoImage: String {
+     var icoImage: String {
         switch selectedOption {
         case .watching:
             return  "eye.circle.fill"
@@ -48,6 +49,7 @@ struct AnimeWatchingButton: View {
                 Menu {
                     Button(action: {
                         selectedOption = .watching
+                        guardarWatchingStatus()
                     }) {
                         Label("Watching", systemImage: "eye.circle.fill")
                             .foregroundStyle(.blue)
@@ -55,6 +57,7 @@ struct AnimeWatchingButton: View {
                     
                     Button(action: {
                         selectedOption = .completed
+                        guardarWatchingStatus()
                         
                     }) {
                         Label("Completed", systemImage: "checkmark.circle.fill")
@@ -63,6 +66,7 @@ struct AnimeWatchingButton: View {
                     
                     Button(action: {
                         selectedOption = .hold
+                        guardarWatchingStatus()
                     }) {
                         Label("On Hold", systemImage: "pause.circle.fill")
                         
@@ -70,6 +74,7 @@ struct AnimeWatchingButton: View {
                     if selectedOption != .none{
                         Button(action: {
                             selectedOption = .none
+                            
                         }) {
                             Label("None", systemImage: "minus.circle.fill")
                             
@@ -94,9 +99,59 @@ struct AnimeWatchingButton: View {
             }
      
         }.ignoresSafeArea()
+            .onAppear(perform: {
+                obtenerWatchingStatus()
+                // solo ponenemos la opcion si esta con datos en la bae de datos
+        
+                
+            })
+        
     }
-}
+    
+    func obtenerWatchingStatus() {
+            if let url = URL(string: "https://rayjewelry.us/api.php?id_usuario=1&id_anime=\(animeId)&favorite=true") {
+                URLSession.shared.dataTask(with: url) { data, response, error in
+                    if let data = data {
+                        let decoder = JSONDecoder()
+                        do {
+                            let decodedData = try decoder.decode([Favorito].self, from: data)
+
+                            DispatchQueue.main.async {
+                                self.watching = decodedData
+                                // pomemos de el estado del watching obtenido de la base de datos
+                                selectedOption = HelpersFunctions.animeWatchingOptions(rawValue: (self.watching.first?.watching ?? "")!) ?? .none
+                            }
+                        } catch {
+                            print("Error al decodificar el JSON: \(error)")
+                        }
+                    } else if let error = error {
+                        print("Error en la solicitud HTTP: \(error)")
+                    }
+                }.resume()
+            }
+        }
+    
+    func guardarWatchingStatus() {
+        let urlString = "https://rayjewelry.us/guardar_favorito_watching.php?id_usuario=\(1)&id_anime=\(animeId)&watching=\(selectedOption.rawValue.lowercased())"
+            
+            
+            if let url = URL(string: urlString) {
+                let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                    if let error = error {
+                        print("Error en la solicitud HTTP: \(error)")
+                    } else if let data = data {
+                        if let responseString = String(data: data, encoding: .utf8) {
+                            print(data)
+                            print("Respuesta del servidor: \(responseString)")
+                        }
+                    }
+                }
+                task.resume()
+            }
+        }
+    }
+
 
 #Preview {
-    AnimeWatchingButton(changeOptionImageSize: 20)
+    AnimeWatchingButton(animeId: 1, changeOptionImageSize: 20)
 }

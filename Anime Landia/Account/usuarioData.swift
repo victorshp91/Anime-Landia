@@ -8,10 +8,19 @@
 import Foundation
 
 
-struct Favorito: Identifiable, Decodable {
-    let id_usuario: String
-    let id_anime: String
-    let fecha: String
+struct Favorito: Identifiable, Decodable, Encodable {
+    let id: Int?
+    let id_usuario: Int
+    let id_anime: Int
+    let favorite: Bool
+    let watching: String
     
-    var id: String { id_usuario + id_anime }
+    init(id: Int?, id_usuario: Int, id_anime: Int, favorite: Bool, watching: String) {
+        self.id = id
+        self.id_usuario = id_usuario
+        self.id_anime = id_anime
+        self.favorite = favorite
+        self.watching = watching
+    }
 }
+

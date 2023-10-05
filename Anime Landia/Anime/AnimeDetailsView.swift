@@ -10,7 +10,6 @@ import SDWebImageSwiftUI
 struct AnimeDetailsView: View {
     @State var showTrailer = false
     @State var showAnimeImage = false
-    @State private var favoritos: [Favorito] = []
     let anime: Anime
     @State private var isShowingFullSypnosis = false
     var body: some View {
@@ -28,7 +27,7 @@ struct AnimeDetailsView: View {
                                     .shadow(radius: 3)
                                     .scaledToFill()
                                 
-                                AnimeWatchingButton(changeOptionImageSize: 20)
+                                AnimeWatchingButton(animeId: anime.mal_id ?? 0, changeOptionImageSize: 20)
                                 
                             }
                         }
@@ -155,7 +154,6 @@ struct AnimeDetailsView: View {
             .background(Color.gray.opacity(0.1))
             .navigationTitle("Details")
             .onAppear(perform: {
-                verificarFavorito()
                 print(anime.mal_id ?? "")
                 withAnimation(.bouncy) {
                     showAnimeImage = true
@@ -166,9 +164,7 @@ struct AnimeDetailsView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     
                         HStack{
-                            Image(systemName: !favoritos.isEmpty ? "heart.fill":"heart")
-                                .font(.title2)
-                                .symbolEffect(.bounce, options: .speed(1).repeat(3), value: !favoritos.isEmpty)
+                            FavoriteButtonView(animeId: anime.mal_id ?? 0)
                             ShareLink(item: (URL(string: anime.url ?? "N/A")!)) {
                                 Image(systemName: "square.and.arrow.up.circle.fill")
         
@@ -184,23 +180,6 @@ struct AnimeDetailsView: View {
             }
         
         
-    }
-    
-    func verificarFavorito() {
-        if let url = URL(string: "https://rayjewelry.us/api.php?id_usuario=\(1)&id_anime=\(anime.mal_id ?? 0)") {
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data {
-                    do {
-                        let favoritosData = try JSONDecoder().decode([Favorito].self, from: data)
-                        DispatchQueue.main.async {
-                            self.favoritos = favoritosData
-                        }
-                    } catch {
-                        print("Error decoding JSON: \(error)")
-                    }
-                }
-            }.resume()
-        }
     }
     
     func sectionTitle(title: String) -> some View {

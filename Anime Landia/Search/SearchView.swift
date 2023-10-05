@@ -251,7 +251,7 @@ struct SearchView: View {
                         
                     }
                     
-                    AnimeWatchingButton(changeOptionImageSize: 15)
+                    AnimeWatchingButton(animeId: anime.mal_id ?? 0, changeOptionImageSize: 15)
                 }
             }
         }.padding(.horizontal)

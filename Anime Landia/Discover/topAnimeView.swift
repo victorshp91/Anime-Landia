@@ -51,7 +51,7 @@ struct topAnimeView: View {
                                 }.frame(maxWidth: 150)
                                 
                             }
-                                AnimeWatchingButton(changeOptionImageSize: 20)
+                                AnimeWatchingButton(animeId: anime.mal_id ?? 0, changeOptionImageSize: 20)
                         }
                         }
                     }.foregroundStyle(.black)
