@@ -38,9 +38,10 @@ class HelpersFunctions {
         case ona = "ONA"
         case music = "MUSIC"
         
-        
         var id: String { self.rawValue }
     }
+    
+    
     
     
     func truncateText(text: String, maxWords: Int = 15) -> String {
@@ -57,6 +58,29 @@ class HelpersFunctions {
                 .fontWeight(.light)
             Spacer()
         }
+    }
+    
+    struct NoDataView: View {
+        var body: some View {
+            VStack {
+                Image(systemName: "magnifyingglass")
+                    .font(.system(size: 100))
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 20)
+                
+                Text("NO DATA")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(.gray)
+            }
+            
+            
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
+        
     }
     
     /// DISENO BOTON PARA EL MENU DE LA VISTA DE LA CUENTA DEL USUARIO

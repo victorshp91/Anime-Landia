@@ -7,18 +7,31 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-struct userFavoritesAnimeView: View {
-    @State private var allAnimes: [Anime]?
-    @State private var allCharacters: [CharacterStruct.AnimeCharacter]?
+struct userFavoritesView: View {
+    
+    @State private var allAnimes: [Anime] = []
+    @State private var allCharacters: [CharacterStruct.AnimeCharacter] = []
+    @State private var isLoading = false
+    @State private var showNoData = false
     var isFor: HelpersFunctions.searchingType
+    
     var body: some View {
         
         ScrollView(.vertical) {
+            
+            if isLoading {
+                HelpersFunctions().loadingView()
+            }
+            if showNoData {
+                HelpersFunctions.NoDataView()
+                    .padding()
+            }
+            
             if isFor == .anime {
-                if let favoritesAnime = allAnimes
+                if  !allAnimes.isEmpty
                 {
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-                        ForEach(favoritesAnime.reversed(), id: \.id) { item in
+                        ForEach(allAnimes.reversed(), id: \.id) { item in
                             NavigationLink(destination: AnimeDetailsView(anime: item)) {
                                 WebImage(url: URL(string: item.images?.jpg.large_image_url  ?? ""))
                                     .resizable()
@@ -30,15 +43,13 @@ struct userFavoritesAnimeView: View {
                         }
                     }
                     .padding()
-                } else {
-                    HelpersFunctions().loadingView()
                 }
             } else {
                 
-                if let favoritesCharacters = allCharacters
+                if !allCharacters.isEmpty
                 {
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-                        ForEach(favoritesCharacters.reversed(), id: \.id) { item in
+                        ForEach(allCharacters.reversed(), id: \.id) { item in
                             NavigationLink(destination: CharacterDetailsView(character: item)) {
                                 WebImage(url: URL(string: item.images?.jpg.image_url ?? ""))
                                     .resizable()
@@ -50,8 +61,6 @@ struct userFavoritesAnimeView: View {
                         }
                     }
                     .padding()
-                } else {
-                    HelpersFunctions().loadingView()
                 }
 
                 
@@ -82,7 +91,7 @@ struct userFavoritesAnimeView: View {
                           let anime = animeResponse.data
                           DispatchQueue.main.async {
                               
-                              self.allAnimes?.append(anime)
+                              self.allAnimes.append(anime)
                               
                           }
                       } else {
@@ -90,7 +99,7 @@ struct userFavoritesAnimeView: View {
                           let character = characterResponse.data
                           DispatchQueue.main.async {
                               
-                              self.allCharacters?.append(character)
+                              self.allCharacters.append(character)
                               
                           }
                       }
@@ -102,7 +111,14 @@ struct userFavoritesAnimeView: View {
       }
     
     func obtenerFavoritos() {
-        if let url = URL(string: isFor == .anime ? "https://rayjewelry.us/get_anime_favorite_watching.php?id_usuario=\(1)&favorite=true":"https://rayjewelry.us/get_characters_favorites.php?id_usuario=\(1)&favorite=true") {
+        allAnimes = []
+        allCharacters = []
+        
+        withAnimation {
+            isLoading = true
+        }
+        if let url = URL(string: isFor == .anime ? "https://rayjewelry.us/get_anime_favorite.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&favorite=true":"https://rayjewelry.us/get_characters_favorites.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&favorite=true") {
+            print(url)
                 URLSession.shared.dataTask(with: url) { data, response, error in
                     if let data = data {
                         let decoder = JSONDecoder()
@@ -111,7 +127,7 @@ struct userFavoritesAnimeView: View {
                     
                             DispatchQueue.main.async {
                                 if isFor == .anime {
-                                    allAnimes = []
+                                    
                                     for favorito in decodedData {
                                         if let idAnime = favorito.id_anime {
                                             fetch(Id: idAnime)
@@ -119,7 +135,7 @@ struct userFavoritesAnimeView: View {
                                         }
                                     }
                                 } else {
-                                    allCharacters = []
+                                    
                                     for favorito in decodedData {
                                         if let idCharacter = favorito.id_character {
                                             fetch(Id: idCharacter)
@@ -128,12 +144,18 @@ struct userFavoritesAnimeView: View {
                                     }
                                     
                                 }
-                            
+                                
+                               
+                                isLoading = false
                             }
                         } catch {
+                            isLoading = false
+                            showNoData = true
                             print("Error al decodificar el JSON: \(error)")
                         }
                     } else if let error = error {
+                        isLoading = false
+                        showNoData = true
                         print("Error en la solicitud HTTP: \(error)")
                     }
                 }.resume()
@@ -143,5 +165,5 @@ struct userFavoritesAnimeView: View {
 
 
 #Preview {
-    userFavoritesAnimeView(isFor: .anime)
+    userFavoritesView(isFor: .anime)
 }

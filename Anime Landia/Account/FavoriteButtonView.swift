@@ -14,8 +14,13 @@ struct FavoriteButtonView: View {
     var idCharacterOrAnime: Int
     var body: some View {
         Button (action:{
-            isFavorite.toggle()
-            guardarFavorito()
+            if !AccountVm.sharedUserVM.userActual.isEmpty {
+                isFavorite.toggle()
+                guardarFavorito()
+            } else {
+                print("Need an Account")
+            }
+           
         }) {
             Image(systemName: isFavorite ? "heart.fill":"heart")
                 .font(.title2)
@@ -28,7 +33,7 @@ struct FavoriteButtonView: View {
     }
     
     func verificarFavorito() {
-        if let url = URL(string: favoriteFor == .anime ? "https://rayjewelry.us/get_anime_favorite_watching.php?id_usuario=\(1)&id_anime=\(idCharacterOrAnime)&favorite=true":"https://rayjewelry.us/get_characters_favorites.php?id_usuario=\(1)&id_character=\(idCharacterOrAnime)&favorite=true") {
+        if let url = URL(string: favoriteFor == .anime ? "https://rayjewelry.us/get_anime_favorite.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(idCharacterOrAnime)&favorite=true":"https://rayjewelry.us/get_characters_favorites.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_character=\(idCharacterOrAnime)&favorite=true") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {
                   
@@ -48,7 +53,7 @@ struct FavoriteButtonView: View {
     }
     
     func guardarFavorito() {
-        let urlString = favoriteFor == .anime ? "https://rayjewelry.us/guardar_favorito_watching.php?id_usuario=\(1)&id_anime=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)":"https://rayjewelry.us/guardar_favorito_character.php?id_usuario=\(1)&id_character=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)"
+        let urlString = favoriteFor == .anime ? "https://rayjewelry.us/guardar_favorito_watching.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)":"https://rayjewelry.us/guardar_favorito_character.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_character=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)"
             
             
             if let url = URL(string: urlString) {

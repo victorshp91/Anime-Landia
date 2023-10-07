@@ -71,7 +71,7 @@ struct SearchView: View {
                         Button(action: {deleteItemHistory()}) {
                             Image(systemName: "x.circle.fill")
                                 .foregroundStyle(.black)
-                                .font(.headline)
+                                .font(.title2)
                         }
                     }
                     ScrollView(.vertical) {

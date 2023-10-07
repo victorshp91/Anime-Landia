@@ -47,39 +47,45 @@ struct AnimeWatchingButton: View {
         HStack{
             ZStack {
                 Menu {
-                    Button(action: {
-                        selectedOption = .watching
-                        guardarWatchingStatus()
-                    }) {
-                        Label("Watching", systemImage: "eye.circle.fill")
-                            .foregroundStyle(.blue)
-                    }
-                    
-                    Button(action: {
-                        selectedOption = .completed
-                        guardarWatchingStatus()
-                        
-                    }) {
-                        Label("Completed", systemImage: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                    }
-                    
-                    Button(action: {
-                        selectedOption = .hold
-                        guardarWatchingStatus()
-                    }) {
-                        Label("On Hold", systemImage: "pause.circle.fill")
-                        
-                    }
-                    if selectedOption != .none{
+                    if !AccountVm.sharedUserVM.userActual.isEmpty {
                         Button(action: {
-                            selectedOption = .none
+                            selectedOption = .watching
+                            guardarWatchingStatus()
+                        }) {
+                            Label("Watching", systemImage: "eye.circle.fill")
+                                .foregroundStyle(.blue)
+                        }
+                        
+                        Button(action: {
+                            selectedOption = .completed
+                            guardarWatchingStatus()
                             
                         }) {
-                            Label("None", systemImage: "minus.circle.fill")
+                            Label("Completed", systemImage: "checkmark.circle.fill")
+                                .foregroundStyle(.green)
+                        }
+                        
+                        Button(action: {
+                            selectedOption = .hold
+                            guardarWatchingStatus()
+                        }) {
+                            Label("On Hold", systemImage: "pause.circle.fill")
                             
                         }
-                    }
+                        
+                        if selectedOption != .none{
+                            Button(action: {
+                                selectedOption = .none
+                                guardarWatchingStatus()
+                                
+                            }) {
+                                Label("None", systemImage: "minus.circle.fill")
+                                
+                            }
+                        }
+                    }  else {
+                        Text("NEED AN ACCOUNT")
+                     }
                     
                 } label: {
                     Circle()
@@ -100,6 +106,7 @@ struct AnimeWatchingButton: View {
      
         }.ignoresSafeArea()
             .onAppear(perform: {
+                print("MMG")
                 obtenerWatchingStatus()
                 // solo ponenemos la opcion si esta con datos en la bae de datos
         
@@ -109,7 +116,9 @@ struct AnimeWatchingButton: View {
     }
     
     func obtenerWatchingStatus() {
-            if let url = URL(string: "https://rayjewelry.us/get_anime_favorite_watching.php?id_usuario=1&id_anime=\(animeId)") {
+        
+        if let url = URL(string: "https://rayjewelry.us/get_anime_watching_status.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)") {
+            print(url)
                 URLSession.shared.dataTask(with: url) { data, response, error in
                     if let data = data {
                         let decoder = JSONDecoder()
@@ -119,6 +128,7 @@ struct AnimeWatchingButton: View {
                             DispatchQueue.main.async {
                                 self.watching = decodedData
                                 // pomemos de el estado del watching obtenido de la base de datos
+                                print(watching)
                                 selectedOption = HelpersFunctions.animeWatchingOptions(rawValue: (self.watching.first?.watching ?? "")!) ?? .none
                                 print("MMG")
                                 print(selectedOption)
@@ -135,7 +145,7 @@ struct AnimeWatchingButton: View {
         }
     
     func guardarWatchingStatus() {
-        let urlString = "https://rayjewelry.us/guardar_favorito_watching.php?id_usuario=\(1)&id_anime=\(animeId)&watching=\(selectedOption.rawValue.lowercased())"
+        let urlString = "https://rayjewelry.us/guardar_favorito_watching.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)&watching=\(selectedOption.rawValue.lowercased())"
             
             
             if let url = URL(string: urlString) {
