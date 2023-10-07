@@ -22,7 +22,7 @@ struct RandomAnimeView: View {
                     .bold()
                     .font(.callout)
                             HStack(alignment: .top, spacing: 10) {
-                                ZStack(alignment: .topTrailing){
+                                
                                     WebImage(url: URL(string: data.images?.jpg.large_image_url ?? ""))
                                         .resizable()
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -30,8 +30,8 @@ struct RandomAnimeView: View {
                                         .scaledToFill()
                                         .shadow(radius: 5)
                                     
-                                    AnimeWatchingButton(animeId: randomAnime?.mal_id ?? 0, changeOptionImageSize: 20)
-                                }
+                                   
+                                
                                 
                                 VStack(alignment: .leading, spacing: 10) {
                                     Text(data.title ?? "N/A")

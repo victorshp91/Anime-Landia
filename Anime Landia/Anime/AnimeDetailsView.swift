@@ -164,7 +164,7 @@ struct AnimeDetailsView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     
                         HStack{
-                            FavoriteButtonView(animeId: anime.mal_id ?? 0)
+                            FavoriteButtonView(favoriteFor: .anime, idCharacterOrAnime: anime.mal_id ?? 0)
                             ShareLink(item: (URL(string: anime.url ?? "N/A")!)) {
                                 Image(systemName: "square.and.arrow.up.circle.fill")
         

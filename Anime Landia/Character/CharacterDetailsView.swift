@@ -81,9 +81,9 @@ struct CharacterDetailsView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack{
-                        Image(systemName: "heart")
-                            .font(.title2)
-                            .foregroundStyle(.cyan)
+                        if let id = character.id {
+                            FavoriteButtonView(favoriteFor: .character, idCharacterOrAnime: id)
+                        }
                         ShareLink(item: (URL(string: character.url ?? "N/A")!)) {
                             Image(systemName: "square.and.arrow.up.circle.fill")
                             

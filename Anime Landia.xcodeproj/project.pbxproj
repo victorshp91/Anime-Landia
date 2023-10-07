@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F06C95E2AD1057400BF5932 /* userFavoritesAnimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F06C95D2AD1057400BF5932 /* userFavoritesAnimeView.swift */; };
 		2F0AE3A32ACCFD0A001F4405 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AE3A22ACCFD0A001F4405 /* AccountView.swift */; };
 		2F0AE3A52ACD043F001F4405 /* AnimeWatchingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AE3A42ACD043F001F4405 /* AnimeWatchingButton.swift */; };
 		2F0AE3A72ACD203E001F4405 /* usuarioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0AE3A62ACD203E001F4405 /* usuarioData.swift */; };
@@ -56,6 +57,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F06C95D2AD1057400BF5932 /* userFavoritesAnimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userFavoritesAnimeView.swift; sourceTree = "<group>"; };
 		2F0AE3A22ACCFD0A001F4405 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		2F0AE3A42ACD043F001F4405 /* AnimeWatchingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeWatchingButton.swift; sourceTree = "<group>"; };
 		2F0AE3A62ACD203E001F4405 /* usuarioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = usuarioData.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				2F0AE3A42ACD043F001F4405 /* AnimeWatchingButton.swift */,
 				2F0AE3A62ACD203E001F4405 /* usuarioData.swift */,
 				2F3A73722ACE518B006BA7D9 /* FavoriteButtonView.swift */,
+				2F06C95D2AD1057400BF5932 /* userFavoritesAnimeView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 			files = (
 				2F6046EF2AC8AEA8000EDFCF /* TopCharactersView.swift in Sources */,
 				2F5F374C2ACA6C85002A752C /* SearchView.swift in Sources */,
+				2F06C95E2AD1057400BF5932 /* userFavoritesAnimeView.swift in Sources */,
 				2F3A73732ACE518B006BA7D9 /* FavoriteButtonView.swift in Sources */,
 				2FE2CC782AC90FBA00E4E1C1 /* RandomAnimeView.swift in Sources */,
 				2F0AE3A52ACD043F001F4405 /* AnimeWatchingButton.swift in Sources */,

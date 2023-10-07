@@ -109,7 +109,7 @@ struct AnimeWatchingButton: View {
     }
     
     func obtenerWatchingStatus() {
-            if let url = URL(string: "https://rayjewelry.us/api.php?id_usuario=1&id_anime=\(animeId)&favorite=true") {
+            if let url = URL(string: "https://rayjewelry.us/get_anime_favorite_watching.php?id_usuario=1&id_anime=\(animeId)") {
                 URLSession.shared.dataTask(with: url) { data, response, error in
                     if let data = data {
                         let decoder = JSONDecoder()
@@ -120,6 +120,9 @@ struct AnimeWatchingButton: View {
                                 self.watching = decodedData
                                 // pomemos de el estado del watching obtenido de la base de datos
                                 selectedOption = HelpersFunctions.animeWatchingOptions(rawValue: (self.watching.first?.watching ?? "")!) ?? .none
+                                print("MMG")
+                                print(selectedOption)
+                            
                             }
                         } catch {
                             print("Error al decodificar el JSON: \(error)")

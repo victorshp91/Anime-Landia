@@ -32,7 +32,7 @@ struct topAnimeView: View {
                     
                     LazyHStack{
                         ForEach(data) { anime in
-                            ZStack(alignment: .topTrailing){
+                            
                             NavigationLink(destination: AnimeDetailsView(anime: anime)) {
                                 
                                 VStack{
@@ -51,8 +51,8 @@ struct topAnimeView: View {
                                 }.frame(maxWidth: 150)
                                 
                             }
-                                AnimeWatchingButton(animeId: anime.mal_id ?? 0, changeOptionImageSize: 20)
-                        }
+                            
+                        
                         }
                     }.foregroundStyle(.black)
                     

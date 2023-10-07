@@ -13,8 +13,13 @@ struct AccountView: View {
             VStack(alignment:.leading){
                 HelpersFunctions.BotonMenuAccount(icono: "arrowshape.turn.up.right.circle.fill", titulo: "Sign Out", color: .red)
                 Text("Favorites").bold().font(.title2)
-                HelpersFunctions.BotonMenuAccount(icono: "star.circle.fill", titulo: "My Favorites Characters", color: .cyan)
-                HelpersFunctions.BotonMenuAccount(icono: "star.fill", titulo: "My Favorites Animes", color: .cyan)
+                NavigationLink(destination: userFavoritesAnimeView(isFor: .character)){
+                    HelpersFunctions.BotonMenuAccount(icono: "star.circle.fill", titulo: "My Favorites Characters", color: .cyan)
+                }
+                NavigationLink(destination: userFavoritesAnimeView(isFor: .anime)) {
+                    HelpersFunctions.BotonMenuAccount(icono: "star.fill", titulo: "My Favorites Animes", color: .cyan)
+                }
+                
                 Text("Anime").bold().font(.title2)
                 HelpersFunctions.BotonMenuAccount(icono: "eye.circle.fill", titulo: "Watching", color: .blue)
                 HelpersFunctions.BotonMenuAccount(icono: "checkmark.circle.fill", titulo: "Completed", color: .green)

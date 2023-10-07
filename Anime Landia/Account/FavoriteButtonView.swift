@@ -10,7 +10,8 @@ import SwiftUI
 struct FavoriteButtonView: View {
     @State private var favoritos: [Favorito] = []
     @State private var isFavorite = false
-    var animeId: Int
+    var favoriteFor: HelpersFunctions.searchingType
+    var idCharacterOrAnime: Int
     var body: some View {
         Button (action:{
             isFavorite.toggle()
@@ -27,7 +28,7 @@ struct FavoriteButtonView: View {
     }
     
     func verificarFavorito() {
-        if let url = URL(string: "https://rayjewelry.us/api.php?id_usuario=\(1)&id_anime=\(animeId)&favorite=true") {
+        if let url = URL(string: favoriteFor == .anime ? "https://rayjewelry.us/get_anime_favorite_watching.php?id_usuario=\(1)&id_anime=\(idCharacterOrAnime)&favorite=true":"https://rayjewelry.us/get_characters_favorites.php?id_usuario=\(1)&id_character=\(idCharacterOrAnime)&favorite=true") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {
                   
@@ -47,7 +48,7 @@ struct FavoriteButtonView: View {
     }
     
     func guardarFavorito() {
-        let urlString = "https://rayjewelry.us/guardar_favorito_watching.php?id_usuario=\(1)&id_anime=\(animeId)&favorite=\(isFavorite ? 1:0)"
+        let urlString = favoriteFor == .anime ? "https://rayjewelry.us/guardar_favorito_watching.php?id_usuario=\(1)&id_anime=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)":"https://rayjewelry.us/guardar_favorito_character.php?id_usuario=\(1)&id_character=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)"
             
             
             if let url = URL(string: urlString) {
@@ -67,5 +68,5 @@ struct FavoriteButtonView: View {
 }
 
 #Preview {
-    FavoriteButtonView(animeId: 1)
+    FavoriteButtonView(favoriteFor: .anime, idCharacterOrAnime: 1)
 }

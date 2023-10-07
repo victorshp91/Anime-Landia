@@ -10,6 +10,8 @@ import SDWebImageSwiftUI
 
 struct SearchView: View {
     
+    @State private var historySearch: [String] = [] // PARA GAURDAR EL HISTORIAL LAS BUSQUEDAS
+    
     @State var searchText = ""
     
     @State var isSearching = false
@@ -18,8 +20,8 @@ struct SearchView: View {
     @State var isShowingPagination = false
     @State private var selectedOption = HelpersFunctions.searchingType.anime // Inicialmente seleccionamos la primera opción que es anime
     // para guardar la data de los characteres devueltos
-    
-    
+    @State private var showHistory = true
+    let maxSearchSize = 10 // Establece el límite de elementos
     @State private var characterData: [CharacterStruct.AnimeCharacter]?
     @State private var animeData: [Anime]?
     @State private var pagination: Pagination?
@@ -30,19 +32,81 @@ struct SearchView: View {
             
             SearchTextField(searchingText: $searchText, onSearch: {
                 
+                addNewSearch()
+                
                 currentPage = 1
                 withAnimation {
                     isShowingPagination = true
                 }
                 if selectedOption == .character {
-                   
+                    
                     loadCharacteres()
                 } else {
-          
+                    
                     loadAnimes()
                 }
-               
+                withAnimation {
+                    showHistory = false
+                }
+                
+            }, onChange: {
+                if searchText.isEmpty {
+                    animeData = []
+                    characterData = []
+                    withAnimation {
+                        isShowingPagination = false
+                        showHistory = true
+                    }
+                }
             }).padding(.bottom)
+            
+            // SI PRESENTA HISTORY SI NO TODO NORMAL
+            if showHistory {
+              
+                VStack(alignment: .leading, spacing: 20){
+                    HStack{
+                        
+                        Text("Search History")
+                        Spacer()
+                        Button(action: {deleteItemHistory()}) {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundStyle(.black)
+                                .font(.headline)
+                        }
+                    }
+                    ScrollView(.vertical) {
+                        VStack(spacing: 10){
+                            ForEach(historySearch.reversed(), id: \.self) { item in
+                                Button(action: {
+                                    searchText = item
+                                    withAnimation {
+                                        showHistory = false
+                                        
+                                        isShowingPagination = true
+                                    }
+                                    if selectedOption == .anime {
+                                        loadAnimes()
+                                    } else {
+                                        loadCharacteres()
+                                    }
+                                }) {
+                                    HStack{
+                                        Image(systemName: "clock.arrow.2.circlepath")
+                                        Text(item)
+                                        Spacer()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Spacer()
+                }
+                          
+                             
+                    
+                
+            } else {
+               
             if isShowingPagination {
                 if let paginationData = pagination {
                     HStack{
@@ -79,28 +143,28 @@ struct SearchView: View {
                         }
                         // BOTON FOR ANIME TYPE SEARCH
                         
-                        if selectedOption == .anime && !(animeData?.isEmpty ?? true) {
-                         
-                                
-                                // Botón que presenta el menú
-                                Picker("Select type anime", selection: $selectedAnimeType) {
-                                    ForEach(HelpersFunctions.filtreAnimeType.allCases) { option in
-                                        Text(option.rawValue.capitalized)
-                                            .tag(option)
-                                    }
-                                }
-                                .pickerStyle(MenuPickerStyle()) // Use MenuPickerStyle to create a menu-like segmented control
-                                .onChange(of: selectedAnimeType) {
-                                    // vulve a la primera pagina
-                                    currentPage = 1
-                                    // carga los animes
-                                    loadAnimes()
-                                    
-                                }
-                                
-                                
+                       
                             
-                        }
+                            
+                            // Botón que presenta el menú
+                            Picker("Select type anime", selection: $selectedAnimeType) {
+                                ForEach(HelpersFunctions.filtreAnimeType.allCases) { option in
+                                    Text(option.rawValue.capitalized)
+                                        .tag(option)
+                                }
+                            }
+                            .pickerStyle(MenuPickerStyle()) // Use MenuPickerStyle to create a menu-like segmented control
+                            .onChange(of: selectedAnimeType) {
+                                // vulve a la primera pagina
+                                currentPage = 1
+                                // carga los animes
+                                loadAnimes()
+                                
+                            }.disabled(selectedOption == .anime ? false:true)
+                            
+                            
+                            
+                        
                         
                     }.font(.title3)
                         .padding(.bottom)
@@ -113,54 +177,58 @@ struct SearchView: View {
                 }
             } .pickerStyle(SegmentedPickerStyle()) // Estilo de segmento
                 .onChange(of: selectedOption) {
-                                // Aquí puedes realizar la acción que deseas cuando se selecciona una opción
-                    isSearching = false
-                    searchText = ""
+                    // Aquí puedes realizar la acción que deseas cuando se selecciona una opción
+                    withAnimation {
+                        isSearching = false
+                    }
+                    characterData = []
+                    animeData = []
                     selectedAnimeType = .all
                     
-                    withAnimation{
-                        isShowingPagination = false
-                        animeData = []
-                        characterData = []
+                    if selectedOption == .anime {
+                        loadAnimes()
+                    } else {
+                        loadCharacteres()
                     }
                     
-                                
-                            }
-            
-         
-            
+                }
             
             // MUESTRO LOS CARACTERES SI ES ESO QUE S EBUSCA
             ScrollView(.vertical, showsIndicators: false){
                 
-            if selectedOption == .character {
                 
-                if let characteres = characterData {
-                    characterListView(characters: characteres)
-                }else {
-                    if isSearching {
-                        HelpersFunctions().loadingView()
-                    }
-                }
-            } else {
                 
-                if let animes = animeData {
+                if selectedOption == .character {
                     
-                    animeListView(animes: animes)
-                   
-                }else {
-                    if isSearching {
-                        HelpersFunctions().loadingView()
+                    if let characteres = characterData {
+                        characterListView(characters: characteres)
+                    }else {
+                        if isSearching {
+                            HelpersFunctions().loadingView()
+                        }
                     }
+                } else {
+                    
+                    if let animes = animeData {
+                        
+                        animeListView(animes: animes)
+                        
+                    }else {
+                        if isSearching {
+                            HelpersFunctions().loadingView()
+                        }
+                    }
+                    
                 }
-                
-            }
             }.font(.subheadline)
             Spacer()
+            
+        }
         }.navigationTitle("Search")
             .padding(.horizontal)
             .background(Color.gray.opacity(0.1))
             .navigationBarTitleDisplayMode(.large)
+            .onAppear(perform: {loadHistory()})
             
         
     }
@@ -207,7 +275,7 @@ struct SearchView: View {
         
         LazyVStack(alignment:.leading, spacing: 10){
             ForEach(animes) { anime in
-                ZStack(alignment:.topTrailing) {
+                
                     NavigationLink(destination: AnimeDetailsView(anime: anime)) {
                         HStack(alignment: .top){
                             
@@ -251,8 +319,8 @@ struct SearchView: View {
                         
                     }
                     
-                    AnimeWatchingButton(animeId: anime.mal_id ?? 0, changeOptionImageSize: 15)
-                }
+                 
+                
             }
         }.padding(.horizontal)
             .padding(.top)
@@ -283,7 +351,9 @@ struct SearchView: View {
     }
     
     func loadAnimes() {
-        isSearching = true
+        withAnimation {
+            isSearching = true
+        }
         // si el type de anime es all entonces el link es sin type
         guard let url = URL(string: selectedAnimeType == .all ? "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)" : "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)&type=\(selectedAnimeType.rawValue.lowercased())") else {
             return
@@ -305,6 +375,33 @@ struct SearchView: View {
             }
         }.resume()
     }
+    
+    private func addNewSearch() {
+        if historySearch.count >= maxSearchSize {
+                    // Si el array ha alcanzado el límite, elimina el elemento más antiguo
+            historySearch.removeFirst()
+                }
+        historySearch.append(searchText)
+                        saveHistory()
+    }
+    
+    // Función para cargar los datos desde UserDefaults
+        private func loadHistory() {
+            if let savedStringArray = UserDefaults.standard.array(forKey: "historySearch") as? [String] {
+                historySearch = savedStringArray
+            }
+        }
+    
+    // Función para guardar los datos en UserDefaults
+        private func saveHistory() {
+            UserDefaults.standard.set(historySearch, forKey: "historySearch")
+        }
+    
+    // Función para eliminar un elemento de la lista hisotru
+        private func deleteItemHistory() {
+            historySearch.removeAll()
+            saveHistory()
+        }
 }
 
 #Preview {
