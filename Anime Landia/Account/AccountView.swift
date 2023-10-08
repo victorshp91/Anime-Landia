@@ -10,7 +10,9 @@ import SwiftUI
 struct AccountView: View {
     
     var userData = AccountVm.sharedUserVM
+    
     @State private var showLogin = false
+    @State private var isShowingLogoutView = false
     
     var body: some View {
         ScrollView {
@@ -26,8 +28,8 @@ struct AccountView: View {
                     if AccountVm.sharedUserVM.userActual.isEmpty {
                         showLogin = true
                     } else {
-                        // al cerrar sesion se borra los datos del usuario
-                        AccountVm.sharedUserVM.userActual.removeFirst()
+                        isShowingLogoutView.toggle()
+                        
                     }
                 }) {
                     HelpersFunctions.BotonMenuAccount(icono: "arrowshape.turn.up.right.circle.fill", titulo: userData.userActual.isEmpty ? "Sign In":"Sign Out", color: userData.userActual.isEmpty ? .green:.red)
@@ -38,6 +40,11 @@ struct AccountView: View {
                                 .presentationDetents([.medium, .large])
                         }
                     }
+                    .sheet(isPresented: $isShowingLogoutView) {
+                                SignOutConfirmationView(isShowingLogoutView: $isShowingLogoutView)
+                            .presentationDetents([.medium])
+                            }
+
                 
                 
                 
@@ -74,6 +81,10 @@ struct AccountView: View {
                 ShareLink(item: URL(string: "https://apps.apple.com/us/app/data-ball-z/id1672899053")!) {
                     HelpersFunctions.BotonMenuAccount(icono: "shareplay", titulo: "Share this app", color: .cyan)
                     
+                }
+                Text("About").bold().font(.title2)
+                NavigationLink(destination: AboutView()){
+                    HelpersFunctions.BotonMenuAccount(icono: "info.circle.fill", titulo: "About", color: .cyan)
                 }
                 Spacer()
             }

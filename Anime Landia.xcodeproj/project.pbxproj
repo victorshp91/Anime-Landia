@@ -16,6 +16,9 @@
 		2F40BDBA2AD1D78A0065ADCC /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDB92AD1D78A0065ADCC /* AccountViewModel.swift */; };
 		2F40BDBC2AD1EB3D0065ADCC /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDBB2AD1EB3D0065ADCC /* SignInView.swift */; };
 		2F40BDBE2AD20EFC0065ADCC /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDBD2AD20EFC0065ADCC /* SignUpView.swift */; };
+		2F40BDC02AD2468E0065ADCC /* WelcomeScreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDBF2AD2468E0065ADCC /* WelcomeScreeView.swift */; };
+		2F40BDC22AD248850065ADCC /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDC12AD248850065ADCC /* AboutView.swift */; };
+		2F40BDC42AD24E6A0065ADCC /* SignOutConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDC32AD24E6A0065ADCC /* SignOutConfirmationView.swift */; };
 		2F5F37452ACA4982002A752C /* RandomCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37442ACA4982002A752C /* RandomCharacterView.swift */; };
 		2F5F37472ACA51A4002A752C /* CharacterAnimeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37462ACA51A4002A752C /* CharacterAnimeListView.swift */; };
 		2F5F37492ACA69CD002A752C /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37482ACA69CD002A752C /* SearchTextField.swift */; };
@@ -70,6 +73,9 @@
 		2F40BDB92AD1D78A0065ADCC /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		2F40BDBB2AD1EB3D0065ADCC /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		2F40BDBD2AD20EFC0065ADCC /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		2F40BDBF2AD2468E0065ADCC /* WelcomeScreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreeView.swift; sourceTree = "<group>"; };
+		2F40BDC12AD248850065ADCC /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		2F40BDC32AD24E6A0065ADCC /* SignOutConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutConfirmationView.swift; sourceTree = "<group>"; };
 		2F5F37442ACA4982002A752C /* RandomCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCharacterView.swift; sourceTree = "<group>"; };
 		2F5F37462ACA51A4002A752C /* CharacterAnimeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAnimeListView.swift; sourceTree = "<group>"; };
 		2F5F37482ACA69CD002A752C /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
@@ -130,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				2F0AE3A22ACCFD0A001F4405 /* AccountView.swift */,
+				2F40BDC32AD24E6A0065ADCC /* SignOutConfirmationView.swift */,
 				2F0AE3A42ACD043F001F4405 /* AnimeWatchingButton.swift */,
 				2F0AE3A62ACD203E001F4405 /* usuarioData.swift */,
 				2F40BDB92AD1D78A0065ADCC /* AccountViewModel.swift */,
@@ -177,6 +184,8 @@
 				2F7A4ED92AC88B8600D4F2E8 /* Anime_LandiaApp.swift */,
 				2FE2CC6A2AC8F0C200E4E1C1 /* TabBarMenu.swift */,
 				2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */,
+				2F40BDBF2AD2468E0065ADCC /* WelcomeScreeView.swift */,
+				2F40BDC12AD248850065ADCC /* AboutView.swift */,
 				2F0AE3A12ACCFCC2001F4405 /* Account */,
 				2F5F374A2ACA6BDC002A752C /* Search */,
 				2FE2CC762AC90F6D00E4E1C1 /* Home */,
@@ -397,13 +406,16 @@
 				2F100CE02AD1B043009C0654 /* UserWatchingView.swift in Sources */,
 				2F6046EF2AC8AEA8000EDFCF /* TopCharactersView.swift in Sources */,
 				2F5F374C2ACA6C85002A752C /* SearchView.swift in Sources */,
+				2F40BDC22AD248850065ADCC /* AboutView.swift in Sources */,
 				2F06C95E2AD1057400BF5932 /* userFavoritesView.swift in Sources */,
 				2F3A73732ACE518B006BA7D9 /* FavoriteButtonView.swift in Sources */,
 				2FE2CC782AC90FBA00E4E1C1 /* RandomAnimeView.swift in Sources */,
 				2F40BDBA2AD1D78A0065ADCC /* AccountViewModel.swift in Sources */,
 				2F0AE3A52ACD043F001F4405 /* AnimeWatchingButton.swift in Sources */,
+				2F40BDC42AD24E6A0065ADCC /* SignOutConfirmationView.swift in Sources */,
 				2F7A4F052AC88BB200D4F2E8 /* DataAnime.swift in Sources */,
 				2F6046ED2AC8AC53000EDFCF /* DataCharacter.swift in Sources */,
+				2F40BDC02AD2468E0065ADCC /* WelcomeScreeView.swift in Sources */,
 				2FE2CC752AC90B5900E4E1C1 /* HomeView.swift in Sources */,
 				2F7A4EDC2AC88B8600D4F2E8 /* topAnimeView.swift in Sources */,
 				2F40BDBC2AD1EB3D0065ADCC /* SignInView.swift in Sources */,

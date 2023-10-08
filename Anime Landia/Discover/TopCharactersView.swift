@@ -49,7 +49,7 @@ struct TopCharactersView: View {
             
             Spacer()
             
-        }.foregroundStyle(.black)
+        }
         .onAppear(perform: loadData)
                 .navigationTitle("Discover")
     }

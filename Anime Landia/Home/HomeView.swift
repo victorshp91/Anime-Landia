@@ -23,6 +23,9 @@ struct HomeView: View {
 
            .navigationTitle("AnimeLandia")
            .background(Color.gray.opacity(0.1))
+           .onAppear(perform: {
+               print(AccountVm.sharedUserVM.userActual)
+           })
            
        }
    }

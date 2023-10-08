@@ -12,13 +12,19 @@ struct SignInView: View {
     @State private var email = ""
         @State private var password = ""
     @State private var sucess = false
+    @State private var error = false
     @Binding var isLoginPresented: Bool
         var body: some View {
             VStack {
                 Text("Login")
                     .font(.largeTitle)
                     .padding(.bottom, 20)
-                
+                if error {
+                    // Agregar una vista de texto para mostrar el mensaje de error
+                    Text("Please verify your email or password.")
+                        .foregroundColor(.red) // Puedes ajustar el color del texto según tu preferencia
+                        .padding(.top, 10)
+                }
                 TextField("Email", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
@@ -29,13 +35,27 @@ struct SignInView: View {
                     .padding(.horizontal)
                 
                 Button(action: {
+                    // Obtener el usuario con éxito
                     AccountVm.sharedUserVM.getUserInformation(email: email, password: password, completion: { usuario in
                         DispatchQueue.main.async { // Asegurarse de estar en el hilo principal
-                            if usuario != nil {
-                                isLoginPresented = false
+                            if let usuario = usuario {
+                                // Guardar el usuario en UserDefaults
+                                do {
+                                    let encoder = JSONEncoder()
+                                    let encodedData = try encoder.encode(usuario)
+                                    UserDefaults.standard.set(encodedData, forKey: "userData")
+                                    
+                                    // Cerrar la vista de inicio de sesión
+                                    isLoginPresented = false
+                                } catch {
+                                    print("Error al codificar y guardar el usuario: \(error)")
+                                }
                             } else {
                                 // Ocurrió un error o no se encontró el usuario
                                 print("No se pudo obtener el usuario.")
+                                withAnimation {
+                                    error = true
+                                }
                             }
                         }
                     })

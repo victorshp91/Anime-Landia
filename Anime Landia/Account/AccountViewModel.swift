@@ -14,12 +14,16 @@ import Observation
     
     var userActual = [Usuario]()
     
+    
+    
     func getUserInformation(email: String, password: String, completion: @escaping (Usuario?) -> Void) {
         
         guard let url = URL(string: "https://rayjewelry.us/get_user.php?email=\(email)&contrasena_ingresada=\(password)") else {
             completion(nil)
             return
         }
+        
+        
 
         URLSession.shared.dataTask(with: url) { [self] (data, response, error) in
             if let data = data {
@@ -38,6 +42,10 @@ import Observation
                 completion(nil)
             }
         }.resume()
+    }
+    
+    func saveNewUserInformation(user: Usuario) {
+        
     }
 
 

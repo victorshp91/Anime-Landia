@@ -11,6 +11,7 @@ struct SignUpView: View {
     @State private var email = ""
         @State private var password = ""
         @State private var confirmPassword = ""
+        @State private var user = ""
         @Binding var isLoginPresented: Bool
         @State private var isPasswordMatchError = false
         
@@ -22,6 +23,11 @@ struct SignUpView: View {
                         .padding(.bottom, 20)
                     
                     TextField("Email", text: $email)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal)
+                        .autocapitalization(.none)
+                    
+                    TextField("Username", text: $email)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding(.horizontal)
                         .autocapitalization(.none)

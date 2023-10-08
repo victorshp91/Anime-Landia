@@ -12,6 +12,11 @@ struct AnimeDetailsView: View {
     @State var showAnimeImage = false
     let anime: Anime
     @State private var isShowingFullSypnosis = false
+    
+    // PARA MANEJAR EL COLOR DEL DARK MODE
+    
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         ScrollView(.vertical,showsIndicators: false){
             HStack{
@@ -110,7 +115,7 @@ struct AnimeDetailsView: View {
                         }) {
                             Image(systemName: isShowingFullSypnosis ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
                                 .font(.system(size: 22))
-                                .foregroundStyle(.black)
+                                .foregroundStyle(colorScheme == .dark ? .white:.black)
                         }
                         
                         
@@ -186,7 +191,7 @@ struct AnimeDetailsView: View {
         HStack{
             Spacer()
             Text(title).font(.title3).bold()
-            
+                .foregroundStyle(.black)
             Spacer()
         }.padding(5)
         .background(.white)

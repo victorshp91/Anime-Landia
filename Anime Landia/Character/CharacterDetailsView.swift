@@ -12,6 +12,10 @@ struct CharacterDetailsView: View {
     let character: CharacterStruct.AnimeCharacter
     @State private var isShowingFullBio = false
     @State private var showAvatar = false
+    
+    // PARA MANEJAR EL COLOR DEL DARK MODE
+    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         ScrollView(.vertical) {
                    VStack(spacing: 20) {
@@ -34,8 +38,8 @@ struct CharacterDetailsView: View {
                            Text(isShowingFullBio ? character.about ?? "N/A" : HelpersFunctions().truncateText(text: character.about ?? "N/A"))
                                .padding()
                                .font(.body)
-                               .foregroundColor(.secondary)
-                               .multilineTextAlignment(.center)
+                               .foregroundColor(.black)
+                               .multilineTextAlignment(.leading)
                                .lineSpacing(5)
                                .fixedSize(horizontal: false, vertical: true)
                                .frame(maxWidth: .infinity)
@@ -50,12 +54,8 @@ struct CharacterDetailsView: View {
                                }
                            }) {
                                Image(systemName: isShowingFullBio ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
-                                   .font(.system(size: 24))
-                                   .foregroundColor(.black)
-                                   .background(Color.white) // Set the background color here
-                                   .clipShape(Circle())
-                                   .padding()
-                                   .shadow(radius: 3)
+                                   .font(.system(size: 22))
+                                   .foregroundStyle(colorScheme == .dark ? .white:.black)
                            }
                            
                            CharacterAnimeListView(characterId: character.mal_id ?? 0)

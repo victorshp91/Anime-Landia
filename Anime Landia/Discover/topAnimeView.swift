@@ -54,7 +54,7 @@ struct topAnimeView: View {
                             
                         
                         }
-                    }.foregroundStyle(.black)
+                    }
                     
                 }
             }else {

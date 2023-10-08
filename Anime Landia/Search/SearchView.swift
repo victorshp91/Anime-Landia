@@ -282,7 +282,7 @@ struct SearchView: View {
                             WebImage(url: URL(string: anime.images?.jpg.image_url ?? "NO DATA"))
                                 .resizable()
                                 .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
-                                .frame(maxWidth: 120, maxHeight: 150)
+                                .frame(maxWidth: 110, maxHeight: 150)
                                 .scaledToFill()
                             
                             
@@ -307,7 +307,8 @@ struct SearchView: View {
                                         Image(systemName: "star.fill")
                                             .foregroundStyle(.yellow)
                                         Text(String(format: "%.2f", anime.score ?? 0)).bold()
-                                    }
+                                    }.padding(.bottom, 5)
+                                        .font(.title2)
                                 }.padding(.horizontal,3)
                             }
                             Spacer()
