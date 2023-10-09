@@ -19,6 +19,7 @@
 		2F40BDC02AD2468E0065ADCC /* WelcomeScreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDBF2AD2468E0065ADCC /* WelcomeScreeView.swift */; };
 		2F40BDC22AD248850065ADCC /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDC12AD248850065ADCC /* AboutView.swift */; };
 		2F40BDC42AD24E6A0065ADCC /* SignOutConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDC32AD24E6A0065ADCC /* SignOutConfirmationView.swift */; };
+		2F458D0B2AD38F4600F337D2 /* DataBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F458D0A2AD38F4600F337D2 /* DataBaseViewModel.swift */; };
 		2F5F37452ACA4982002A752C /* RandomCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37442ACA4982002A752C /* RandomCharacterView.swift */; };
 		2F5F37472ACA51A4002A752C /* CharacterAnimeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37462ACA51A4002A752C /* CharacterAnimeListView.swift */; };
 		2F5F37492ACA69CD002A752C /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37482ACA69CD002A752C /* SearchTextField.swift */; };
@@ -76,6 +77,7 @@
 		2F40BDBF2AD2468E0065ADCC /* WelcomeScreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreeView.swift; sourceTree = "<group>"; };
 		2F40BDC12AD248850065ADCC /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2F40BDC32AD24E6A0065ADCC /* SignOutConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutConfirmationView.swift; sourceTree = "<group>"; };
+		2F458D0A2AD38F4600F337D2 /* DataBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseViewModel.swift; sourceTree = "<group>"; };
 		2F5F37442ACA4982002A752C /* RandomCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCharacterView.swift; sourceTree = "<group>"; };
 		2F5F37462ACA51A4002A752C /* CharacterAnimeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAnimeListView.swift; sourceTree = "<group>"; };
 		2F5F37482ACA69CD002A752C /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				2FE2CC6A2AC8F0C200E4E1C1 /* TabBarMenu.swift */,
 				2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */,
 				2F40BDBF2AD2468E0065ADCC /* WelcomeScreeView.swift */,
+				2F458D0A2AD38F4600F337D2 /* DataBaseViewModel.swift */,
 				2F40BDC12AD248850065ADCC /* AboutView.swift */,
 				2F0AE3A12ACCFCC2001F4405 /* Account */,
 				2F5F374A2ACA6BDC002A752C /* Search */,
@@ -428,6 +431,7 @@
 				2F5F37472ACA51A4002A752C /* CharacterAnimeListView.swift in Sources */,
 				2F0AE3A32ACCFD0A001F4405 /* AccountView.swift in Sources */,
 				2F0AE3A72ACD203E001F4405 /* usuarioData.swift in Sources */,
+				2F458D0B2AD38F4600F337D2 /* DataBaseViewModel.swift in Sources */,
 				2FE2CC662AC8ECCE00E4E1C1 /* TrailerVideoView.swift in Sources */,
 				2F7A4EDA2AC88B8600D4F2E8 /* Anime_LandiaApp.swift in Sources */,
 				2F5F37452ACA4982002A752C /* RandomCharacterView.swift in Sources */,

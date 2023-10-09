@@ -11,31 +11,52 @@ struct SignInView: View {
    
     @State private var email = ""
         @State private var password = ""
-    @State private var sucess = false
     @State private var error = false
+    @State private var showLoading = false
     @Binding var isLoginPresented: Bool
         var body: some View {
             VStack {
                 Text("Login")
                     .font(.largeTitle)
                     .padding(.bottom, 20)
+                if showLoading {
+                    HelpersFunctions().loadingView()
+                }
                 if error {
                     // Agregar una vista de texto para mostrar el mensaje de error
                     Text("Please verify your email or password.")
-                        .foregroundColor(.red) // Puedes ajustar el color del texto según tu preferencia
-                        .padding(.top, 10)
+                        .font(.headline)
+                        .foregroundColor(.white)
+
+                            .padding()
+                            .background(.red)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                        
                 }
                 TextField("Email", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                     .autocapitalization(.none)
+                    .onChange(of: email) {
+                        withAnimation{
+                            error = false
+                        }
+                    }
                 
                 SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
+                    .onChange(of: password) {
+                        withAnimation{
+                            error = false
+                        }
+                    }
                 
                 Button(action: {
                     // Obtener el usuario con éxito
+                    withAnimation {
+                        showLoading = true
+                    }
                     AccountVm.sharedUserVM.getUserInformation(email: email, password: password, completion: { usuario in
                         DispatchQueue.main.async { // Asegurarse de estar en el hilo principal
                             if let usuario = usuario {
@@ -55,6 +76,7 @@ struct SignInView: View {
                                 print("No se pudo obtener el usuario.")
                                 withAnimation {
                                     error = true
+                                    showLoading = false
                                 }
                             }
                         }

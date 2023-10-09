@@ -18,7 +18,7 @@ import Observation
     
     func getUserInformation(email: String, password: String, completion: @escaping (Usuario?) -> Void) {
         
-        guard let url = URL(string: "https://rayjewelry.us/get_user.php?email=\(email)&contrasena_ingresada=\(password)") else {
+        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getUser)email=\(email)&contrasena_ingresada=\(password)") else {
             completion(nil)
             return
         }
@@ -44,8 +44,26 @@ import Observation
         }.resume()
     }
     
-    func saveNewUserInformation(user: Usuario) {
+    func updateWatchingStatusNumbers(idAnime: Int, campo: String, accion: String, completion: @escaping (Result<String, Error>) -> Void) {
+        // URL de la API PHP en tu servidor
+        let apiUrl = "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.changeWatchingStatusNumbers)id_anime=\(idAnime)&campo=\(campo)&accion=\(accion)"
         
+        if let url = URL(string: apiUrl) {
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if let error = error {
+                    completion(.failure(error))
+                } else if let data = data {
+                    if let responseString = String(data: data, encoding: .utf8) {
+                        completion(.success(responseString))
+                    } else {
+                        completion(.failure(NSError(domain: "InvalidData", code: 0, userInfo: nil)))
+                    }
+                }
+            }
+            task.resume()
+        } else {
+            completion(.failure(NSError(domain: "InvalidURL", code: 0, userInfo: nil)))
+        }
     }
 
 

@@ -11,7 +11,7 @@ struct AnimeWatchingButton: View {
     var animeId: Int
     @State var watching: [Favorito] = []
     @State var selectedOption = HelpersFunctions.animeWatchingOptions.none
-    
+    @State var beforeSelectOption = HelpersFunctions.animeWatchingOptions.none
     @State  var iconImage: Image = Image(systemName: "")
     var changeOptionImageSize: CGFloat
     
@@ -49,6 +49,7 @@ struct AnimeWatchingButton: View {
                 Menu {
                     if !AccountVm.sharedUserVM.userActual.isEmpty {
                         Button(action: {
+                            beforeSelectOption = selectedOption
                             selectedOption = .watching
                             guardarWatchingStatus()
                         }) {
@@ -57,6 +58,7 @@ struct AnimeWatchingButton: View {
                         }
                         
                         Button(action: {
+                            beforeSelectOption = selectedOption
                             selectedOption = .completed
                             guardarWatchingStatus()
                             
@@ -66,6 +68,7 @@ struct AnimeWatchingButton: View {
                         }
                         
                         Button(action: {
+                            beforeSelectOption = selectedOption
                             selectedOption = .hold
                             guardarWatchingStatus()
                         }) {
@@ -75,6 +78,7 @@ struct AnimeWatchingButton: View {
                         
                         if selectedOption != .none{
                             Button(action: {
+                                beforeSelectOption = selectedOption
                                 selectedOption = .none
                                 guardarWatchingStatus()
                                 
@@ -117,7 +121,7 @@ struct AnimeWatchingButton: View {
     
     func obtenerWatchingStatus() {
         
-        if let url = URL(string: "https://rayjewelry.us/get_anime_watching_status.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)") {
+        if let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatus)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)") {
             print(url)
                 URLSession.shared.dataTask(with: url) { data, response, error in
                     if let data = data {
@@ -130,6 +134,7 @@ struct AnimeWatchingButton: View {
                                 // pomemos de el estado del watching obtenido de la base de datos
                                 print(watching)
                                 selectedOption = HelpersFunctions.animeWatchingOptions(rawValue: (self.watching.first?.watching ?? "")!) ?? .none
+                                beforeSelectOption = HelpersFunctions.animeWatchingOptions(rawValue: (self.watching.first?.watching ?? "")!) ?? .none
                                 print("MMG")
                                 print(selectedOption)
                             
@@ -145,7 +150,7 @@ struct AnimeWatchingButton: View {
         }
     
     func guardarWatchingStatus() {
-        let urlString = "https://rayjewelry.us/guardar_favorito_watching.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)&watching=\(selectedOption.rawValue.lowercased())"
+        let urlString = "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.saveWatchingStatusOrFavorite)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)&watching=\(selectedOption.rawValue.lowercased())"
             
             
             if let url = URL(string: urlString) {
@@ -156,6 +161,29 @@ struct AnimeWatchingButton: View {
                         if let responseString = String(data: data, encoding: .utf8) {
                             print(data)
                             print("Respuesta del servidor: \(responseString)")
+                            
+                            // Llama a la función para aumentar o disminuir el valor de favorito en la tabla que lleva lo cuenta de totales de todos los usuarios
+                            
+                            AccountVm.sharedUserVM.updateWatchingStatusNumbers(idAnime: animeId, campo: selectedOption.rawValue.lowercased(), accion: "aumentar") { result in
+                                switch result {
+                                case .success(let message):
+                                    print(message)
+                                    
+                                    // Luego de aumentar, disminuye la selección anterior del usuario
+                                    AccountVm.sharedUserVM.updateWatchingStatusNumbers(idAnime: animeId, campo: beforeSelectOption.rawValue.lowercased(), accion: "disminuir") { result in
+                                        switch result {
+                                        case .success(let message):
+                                            print(message)
+                                        case .failure(let error):
+                                            print(error.localizedDescription)
+                                        }
+                                    }
+                                    
+                                case .failure(let error):
+                                    print(error.localizedDescription)
+                                }
+                            }
+
                         }
                     }
                 }

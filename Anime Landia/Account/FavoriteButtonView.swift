@@ -33,7 +33,7 @@ struct FavoriteButtonView: View {
     }
     
     func verificarFavorito() {
-        if let url = URL(string: favoriteFor == .anime ? "https://rayjewelry.us/get_anime_favorite.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(idCharacterOrAnime)&favorite=true":"https://rayjewelry.us/get_characters_favorites.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_character=\(idCharacterOrAnime)&favorite=true") {
+        if let url = URL(string: favoriteFor == .anime ? "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getIfAnimeIsFavorite)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(idCharacterOrAnime)&favorite=true":"\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getIfCharactersIsFavorites)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_character=\(idCharacterOrAnime)&favorite=true") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {
                   
@@ -53,7 +53,7 @@ struct FavoriteButtonView: View {
     }
     
     func guardarFavorito() {
-        let urlString = favoriteFor == .anime ? "https://rayjewelry.us/guardar_favorito_watching.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)":"https://rayjewelry.us/guardar_favorito_character.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_character=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)"
+        let urlString = favoriteFor == .anime ? "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.saveWatchingStatusOrFavorite)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)":"\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.saveCharacterAsFavorite)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_character=\(idCharacterOrAnime)&favorite=\(isFavorite ? 1:0)"
             
             
             if let url = URL(string: urlString) {
@@ -64,6 +64,16 @@ struct FavoriteButtonView: View {
                         if let responseString = String(data: data, encoding: .utf8) {
                             print(data)
                             print("Respuesta del servidor: \(responseString)")
+                            
+                            // Llama a la función para aumentar o disminuir el valor de favorito en la tabla que lleva lo cuenta de totales de todos los usuarios
+                            AccountVm.sharedUserVM.updateWatchingStatusNumbers(idAnime: idCharacterOrAnime, campo: "favorites", accion: isFavorite ? "aumentar":"disminuir") { result in
+                                                switch result {
+                                                case .success(let message):
+                                                   print(message)
+                                                case .failure(let error):
+                                                    print(error.localizedDescription)
+                                                }
+                                            }
                         }
                     }
                 }

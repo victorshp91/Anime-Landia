@@ -99,7 +99,7 @@ struct UserWatchingView: View {
         withAnimation {
             isLoading = true
         }
-        if let url = URL(string:  "https://rayjewelry.us/get_anime_watching_status.php?id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&watching=\(isFor.rawValue.lowercased())") {
+        if let url = URL(string:  "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatus)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&watching=\(isFor.rawValue.lowercased())") {
             
             print(url)
             URLSession.shared.dataTask(with: url) { data, response, error in

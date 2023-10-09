@@ -43,4 +43,9 @@ struct Usuario: Codable {
         case contrasena_valida
     }
 }
+// PARA EL MENSAJE DEL API EN LA CREACION DEL USUARIO
+struct APIResponse: Codable {
+    let success: Bool
+    let message: String
+}
 

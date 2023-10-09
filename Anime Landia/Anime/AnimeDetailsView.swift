@@ -12,6 +12,8 @@ struct AnimeDetailsView: View {
     @State var showAnimeImage = false
     let anime: Anime
     @State private var isShowingFullSypnosis = false
+    // contiene los numeros de los conteos watchingStatus
+    
     
     // PARA MANEJAR EL COLOR DEL DARK MODE
     
@@ -84,9 +86,14 @@ struct AnimeDetailsView: View {
                     // COMIENZA EL TITLO DE EL ANIME
                     VStack(spacing: 5){
                         
+                        // Status Numbers
+                        WatchingStatusNumbers(idAnime: anime.mal_id ?? 0)
+                        
+                        
                         Text("\(anime.title ?? "N/A")")
                             .font(.title3).bold()
                             .multilineTextAlignment(.center)
+                       
                         
                         // AIRING SECTION
                         
@@ -197,10 +204,92 @@ struct AnimeDetailsView: View {
         .background(.white)
             .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
     }
+    
+   
     // PARA HACER LA SYPNOSIS MAS CORGA
     
    
 }
+
+struct WatchingStatusNumbers:  View {
+    var idAnime: Int
+    @State private var watchingNumbers: [AnimeWatchingStatusNumbers] = []
+    var body: some View {
+        
+            HStack{
+                if let numbers = watchingNumbers.first {
+                    
+                    VStack{
+                
+                            
+                        
+                           
+                                Image(systemName: "heart.circle.fill")
+                                    
+                                    .font(.title2)
+                                   
+                                    .foregroundColor(.cyan)
+                                
+                         
+                                
+                            
+                        
+                        Text("\(numbers.favorites)")
+                        
+                    }
+                VStack{
+                    Image(systemName: AnimeWatchingButton(animeId: 0, selectedOption: .watching, changeOptionImageSize: 20).icoImage)
+                        .font(.title2)
+                        .foregroundStyle(AnimeWatchingButton(animeId: 0, selectedOption: .watching, changeOptionImageSize: 20).iconColor)
+                    Text("\(numbers.watching)")
+                    
+                }
+                VStack{
+                    Image(systemName: AnimeWatchingButton(animeId: 0, selectedOption: .hold, changeOptionImageSize: 20).icoImage)
+                        .font(.title2)
+                        .foregroundStyle(AnimeWatchingButton(animeId: 0, selectedOption: .hold, changeOptionImageSize: 20).iconColor)
+                    Text("\(numbers.on_hold)")
+                }
+                VStack{
+                    Image(systemName: AnimeWatchingButton(animeId: 0, selectedOption: .completed, changeOptionImageSize: 20).icoImage)
+                        .font(.title2)
+                        .foregroundStyle(AnimeWatchingButton(animeId: 0, selectedOption: .completed, changeOptionImageSize: 20).iconColor)
+                    Text("\(numbers.completed)")
+                }
+            }
+            }.onAppear(perform: {
+                
+                    getWathingStatusNumbers()
+                
+            })
+    }
+    
+    func getWathingStatusNumbers() {
+        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatusNumbers)id_anime=\(idAnime)") else {
+                print("Invalid URL")
+                return
+            }
+
+            URLSession.shared.dataTask(with: url) { data, _, error in
+                if let data = data {
+                    do {
+                        let decodedData = try JSONDecoder().decode([AnimeWatchingStatusNumbers].self, from: data)
+                        DispatchQueue.main.async {
+                            self.watchingNumbers = decodedData
+                        }
+                    } catch {
+                        print("Error decoding JSON: \(error)")
+                    }
+                } else if let error = error {
+                    print("Error fetching data: \(error)")
+                }
+            }.resume()
+        }
+}
+    
+    
+
+
 
 #Preview {
     AnimeDetailsView(anime: Anime(mal_id: 21))

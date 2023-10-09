@@ -21,7 +21,7 @@ struct WelcomeScreeView: View {
                     .padding()
             }
         }.onAppear(perform: {
-            withAnimation(.bouncy) {
+            withAnimation {
                 showLogo = true
             }
         })
