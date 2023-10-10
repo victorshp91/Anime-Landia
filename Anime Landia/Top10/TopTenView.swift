@@ -1,29 +1,30 @@
 //
-//  DiscoverView.swift
+//  TopTenView.swift
 //  Anime Landia
 //
-//  Created by Victor Saint Hilaire on 9/30/23.
+//  Created by Victor Saint Hilaire on 10/9/23.
 //
 
 import SwiftUI
 
-struct DiscoverView: View {
-    
+struct TopTenView: View {
     // PARA MANEJAR EL COLOR DEL DARK MODE
     
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
+            
             LazyVStack(alignment: .leading){
-                topAnimeView(showing: .airing)
+               
+                AnimeTopViewByWatchingStatus(watchingStatus: .watching)
                     .frame(height: 300)
-                topAnimeView(showing: .upcoming)
+                AnimeTopViewByWatchingStatus(watchingStatus: .hold)
                     .frame(height: 300)
-                TopCharactersView()
+                AnimeTopViewByWatchingStatus(watchingStatus: .completed)
                     .frame(height: 300)
                 
-                    .navigationTitle("Discover")
+                    .navigationTitle("Top 10")
                 Spacer()
             }
         }
@@ -33,5 +34,5 @@ struct DiscoverView: View {
 }
 
 #Preview {
-    DiscoverView()
+    TopTenView()
 }

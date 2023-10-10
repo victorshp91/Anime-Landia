@@ -26,12 +26,22 @@ struct TabBarMenu: View {
             }
             
             NavigationStack{
+                TopTenView()
+                 
+            } .tabItem {
+                Label("Top 10", systemImage: "10.circle.fill")
+                  
+            }
+            
+            NavigationStack{
                 SearchView()
                  
             } .tabItem {
                 Label("Search", systemImage: "magnifyingglass.circle.fill")
                   
             }
+            
+            
             
             NavigationStack{
                 AccountView()

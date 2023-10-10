@@ -59,9 +59,9 @@ struct CharacterDetailsView: View {
                            }
                            
                            CharacterAnimeListView(characterId: character.mal_id ?? 0)
-                               .padding()
+                               .padding(.vertical)
                                .foregroundColor(.secondary)
-                               .frame(maxWidth: .infinity)
+                               
                                .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
                        }
                    }

@@ -19,7 +19,7 @@ struct AccountView: View {
             VStack(alignment:.leading){
                 HStack{
                     Image(systemName: "person.circle.fill")
-                    Text("Bienvenido")
+                    Text("Welcome")
                     Text("\(userData.userActual.first?.usuario ?? "")")
                         .bold()
                 }

@@ -97,11 +97,8 @@ struct AnimeDetailsView: View {
                         
                         // AIRING SECTION
                         
-                        if anime.airing == true
-                        {
-                            Text("Airing").foregroundStyle(.green).bold()
-                        } else {
-                            Text("Not Yet Aired").foregroundStyle(.red).bold()
+                        if let airing = anime.airing {
+                            Text("\(anime.status ?? "N/A")").foregroundStyle(airing ?  .green:.red).bold()
                         }
                         
                         // SI NO TIENE FECHA DE FINALIZACION ENTONCES PRESENTO LAS FECHAS DE INICIO Y FINAL
@@ -213,7 +210,7 @@ struct AnimeDetailsView: View {
 
 struct WatchingStatusNumbers:  View {
     var idAnime: Int
-    @State private var watchingNumbers: [AnimeWatchingStatusNumbers] = []
+    @State private var watchingNumbers: [AnimeWatchingStatusTotals] = []
     var body: some View {
         
             HStack{
@@ -273,7 +270,7 @@ struct WatchingStatusNumbers:  View {
             URLSession.shared.dataTask(with: url) { data, _, error in
                 if let data = data {
                     do {
-                        let decodedData = try JSONDecoder().decode([AnimeWatchingStatusNumbers].self, from: data)
+                        let decodedData = try JSONDecoder().decode([AnimeWatchingStatusTotals].self, from: data)
                         DispatchQueue.main.async {
                             self.watchingNumbers = decodedData
                         }

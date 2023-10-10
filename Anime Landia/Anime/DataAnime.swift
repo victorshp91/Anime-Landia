@@ -191,16 +191,18 @@ struct Genre: Codable {
     let url: String
 }
 
-// PARA LOS DATOS DE LOS CONTEO DE LOS WATCHING STATUS
+// PARA LOS DATOS DE LOS CONTEO DE LOS WATCHING STATUS Y LOS TOP DE CADA WATCHING STATUS
 
-struct AnimeWatchingStatusNumbers: Codable {
+struct AnimeWatchingStatusTotals: Codable {
     let id: Int
-    let id_anime: Int
+    let id_anime: Int?
     let favorites: Int
     let watching: Int
     let on_hold: Int
     let completed: Int
 }
+
+
 
 
 

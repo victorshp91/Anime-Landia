@@ -83,7 +83,9 @@ struct UserWatchingView: View {
                     let anime = animeResponse.data
                     DispatchQueue.main.async {
                         
-                        self.allAnimes.append(anime)
+                        if allAnimes.count < 10 {  // Verifica si hay menos de 10 elementos
+                                            allAnimes.append(anime)
+                        }
                         
                     }
                 } catch {

@@ -18,16 +18,18 @@ struct TopCharactersView: View {
             if let data = characterData {
                 Text("Top 10 Characters")
                     .bold()
+                    .padding(.horizontal)
                 ScrollView(.horizontal, showsIndicators: false){
                     
                     LazyHStack{
+                        Spacer()
                         ForEach(data) { character in
                             NavigationLink(destination: CharacterDetailsView(character: character)) {
                                 VStack(alignment: .leading){
                                     WebImage(url: URL(string: character.images?.jpg.image_url ?? "NO DATA"))
                                         .resizable()
                                         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
-                                        .frame(maxWidth: 150, maxHeight: 200)
+                                        .frame(minWidth: 150, minHeight: 200)
                                         .scaledToFit()
                                         .shadow(radius: 3)
                                     
@@ -39,7 +41,8 @@ struct TopCharactersView: View {
                                 }.frame(maxWidth: 150)
                             }
                         }
-                    }
+                        Spacer()
+                    }.padding(.vertical)
                     
                 }
             }else {

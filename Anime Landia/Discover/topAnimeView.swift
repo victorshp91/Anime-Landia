@@ -26,11 +26,13 @@ struct topAnimeView: View {
             if let data = animeData{
                 Text("Top 10 \(showing.rawValue)")
                     .bold()
+                    .padding(.horizontal)
                 
                 
                 ScrollView(.horizontal, showsIndicators: false){
                     
                     LazyHStack{
+                        Spacer()
                         ForEach(data) { anime in
                             
                             NavigationLink(destination: AnimeDetailsView(anime: anime)) {
@@ -39,7 +41,7 @@ struct topAnimeView: View {
                                     WebImage(url: URL(string: anime.images?.jpg.large_image_url ?? "NO DATA"))
                                         .resizable()
                                         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
-                                        .frame(maxWidth: 150, maxHeight: 200)
+                                        .frame(minWidth: 150, minHeight: 200)
                                         .scaledToFit()
                                         .shadow(radius: 3)
                                     
@@ -54,7 +56,8 @@ struct topAnimeView: View {
                             
                         
                         }
-                    }
+                        Spacer()
+                    }.padding(.vertical)
                     
                 }
             }else {

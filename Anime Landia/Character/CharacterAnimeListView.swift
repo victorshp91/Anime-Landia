@@ -18,9 +18,11 @@ struct CharacterAnimeListView: View {
             if let data = animeDataList {
                 Text("Character's Animes")
                     .bold()
+                    .padding(.horizontal)
                 ScrollView(.horizontal, showsIndicators: false){
                     
                     LazyHStack {
+                        
                         ForEach(data, id: \.anime.mal_id) { anime in
                             VStack(alignment: .leading) {
                                 WebImage(url: URL(string: anime.anime.images.jpg.image_url))
@@ -46,11 +48,12 @@ struct CharacterAnimeListView: View {
                             .frame(maxWidth: 150) // Establece el tamaño máximo para cada elemento
                             
                         }
-                    }.padding()
+                       
+                    }.padding(.top)
                     
                 }
             }else {
-                Text("Cargando datos...")
+                HelpersFunctions().loadingView()
                 
             }
             

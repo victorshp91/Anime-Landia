@@ -356,7 +356,7 @@ struct SearchView: View {
             isSearching = true
         }
         // si el type de anime es all entonces el link es sin type
-        guard let url = URL(string: selectedAnimeType == .all ? "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)" : "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)&type=\(selectedAnimeType.rawValue.lowercased())") else {
+        guard let url = URL(string: selectedAnimeType == .all ? "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=score&page=\(currentPage)" : "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=score&page=\(currentPage)&type=\(selectedAnimeType.rawValue.lowercased())") else {
             return
         }
 

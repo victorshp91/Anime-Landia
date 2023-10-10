@@ -25,7 +25,7 @@ struct SignInView: View {
                 if error {
                     // Agregar una vista de texto para mostrar el mensaje de error
                     Text("Please verify your email or password.")
-                        .font(.headline)
+                        .font(.caption)
                         .foregroundColor(.white)
 
                             .padding()
@@ -105,6 +105,13 @@ struct SignInView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.gray.opacity(0.1))
+            .onDisappear(perform: {
+                email = ""
+                password = ""
+            error = false
+            
+                
+            })
             
           
         }
