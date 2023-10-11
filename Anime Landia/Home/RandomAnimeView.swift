@@ -99,8 +99,15 @@ struct RandomAnimeView: View {
             if let data = data {
                 do {
                     let decodedData = try JSONDecoder().decode(OnlyAnimeData.self, from: data)
+                    
                     DispatchQueue.main.async {
-                        self.randomAnime = decodedData.data
+                        
+                        
+                         
+                            
+                            self.randomAnime = decodedData.data
+                            
+                        
                         
                     }
                 } catch {

@@ -15,7 +15,7 @@ struct AccountView: View {
     @State private var isShowingLogoutView = false
     
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment:.leading){
                 HStack{
                     Image(systemName: "person.circle.fill")
@@ -86,6 +86,21 @@ struct AccountView: View {
                 NavigationLink(destination: AboutView()){
                     HelpersFunctions.BotonMenuAccount(icono: "info.circle.fill", titulo: "About", color: .cyan)
                 }
+                Text("Disclaimer").bold().font(.title2)
+                VStack(alignment:.leading, spacing: 10){
+                    Text("AnimeTracker Pro provides information about animes and characters for informational and entertainment purposes. We are not affiliated with the copyright holders of the animes mentioned in this application.")
+                                    
+                                    Text("All information, images, and content related to animes are the property of their respective owners and are used here for informational purposes.")
+                                    
+                                    Text("If you are the copyright owner of any content used in this application and wish for it to be removed or modified, please contact us, and we will address your requests promptly.")
+                                    
+                                    Text("This app is not intended to infringe upon any copyright and is offered as a reference tool for anime enthusiasts.")
+                                    
+                                    Text("All trademarks and copyrights belong to their respective owners. This application does not intend to usurp any copyright or infringe upon the intellectual property rights of third parties.")
+                                    
+                                    Text("Thank you for using our app.")
+                }.font(.footnote)
+                    .foregroundStyle(.secondary)
                 Spacer()
             }
         }.padding(.horizontal)

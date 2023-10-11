@@ -16,7 +16,7 @@ struct UserWatchingView: View {
     
     var body: some View {
         
-        ScrollView(.vertical) {
+        ScrollView(.vertical, showsIndicators: false) {
             if isLoading {
                 HelpersFunctions().loadingView()
             }
@@ -27,7 +27,7 @@ struct UserWatchingView: View {
             if !allAnimes.isEmpty {
                 
                 LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-                    ForEach(allAnimes.reversed(), id: \.id) { item in
+                    ForEach(allAnimes, id: \.id) { item in
                         NavigationLink(destination: AnimeDetailsView(anime: item)) {
                             WebImage(url: URL(string: item.images?.jpg.large_image_url  ?? ""))
                                 .resizable()
@@ -83,9 +83,7 @@ struct UserWatchingView: View {
                     let anime = animeResponse.data
                     DispatchQueue.main.async {
                         
-                        if allAnimes.count < 10 {  // Verifica si hay menos de 10 elementos
-                                            allAnimes.append(anime)
-                        }
+                        self.allAnimes.append(anime)
                         
                     }
                 } catch {

@@ -34,23 +34,25 @@ struct SignInView: View {
                         
                 }
                 TextField("Email", text: $email)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-                    .autocapitalization(.none)
-                    .onChange(of: email) {
-                        withAnimation{
-                            error = false
-                        }
-                    }
-                
-                SecureField("Password", text: $password)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-                    .onChange(of: password) {
-                        withAnimation{
-                            error = false
-                        }
-                    }
+                                .padding(15)
+                                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
+                                .padding(.horizontal)
+                                .autocapitalization(.none)
+                                .onChange(of: email) {
+                                    withAnimation {
+                                        error = false
+                                    }
+                                }
+                            
+                            SecureField("Password", text: $password)
+                                .padding(15)
+                                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
+                                .padding(.horizontal)
+                                .onChange(of: password) {
+                                    withAnimation {
+                                        error = false
+                                    }
+                                }
                 
                 Button(action: {
                     // Obtener el usuario con éxito

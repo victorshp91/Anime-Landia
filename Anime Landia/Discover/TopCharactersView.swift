@@ -37,6 +37,8 @@ struct TopCharactersView: View {
                                     
                                     Text("\(character.name ?? "NO DATA")")
                                         .font(.caption)
+                                        .lineLimit(1)
+                                            .truncationMode(.tail)
                                     Spacer()
                                 }.frame(maxWidth: 150)
                             }

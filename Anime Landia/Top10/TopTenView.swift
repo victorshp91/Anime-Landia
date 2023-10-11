@@ -16,7 +16,7 @@ struct TopTenView: View {
         ScrollView(.vertical, showsIndicators: false) {
             
             LazyVStack(alignment: .leading){
-               
+            
                 AnimeTopViewByWatchingStatus(watchingStatus: .watching)
                     .frame(height: 300)
                 AnimeTopViewByWatchingStatus(watchingStatus: .hold)

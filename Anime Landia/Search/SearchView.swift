@@ -26,6 +26,7 @@ struct SearchView: View {
     @State private var animeData: [Anime]?
     @State private var pagination: Pagination?
     
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         
         VStack(spacing: 0){
@@ -70,11 +71,11 @@ struct SearchView: View {
                         Spacer()
                         Button(action: {deleteItemHistory()}) {
                             Image(systemName: "x.circle.fill")
-                                .foregroundStyle(.black)
+                                .foregroundStyle(colorScheme == .dark ? .white:.black)
                                 .font(.title2)
                         }
                     }
-                    ScrollView(.vertical) {
+                    ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 10){
                             ForEach(historySearch.reversed(), id: \.self) { item in
                                 Button(action: {
@@ -364,6 +365,7 @@ struct SearchView: View {
             if let data = data {
                 do {
                     let decodedData = try JSONDecoder().decode(AnimeData.self, from: data)
+                    
                     DispatchQueue.main.async {
                         self.animeData = decodedData.data
                         self.pagination = decodedData.pagination

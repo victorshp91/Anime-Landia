@@ -17,7 +17,7 @@ struct CharacterDetailsView: View {
     
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
-        ScrollView(.vertical) {
+        ScrollView(.vertical, showsIndicators: false) {
                    VStack(spacing: 20) {
                        if showAvatar {
                            WebImage(url: URL(string: character.images?.jpg.image_url ?? ""))

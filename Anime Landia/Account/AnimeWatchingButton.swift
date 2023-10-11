@@ -13,6 +13,7 @@ struct AnimeWatchingButton: View {
     @State var selectedOption = HelpersFunctions.animeWatchingOptions.none
     @State var beforeSelectOption = HelpersFunctions.animeWatchingOptions.none
     @State  var iconImage: Image = Image(systemName: "")
+    @State private var animate = false
     var changeOptionImageSize: CGFloat
     
       var iconColor: Color {
@@ -52,6 +53,7 @@ struct AnimeWatchingButton: View {
                             beforeSelectOption = selectedOption
                             selectedOption = .watching
                             guardarWatchingStatus()
+                            animate.toggle()
                         }) {
                             Label("Watching", systemImage: "eye.circle.fill")
                                 .foregroundStyle(.blue)
@@ -61,6 +63,7 @@ struct AnimeWatchingButton: View {
                             beforeSelectOption = selectedOption
                             selectedOption = .completed
                             guardarWatchingStatus()
+                            animate.toggle()
                             
                         }) {
                             Label("Completed", systemImage: "checkmark.circle.fill")
@@ -71,6 +74,7 @@ struct AnimeWatchingButton: View {
                             beforeSelectOption = selectedOption
                             selectedOption = .hold
                             guardarWatchingStatus()
+                            animate.toggle()
                         }) {
                             Label("On Hold", systemImage: "pause.circle.fill")
                             
@@ -81,6 +85,7 @@ struct AnimeWatchingButton: View {
                                 beforeSelectOption = selectedOption
                                 selectedOption = .none
                                 guardarWatchingStatus()
+                                animate.toggle()
                                 
                             }) {
                                 Label("None", systemImage: "minus.circle.fill")
@@ -99,6 +104,8 @@ struct AnimeWatchingButton: View {
                             Image(systemName: icoImage)
                                 .resizable()
                                 .font(.title2)
+                                
+                                                    .symbolEffect(.bounce.down, value: animate)
                                 .frame(width: changeOptionImageSize, height: changeOptionImageSize)
                                 .foregroundColor(iconColor)
                             

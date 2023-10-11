@@ -12,6 +12,7 @@ struct FavoriteButtonView: View {
     @State private var isFavorite = false
     var favoriteFor: HelpersFunctions.searchingType
     var idCharacterOrAnime: Int
+    
     var body: some View {
         Button (action:{
             if !AccountVm.sharedUserVM.userActual.isEmpty {
@@ -25,6 +26,7 @@ struct FavoriteButtonView: View {
             Image(systemName: isFavorite ? "heart.fill":"heart")
                 .font(.title2)
                 .symbolEffect(.bounce, options: .speed(1).repeat(3), value: !favoritos.isEmpty)
+                .symbolEffect(.bounce.down, value: isFavorite)
                 
         }
         .onAppear(perform: {

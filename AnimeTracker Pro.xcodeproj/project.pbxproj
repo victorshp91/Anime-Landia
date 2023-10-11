@@ -91,15 +91,15 @@
 		2F6046EA2AC8A290000EDFCF /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		2F6046EC2AC8AC53000EDFCF /* DataCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCharacter.swift; sourceTree = "<group>"; };
 		2F6046EE2AC8AEA8000EDFCF /* TopCharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCharactersView.swift; sourceTree = "<group>"; };
-		2F7A4ED62AC88B8600D4F2E8 /* Anime Landia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anime Landia.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F7A4ED62AC88B8600D4F2E8 /* AnimeTracker Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AnimeTracker Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F7A4ED92AC88B8600D4F2E8 /* Anime_LandiaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaApp.swift; sourceTree = "<group>"; };
 		2F7A4EDB2AC88B8600D4F2E8 /* topAnimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = topAnimeView.swift; sourceTree = "<group>"; };
 		2F7A4EDD2AC88B8800D4F2E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F7A4EDF2AC88B8800D4F2E8 /* Anime_Landia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Anime_Landia.entitlements; sourceTree = "<group>"; };
 		2F7A4EE12AC88B8800D4F2E8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2F7A4EE72AC88B8800D4F2E8 /* Anime LandiaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Anime LandiaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F7A4EE72AC88B8800D4F2E8 /* AnimeTracker ProTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AnimeTracker ProTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F7A4EEB2AC88B8800D4F2E8 /* Anime_LandiaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaTests.swift; sourceTree = "<group>"; };
-		2F7A4EF12AC88B8800D4F2E8 /* Anime LandiaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Anime LandiaUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F7A4EF12AC88B8800D4F2E8 /* AnimeTracker ProUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AnimeTracker ProUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F7A4EF52AC88B8800D4F2E8 /* Anime_LandiaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaUITests.swift; sourceTree = "<group>"; };
 		2F7A4EF72AC88B8800D4F2E8 /* Anime_LandiaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2F7A4F042AC88BB200D4F2E8 /* DataAnime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAnime.swift; sourceTree = "<group>"; };
@@ -188,9 +188,9 @@
 		2F7A4ED72AC88B8600D4F2E8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2F7A4ED62AC88B8600D4F2E8 /* Anime Landia.app */,
-				2F7A4EE72AC88B8800D4F2E8 /* Anime LandiaTests.xctest */,
-				2F7A4EF12AC88B8800D4F2E8 /* Anime LandiaUITests.xctest */,
+				2F7A4ED62AC88B8600D4F2E8 /* AnimeTracker Pro.app */,
+				2F7A4EE72AC88B8800D4F2E8 /* AnimeTracker ProTests.xctest */,
+				2F7A4EF12AC88B8800D4F2E8 /* AnimeTracker ProUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -288,9 +288,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2F7A4ED52AC88B8600D4F2E8 /* Anime Landia */ = {
+		2F7A4ED52AC88B8600D4F2E8 /* AnimeTracker Pro */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2F7A4EFB2AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "Anime Landia" */;
+			buildConfigurationList = 2F7A4EFB2AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "AnimeTracker Pro" */;
 			buildPhases = (
 				2F7A4ED22AC88B8600D4F2E8 /* Sources */,
 				2F7A4ED32AC88B8600D4F2E8 /* Frameworks */,
@@ -300,18 +300,18 @@
 			);
 			dependencies = (
 			);
-			name = "Anime Landia";
+			name = "AnimeTracker Pro";
 			packageProductDependencies = (
 				2F7A4F092AC896F800D4F2E8 /* SDWebImageSwiftUI */,
 				2FE2CC682AC8ED4E00E4E1C1 /* YouTubePlayerKit */,
 			);
 			productName = "Anime Landia";
-			productReference = 2F7A4ED62AC88B8600D4F2E8 /* Anime Landia.app */;
+			productReference = 2F7A4ED62AC88B8600D4F2E8 /* AnimeTracker Pro.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2F7A4EE62AC88B8800D4F2E8 /* Anime LandiaTests */ = {
+		2F7A4EE62AC88B8800D4F2E8 /* AnimeTracker ProTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2F7A4EFE2AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "Anime LandiaTests" */;
+			buildConfigurationList = 2F7A4EFE2AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "AnimeTracker ProTests" */;
 			buildPhases = (
 				2F7A4EE32AC88B8800D4F2E8 /* Sources */,
 				2F7A4EE42AC88B8800D4F2E8 /* Frameworks */,
@@ -322,14 +322,14 @@
 			dependencies = (
 				2F7A4EE92AC88B8800D4F2E8 /* PBXTargetDependency */,
 			);
-			name = "Anime LandiaTests";
+			name = "AnimeTracker ProTests";
 			productName = "Anime LandiaTests";
-			productReference = 2F7A4EE72AC88B8800D4F2E8 /* Anime LandiaTests.xctest */;
+			productReference = 2F7A4EE72AC88B8800D4F2E8 /* AnimeTracker ProTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		2F7A4EF02AC88B8800D4F2E8 /* Anime LandiaUITests */ = {
+		2F7A4EF02AC88B8800D4F2E8 /* AnimeTracker ProUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2F7A4F012AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "Anime LandiaUITests" */;
+			buildConfigurationList = 2F7A4F012AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "AnimeTracker ProUITests" */;
 			buildPhases = (
 				2F7A4EED2AC88B8800D4F2E8 /* Sources */,
 				2F7A4EEE2AC88B8800D4F2E8 /* Frameworks */,
@@ -340,9 +340,9 @@
 			dependencies = (
 				2F7A4EF32AC88B8800D4F2E8 /* PBXTargetDependency */,
 			);
-			name = "Anime LandiaUITests";
+			name = "AnimeTracker ProUITests";
 			productName = "Anime LandiaUITests";
-			productReference = 2F7A4EF12AC88B8800D4F2E8 /* Anime LandiaUITests.xctest */;
+			productReference = 2F7A4EF12AC88B8800D4F2E8 /* AnimeTracker ProUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -368,7 +368,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2F7A4ED12AC88B8600D4F2E8 /* Build configuration list for PBXProject "Anime Landia" */;
+			buildConfigurationList = 2F7A4ED12AC88B8600D4F2E8 /* Build configuration list for PBXProject "AnimeTracker Pro" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -385,9 +385,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2F7A4ED52AC88B8600D4F2E8 /* Anime Landia */,
-				2F7A4EE62AC88B8800D4F2E8 /* Anime LandiaTests */,
-				2F7A4EF02AC88B8800D4F2E8 /* Anime LandiaUITests */,
+				2F7A4ED52AC88B8600D4F2E8 /* AnimeTracker Pro */,
+				2F7A4EE62AC88B8800D4F2E8 /* AnimeTracker ProTests */,
+				2F7A4EF02AC88B8800D4F2E8 /* AnimeTracker ProUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -482,12 +482,12 @@
 /* Begin PBXTargetDependency section */
 		2F7A4EE92AC88B8800D4F2E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2F7A4ED52AC88B8600D4F2E8 /* Anime Landia */;
+			target = 2F7A4ED52AC88B8600D4F2E8 /* AnimeTracker Pro */;
 			targetProxy = 2F7A4EE82AC88B8800D4F2E8 /* PBXContainerItemProxy */;
 		};
 		2F7A4EF32AC88B8800D4F2E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2F7A4ED52AC88B8600D4F2E8 /* Anime Landia */;
+			target = 2F7A4ED52AC88B8600D4F2E8 /* AnimeTracker Pro */;
 			targetProxy = 2F7A4EF22AC88B8800D4F2E8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -613,6 +613,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Anime Landia/Anime_Landia.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Anime Landia/Preview Content\"";
@@ -620,6 +621,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = AnimeLandia;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -628,14 +631,14 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "victorshp30.Anime-Landia";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.victorshp.AnimeTracker-Pro";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -651,6 +654,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Anime Landia/Anime_Landia.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Anime Landia/Preview Content\"";
@@ -658,6 +662,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = AnimeLandia;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -666,14 +672,14 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "victorshp30.Anime-Landia";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.victorshp.AnimeTracker-Pro";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -702,7 +708,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anime Landia.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Anime Landia";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AnimeTracker Pro.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AnimeTracker Pro";
 			};
 			name = Debug;
 		};
@@ -725,7 +731,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Anime Landia.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Anime Landia";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AnimeTracker Pro.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AnimeTracker Pro";
 			};
 			name = Release;
 		};
@@ -776,7 +782,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2F7A4ED12AC88B8600D4F2E8 /* Build configuration list for PBXProject "Anime Landia" */ = {
+		2F7A4ED12AC88B8600D4F2E8 /* Build configuration list for PBXProject "AnimeTracker Pro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F7A4EF92AC88B8800D4F2E8 /* Debug */,
@@ -785,7 +791,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2F7A4EFB2AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "Anime Landia" */ = {
+		2F7A4EFB2AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "AnimeTracker Pro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F7A4EFC2AC88B8800D4F2E8 /* Debug */,
@@ -794,7 +800,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2F7A4EFE2AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "Anime LandiaTests" */ = {
+		2F7A4EFE2AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "AnimeTracker ProTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F7A4EFF2AC88B8800D4F2E8 /* Debug */,
@@ -803,7 +809,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2F7A4F012AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "Anime LandiaUITests" */ = {
+		2F7A4F012AC88B8800D4F2E8 /* Build configuration list for PBXNativeTarget "AnimeTracker ProUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2F7A4F022AC88B8800D4F2E8 /* Debug */,

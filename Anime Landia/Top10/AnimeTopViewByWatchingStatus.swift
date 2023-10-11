@@ -12,15 +12,35 @@ struct AnimeTopViewByWatchingStatus: View {
     @State private var animeWatchingStatus: [AnimeWatchingStatusTotals]?
     @State private var allAnimes: [Anime] = []
     var watchingStatus: HelpersFunctions.animeWatchingOptions
+    
     var body: some View {
         VStack(alignment: .leading){
             if !allAnimes.isEmpty {
-                HStack{
-                    Text("\(watchingStatus.rawValue.capitalized)")
-                        .bold()
-                    Image(systemName: AnimeWatchingButton(animeId: 0, selectedOption: watchingStatus, changeOptionImageSize: 20).icoImage)
-                        .font(.title2)
-                        .foregroundStyle(AnimeWatchingButton(animeId: 0, selectedOption: watchingStatus, changeOptionImageSize: 20).iconColor)
+                VStack(alignment: .leading){
+                    HStack{
+                        Text("\(watchingStatus.rawValue.capitalized)")
+                            .bold()
+                        Image(systemName: AnimeWatchingButton(animeId: 0, selectedOption: watchingStatus, changeOptionImageSize: 20).icoImage)
+                            .font(.title2)
+                            .foregroundStyle(AnimeWatchingButton(animeId: 0, selectedOption: watchingStatus, changeOptionImageSize: 20).iconColor)
+                    }
+                    switch watchingStatus {
+                    case .watching:
+                        Text("Top 10 animes that the users are currently watching.")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    case .hold:
+                        Text("Top 10 animes the users plan to watch in the near future.")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    case .completed:
+                        Text("Top 10 animes the users have completed.")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    case .none:
+                        Text("")
+                    }
+                    
                 }.padding(.horizontal)
                 
                 
@@ -44,6 +64,8 @@ struct AnimeTopViewByWatchingStatus: View {
                                     
                                     Text("\(anime.title ?? "NO DATA")")
                                         .font(.caption)
+                                        .lineLimit(1)
+                                            .truncationMode(.tail)
                                     
                                     Spacer()
                                 }.frame(maxWidth: 150)
@@ -120,7 +142,7 @@ struct AnimeTopViewByWatchingStatus: View {
                           DispatchQueue.main.async {
                               
                               if allAnimes.count < 10 {  // Verifica si hay menos de 10 elementos
-                                                  allAnimes.append(anime)
+                                  allAnimes.append(anime)
                               }
 
                               

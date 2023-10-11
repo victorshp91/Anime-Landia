@@ -42,7 +42,9 @@ struct SignUpView: View {
                 
             }
             TextField("Email", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                .padding(15)
+                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
                 .padding(.horizontal)
                 .autocapitalization(.none)
                 .onChange(of: email) {
@@ -51,7 +53,9 @@ struct SignUpView: View {
             
             
             TextField("Username", text: $user)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                .padding(15)
+                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
                 .padding(.horizontal)
                 .autocapitalization(.none)
                 .onChange(of: user) {
@@ -59,7 +63,9 @@ struct SignUpView: View {
                 }
             
             SecureField("Password", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                .padding(15)
+                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
                 .padding(.horizontal)
                 .onChange(of: password) {
                     onTextFieldChange()
@@ -72,7 +78,9 @@ struct SignUpView: View {
                         .frame(height: 40)
                 }
                 SecureField("Confirm Password", text: $confirmPassword)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    .padding(15)
+                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.blue, lineWidth: 1))
                     .padding(.horizontal)
                     .onChange(of: confirmPassword) {
                         onTextFieldChange()

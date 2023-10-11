@@ -17,7 +17,7 @@ struct userFavoritesView: View {
     
     var body: some View {
         
-        ScrollView(.vertical) {
+        ScrollView(.vertical, showsIndicators: false) {
             
             if isLoading {
                 HelpersFunctions().loadingView()

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct AboutView: View {
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 20) {
-                Text("About AnimeLandia")
+                Text("About AnimeTracker Pro")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 
@@ -23,7 +23,7 @@ struct AboutView: View {
                     .shadow(radius: 5)
                     
               
-                    Text("Welcome to AnimeLandia! Your ultimate source for information about the exciting world of anime and its characters. This app has been created by and for anime enthusiasts.")
+                    Text("Welcome to AnimeTracker Pro! Your ultimate source for information about the exciting world of anime and its characters. This app has been created by and for anime enthusiasts.")
                         .font(.body)
                     
                     FeatureView(iconName: "safari", title: "Explore", description: "Explore an extensive database of anime and characters. Find detailed information about your favorite series and characters.")
@@ -38,7 +38,7 @@ struct AboutView: View {
                     FeatureView(iconName: "checkmark.circle", title: "Track Your Progress", description: "Keep track of the animes you're watching, have completed, or plan to watch in the future.")
                     
                     
-                    FeatureView(iconName: "newspaper", title: "Why AnimeLandia?", description: "AnimeLandia is dedicated to providing a comprehensive experience for anime fans. Our mission is to help you discover, enjoy, and share your passion for anime.")
+                    FeatureView(iconName: "newspaper", title: "Why AnimeTracker Pro?", description: "AnimeTracker Pro is dedicated to providing a comprehensive experience for anime fans. Our mission is to help you discover, enjoy, and share your passion for anime.")
                 
             }
             .padding()

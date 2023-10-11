@@ -45,10 +45,10 @@ struct topAnimeView: View {
                                         .scaledToFit()
                                         .shadow(radius: 3)
                                     
-                                    
-                                    
                                     Text("\(anime.title ?? "NO DATA")")
                                         .font(.caption)
+                                        .lineLimit(1)
+                                            .truncationMode(.tail)
                                     Spacer()
                                 }.frame(maxWidth: 150)
                                 
