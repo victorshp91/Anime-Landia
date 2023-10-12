@@ -93,7 +93,7 @@ struct AnimeWatchingButton: View {
                             }
                         }
                     }  else {
-                        Text("NEED AN ACCOUNT")
+                        Text("SIGN IN")
                      }
                     
                 } label: {

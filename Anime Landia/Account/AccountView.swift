@@ -13,6 +13,8 @@ struct AccountView: View {
     
     @State private var showLogin = false
     @State private var isShowingLogoutView = false
+
+   
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -49,6 +51,14 @@ struct AccountView: View {
                 
                 
                 VStack(alignment: .leading){
+                    Text("Friends").bold().font(.title2)
+                    NavigationLink(destination: FriendsView(friendStatus: AccountVm.friendStatus.accepted)){
+                        HelpersFunctions.BotonMenuAccount(icono: "person.2.circle.fill", titulo: "Friends", color: .orange)
+                    }
+                    NavigationLink(destination: FriendsView(friendStatus: AccountVm.friendStatus.pending)){
+                        HelpersFunctions.BotonMenuAccount(icono: "bell.badge.circle.fill", titulo: "Otaku Connections", color: .orange)
+                    }
+                   
                     Text("Favorites").bold().font(.title2)
                     NavigationLink(destination: userFavoritesView(isFor: .character)){
                         HelpersFunctions.BotonMenuAccount(icono: "star.circle.fill", titulo: "My Favorites Characters", color: .cyan)
@@ -58,15 +68,15 @@ struct AccountView: View {
                     }
                     
                     Text("Anime").bold().font(.title2)
-                    NavigationLink(destination: UserWatchingView(isFor: .watching)) {
+                    NavigationLink(destination: UserWatchingView(friend: .init(), isFor: .watching)) {
                         HelpersFunctions.BotonMenuAccount(icono: "eye.circle.fill", titulo: "Watching", color: .blue)
                     }
                     
-                    NavigationLink(destination: UserWatchingView(isFor: .completed)) {
+                    NavigationLink(destination: UserWatchingView(friend: .init(), isFor: .completed)) {
                         HelpersFunctions.BotonMenuAccount(icono: "checkmark.circle.fill", titulo: "Completed", color: .green)
                         
                     }
-                    NavigationLink(destination: UserWatchingView(isFor: .hold)) {
+                    NavigationLink(destination: UserWatchingView(friend: .init(), isFor: .hold)) {
                         HelpersFunctions.BotonMenuAccount(icono: "pause.circle.fill", titulo: "On Hold", color: .gray)
                         
                     }

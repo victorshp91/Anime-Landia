@@ -91,9 +91,9 @@ struct userFavoritesView: View {
                           let anime = animeResponse.data
                           DispatchQueue.main.async {
                               
-                              if allAnimes.count < 10 {  // Verifica si hay menos de 10 elementos
-                                                  allAnimes.append(anime)
-                              }
+                             
+                              allAnimes.append(anime ?? .init())
+                              
                           }
                       } else {
                           let characterResponse = try JSONDecoder().decode(CharacterStruct.OnlyCharacterData.self, from: data)

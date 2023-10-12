@@ -14,7 +14,11 @@ import Observation
     
     var userActual = [Usuario]()
     
-    
+    enum friendStatus: String {
+        case accepted = "accepted"
+        case pending = "pending"
+        case rejected = "rejected"
+    }
     
     func getUserInformation(email: String, password: String, completion: @escaping (Usuario?) -> Void) {
         

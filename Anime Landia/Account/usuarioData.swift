@@ -29,11 +29,11 @@ struct Favorito: Identifiable, Decodable, Encodable {
 
 struct Usuario: Codable {
     
-    let id: String
-    let email: String
-    let usuario: String
-    let contrasenaHash: String
-    let contrasena_valida: Bool
+    let id: String?
+    let email: String?
+    let usuario: String?
+    let contrasenaHash: String?
+    let contrasena_valida: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id

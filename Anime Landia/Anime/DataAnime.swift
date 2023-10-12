@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct AnimeData: Codable {
-    let pagination: Pagination
+    let pagination: Pagination?
     let data: [Anime]
 }
 
 struct OnlyAnimeData: Codable {
-    let data: Anime
+    let data: Anime?
 }
 
 struct Pagination: Codable {

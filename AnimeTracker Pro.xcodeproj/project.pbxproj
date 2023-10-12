@@ -48,6 +48,7 @@
 		2FE2CC712AC8FBE200E4E1C1 /* HelpersFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */; };
 		2FE2CC752AC90B5900E4E1C1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC742AC90B5900E4E1C1 /* HomeView.swift */; };
 		2FE2CC782AC90FBA00E4E1C1 /* RandomAnimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC772AC90FBA00E4E1C1 /* RandomAnimeView.swift */; };
+		2FFE54A72AD795FA00F4C97A /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE54A62AD795FA00F4C97A /* FriendsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpersFunctions.swift; sourceTree = "<group>"; };
 		2FE2CC742AC90B5900E4E1C1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2FE2CC772AC90FBA00E4E1C1 /* RandomAnimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAnimeView.swift; sourceTree = "<group>"; };
+		2FFE54A62AD795FA00F4C97A /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 		2F0AE3A12ACCFCC2001F4405 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				2FFE54A82AD7960100F4C97A /* Friends */,
 				2F0AE3A22ACCFD0A001F4405 /* AccountView.swift */,
 				2F40BDC32AD24E6A0065ADCC /* SignOutConfirmationView.swift */,
 				2F0AE3A42ACD043F001F4405 /* AnimeWatchingButton.swift */,
@@ -285,6 +288,14 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		2FFE54A82AD7960100F4C97A /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				2FFE54A62AD795FA00F4C97A /* FriendsView.swift */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -423,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FFE54A72AD795FA00F4C97A /* FriendsView.swift in Sources */,
 				2F458D102AD4D0DC00F337D2 /* AnimeTopViewByWatchingStatus.swift in Sources */,
 				2F458D0D2AD4D0B400F337D2 /* TopTenView.swift in Sources */,
 				2F100CE02AD1B043009C0654 /* UserWatchingView.swift in Sources */,
@@ -621,7 +633,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = AnimeLandia;
+				INFOPLIST_KEY_CFBundleDisplayName = "AnimeTracker Pro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -662,7 +674,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = AnimeLandia;
+				INFOPLIST_KEY_CFBundleDisplayName = "AnimeTracker Pro";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;

@@ -61,7 +61,6 @@ struct AnimeTopViewByWatchingStatus: View {
                                         .shadow(radius: 3)
                                     
                                     
-                                    
                                     Text("\(anime.title ?? "NO DATA")")
                                         .font(.caption)
                                         .lineLimit(1)
@@ -141,10 +140,8 @@ struct AnimeTopViewByWatchingStatus: View {
                           let anime = animeResponse.data
                           DispatchQueue.main.async {
                               
-                              if allAnimes.count < 10 {  // Verifica si hay menos de 10 elementos
-                                  allAnimes.append(anime)
-                              }
-
+                             
+                              allAnimes.append(anime ?? .init())
                               
                           }
                       

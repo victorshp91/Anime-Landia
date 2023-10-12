@@ -24,6 +24,7 @@ class DataBaseViewModel {
     let getAnimeWatchingStatusNumbers = "get_anime_watching_numbers.php?"
     let changeWatchingStatusNumbers = "change_watching_status_numbers.php?"
     let getTopAnimeByWatchingStatus = "get_top_watching_status.php?"
+    let getUserFriends = "get_user_friends.php?"
     
     
  // https://rayjewelry.us/animeLandiaApi/change_watching_status_numbers.php?id_anime=9367&campo=watching&accion=disminuir

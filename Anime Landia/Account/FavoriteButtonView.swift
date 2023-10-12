@@ -19,7 +19,7 @@ struct FavoriteButtonView: View {
                 isFavorite.toggle()
                 guardarFavorito()
             } else {
-                print("Need an Account")
+                
             }
            
         }) {

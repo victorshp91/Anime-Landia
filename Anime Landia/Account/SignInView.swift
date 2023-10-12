@@ -60,6 +60,7 @@ struct SignInView: View {
                         showLoading = true
                     }
                     AccountVm.sharedUserVM.getUserInformation(email: email, password: password, completion: { usuario in
+                        
                         DispatchQueue.main.async { // Asegurarse de estar en el hilo principal
                             if let usuario = usuario {
                                 // Guardar el usuario en UserDefaults

@@ -12,11 +12,21 @@ struct UserWatchingView: View {
     @State private var allAnimes: [Anime] = []
     @State private var isLoading = false
     @State private var showNoData = false
+    var friend: [Usuario]
     var isFor: HelpersFunctions.animeWatchingOptions
     
     var body: some View {
         
         ScrollView(.vertical, showsIndicators: false) {
+            // SI VIENE PARA PRESENTAR DEL AMIGO ENTONCES PRESENTA EL USUARIO DEL AMIGO
+            if !friend.isEmpty {
+                HStack{
+                    Text("By @\(friend.first?.usuario ?? "N/A")")
+                        .font(.title)
+                        .bold()
+                    Spacer()
+                }.padding(.horizontal)
+            }
             if isLoading {
                 HelpersFunctions().loadingView()
             }
@@ -83,7 +93,7 @@ struct UserWatchingView: View {
                     let anime = animeResponse.data
                     DispatchQueue.main.async {
                         
-                        self.allAnimes.append(anime)
+                        self.allAnimes.append(anime ?? .init())
                         
                     }
                 } catch {
@@ -99,7 +109,18 @@ struct UserWatchingView: View {
         withAnimation {
             isLoading = true
         }
-        if let url = URL(string:  "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatus)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&watching=\(isFor.rawValue.lowercased())") {
+        var userID = ""
+        
+        if friend.isEmpty {
+            // Si el usuario está conectado, asigna el ID del usuario actual
+            userID = AccountVm.sharedUserVM.userActual.first?.id ?? ""
+        } else {
+            // Si el usuario no está conectado, asigna un valor predeterminado o lo que sea necesario
+            userID = friend.first?.id ?? "N/A"
+        }
+
+       
+        if let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatus)id_usuario=\(userID)&watching=\(isFor.rawValue.lowercased())"){
             
             print(url)
             URLSession.shared.dataTask(with: url) { data, response, error in
@@ -141,5 +162,5 @@ struct UserWatchingView: View {
 
 
 #Preview {
-    UserWatchingView(isFor: .none)
+    UserWatchingView(friend: .init(), isFor: .none)
 }
