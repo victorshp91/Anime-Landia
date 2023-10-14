@@ -59,7 +59,7 @@ struct SearchView: View {
                         showHistory = true
                     }
                 }
-            }).padding(.bottom)
+            }, by: "name").padding(.bottom)
             
             // SI PRESENTA HISTORY SI NO TODO NORMAL
             if showHistory {

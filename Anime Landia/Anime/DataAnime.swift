@@ -202,6 +202,31 @@ struct AnimeWatchingStatusTotals: Codable {
     let completed: Int
 }
 
+struct RatingResponse: Decodable {
+    let total_pages: Int?
+    let current_page: String?
+    let total_ratings: Int?
+    let ratings: [Rating]?
+    let average: Double?
+}
+// PARA LOS DATOS DE LOS RATINGS
+struct Rating: Identifiable, Codable {
+    var id: String?
+    var user_id: String?
+    var anime_id: String?
+    var rating: String?
+    var comment: String?
+    var created_at: String?
+    var usuario: String?
+    var email: String?
+    var spoler: Bool?
+    
+}
+
+struct RatingAverageResponse: Decodable {
+    let average: Double
+}
+
 
 
 

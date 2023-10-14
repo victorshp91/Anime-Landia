@@ -128,7 +128,7 @@ struct AnimeWatchingButton: View {
     
     func obtenerWatchingStatus() {
         
-        if let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatus)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)") {
+        if let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatus)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)") {
             print(url)
                 URLSession.shared.dataTask(with: url) { data, response, error in
                     if let data = data {
@@ -157,7 +157,7 @@ struct AnimeWatchingButton: View {
         }
     
     func guardarWatchingStatus() {
-        let urlString = "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.saveWatchingStatusOrFavorite)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)&watching=\(selectedOption.rawValue.lowercased())"
+        let urlString = "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.saveWatchingStatusOrFavorite)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&id_anime=\(animeId)&watching=\(selectedOption.rawValue.lowercased())"
             
             
             if let url = URL(string: urlString) {

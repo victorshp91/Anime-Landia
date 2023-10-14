@@ -30,7 +30,7 @@ struct FriendsView: View {
                 }
                 
                 
-            })
+            }, by: "user name")
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(searchText.isEmpty ? friends:filteredUsers, id: \.id) { friend in
                    FriendListView(friend: friend)
@@ -42,7 +42,9 @@ struct FriendsView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if friendStatus == .accepted {
                         
-                        Image(systemName: "plus.circle.fill").foregroundColor(.cyan).font(.title2)
+                        NavigationLink(destination: AddNewFriendView()){
+                            Image(systemName: "plus.circle.fill").foregroundColor(.cyan).font(.title2)
+                        }
                     }
                     
                 }
@@ -56,10 +58,11 @@ struct FriendsView: View {
     
     func getFriends(){
         
-        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getUserFriends)user_id=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&status=\(friendStatus.rawValue.lowercased())") else {
+        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getUserFriends)user_id=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&status=\(friendStatus.rawValue.lowercased())") else {
                        return
                    }
 
+        print(url)
                    URLSession.shared.dataTask(with: url) { data, _, error in
                        if let data = data {
                            do {
@@ -75,6 +78,10 @@ struct FriendsView: View {
                            print("Error de solicitud: \(error)")
                        }
                    }.resume()
+    }
+    
+    func acceptFriend(){
+        
     }
     
     func FriendListView(friend: Usuario) -> some View {
@@ -108,9 +115,16 @@ struct FriendsView: View {
                     } else {
                         Button(action: {
                             
+                            updateFriendRequest(userId1: friend.id ?? "N/A", userId2: AccountVm.sharedUserVM.userActual.first?.id ?? "N/A", newStatus: "accepted")
                         } ){
                             Text("Accept")
                                 .foregroundStyle(.blue).bold()
+                        }
+                        Button(action: {
+                            
+                        } ){
+                            Text("Reject")
+                                .foregroundStyle(.red).bold()
                         }
                     }
                 }
@@ -124,7 +138,29 @@ struct FriendsView: View {
         
         
     }
-}
+    
+    func updateFriendRequest(userId1: String, userId2: String, newStatus : String) {
+        guard let url = URL(string: "https://rayjewelry.us/animeLandiaApi/accept_reject_friend.php") else {
+                            return
+                        }
+                        
+                        var request = URLRequest(url: url)
+                        request.httpMethod = "POST"
+                        request.httpBody = "user_id1=\(userId1)&user_id2=\(userId2)&new_status=\(newStatus)".data(using: .utf8)
+                        
+                        URLSession.shared.dataTask(with: request) { data, response, error in
+                            if let data = data {
+                                if let responseString = String(data: data, encoding: .utf8) {
+                                    print(responseString)
+                                    // Manejar la respuesta JSON del servidor aquí si es necesario
+                                }
+                            } else if let error = error {
+                                print("Error: \(error)")
+                            }
+                        }.resume()
+                    }
+    }
+
 
 #Preview {
     FriendsView(friendStatus: .accepted)

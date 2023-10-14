@@ -11,7 +11,9 @@ struct AnimeDetailsView: View {
     @State var showTrailer = false
     @State var showAnimeImage = false
     let anime: Anime
+    
     @State private var isShowingFullSypnosis = false
+    
     // contiene los numeros de los conteos watchingStatus
     
     
@@ -41,17 +43,7 @@ struct AnimeDetailsView: View {
                         Spacer()
                         VStack(alignment: .trailing, spacing: 10){
                             
-                            VStack(alignment: .trailing,spacing: 0){
-                               
-                                    
-                                    Text("Score")
-                                HStack{
-                                    Image(systemName: "star.fill")
-                                    Text(String(format: "%.2f", anime.score ?? 0)).bold()
-                                }.foregroundStyle(.yellow)
-                                
-                                
-                            }
+                           
                             VStack(alignment: .trailing,spacing: 0){
                                 Text("Rank")
                                 Text("#\(String(anime.rank ?? 0))").bold()
@@ -83,8 +75,11 @@ struct AnimeDetailsView: View {
                         
                         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                         .shadow(radius: 5)
+                    // RATING VIEW
+                    ratingView(anime: anime)
                     // COMIENZA EL TITLO DE EL ANIME
                     VStack(spacing: 5){
+                        
                         
                         // Status Numbers
                         WatchingStatusNumbers(idAnime: anime.mal_id ?? 0)
@@ -259,10 +254,11 @@ struct WatchingStatusNumbers:  View {
                     getWathingStatusNumbers()
                 
             })
+        
     }
     
     func getWathingStatusNumbers() {
-        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatusNumbers)id_anime=\(idAnime)") else {
+        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatusNumbers)id_anime=\(idAnime)") else {
                 print("Invalid URL")
                 return
             }

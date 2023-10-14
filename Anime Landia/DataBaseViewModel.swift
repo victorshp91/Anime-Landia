@@ -12,7 +12,7 @@ class DataBaseViewModel {
     
     static let sharedDataBaseVM = DataBaseViewModel()
     
-    let hosting = "https://rayjewelry.us/animeLandiaApi/"
+    let Dominio = "https://rayjewelry.us/animeLandiaApi/"
     
     let getUser = "get_user.php?"
     let saveUser = "guardar_usuario.php?"
@@ -25,6 +25,9 @@ class DataBaseViewModel {
     let changeWatchingStatusNumbers = "change_watching_status_numbers.php?"
     let getTopAnimeByWatchingStatus = "get_top_watching_status.php?"
     let getUserFriends = "get_user_friends.php?"
+    let searchUsers = "search_user.php?"
+    let addNewFriend = "send_friend_request.php?"
+    let getAnimeRating = "get_anime_rating.php?" 
     
     
  // https://rayjewelry.us/animeLandiaApi/change_watching_status_numbers.php?id_anime=9367&campo=watching&accion=disminuir

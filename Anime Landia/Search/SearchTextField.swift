@@ -11,9 +11,10 @@ struct SearchTextField: View {
     @Binding var searchingText: String
     var onSearch: () -> Void // Cierre para la acción de búsqueda
     var onChange: () -> Void // Cierre para la acción de búsqueda
+    var by: String
     var body: some View {
         
-        TextField("By Name", text: $searchingText)
+        TextField("by \(by)", text: $searchingText)
             .disableAutocorrection(true)
             .padding(EdgeInsets(top: 10, leading: 40, bottom: 10, trailing: 20))
             .background(Color.gray.opacity(0.2))
@@ -54,5 +55,5 @@ struct SearchTextField: View {
 }
 
 #Preview {
-    SearchTextField(searchingText: Binding.constant(""), onSearch: {}, onChange: {})
+    SearchTextField(searchingText: Binding.constant(""), onSearch: {}, onChange: {}, by: "name")
 }

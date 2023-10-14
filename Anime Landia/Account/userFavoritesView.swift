@@ -120,7 +120,7 @@ struct userFavoritesView: View {
         withAnimation {
             isLoading = true
         }
-        if let url = URL(string: isFor == .anime ? "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getIfAnimeIsFavorite)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&favorite=true":"\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getIfCharactersIsFavorites)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&favorite=true") {
+        if let url = URL(string: isFor == .anime ? "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getIfAnimeIsFavorite)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&favorite=true":"\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getIfCharactersIsFavorites)id_usuario=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&favorite=true") {
             print(url)
                 URLSession.shared.dataTask(with: url) { data, response, error in
                     if let data = data {

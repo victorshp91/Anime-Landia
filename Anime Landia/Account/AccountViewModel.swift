@@ -22,7 +22,7 @@ import Observation
     
     func getUserInformation(email: String, password: String, completion: @escaping (Usuario?) -> Void) {
         
-        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getUser)email=\(email)&contrasena_ingresada=\(password)") else {
+        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getUser)email=\(email)&contrasena_ingresada=\(password)") else {
             completion(nil)
             return
         }
@@ -50,7 +50,7 @@ import Observation
     
     func updateWatchingStatusNumbers(idAnime: Int, campo: String, accion: String, completion: @escaping (Result<String, Error>) -> Void) {
         // URL de la API PHP en tu servidor
-        let apiUrl = "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.changeWatchingStatusNumbers)id_anime=\(idAnime)&campo=\(campo)&accion=\(accion)"
+        let apiUrl = "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.changeWatchingStatusNumbers)id_anime=\(idAnime)&campo=\(campo)&accion=\(accion)"
         
         if let url = URL(string: apiUrl) {
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in

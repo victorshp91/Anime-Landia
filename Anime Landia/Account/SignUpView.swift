@@ -96,7 +96,7 @@ struct SignUpView: View {
                         showLoading = true
                     }
                     // Hacer la solicitud al API
-                    guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.saveUser)usuario=\(user)&email=\(email)&contrasena=\(password)") else {
+                    guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.saveUser)usuario=\(user)&email=\(email)&contrasena=\(password)") else {
                         return
                     }
                     

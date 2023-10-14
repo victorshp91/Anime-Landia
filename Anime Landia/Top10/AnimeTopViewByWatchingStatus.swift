@@ -48,7 +48,7 @@ struct AnimeTopViewByWatchingStatus: View {
                     
                     LazyHStack{
                         Spacer()
-                        ForEach(allAnimes) { anime in
+                        ForEach(allAnimes, id: \.mal_id) { anime in
                             
                             NavigationLink(destination: AnimeDetailsView(anime: anime)) {
                                 
@@ -94,7 +94,7 @@ struct AnimeTopViewByWatchingStatus: View {
     
     func getWatchingStatus() {
         allAnimes = []
-        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.hosting)\(DataBaseViewModel.sharedDataBaseVM.getTopAnimeByWatchingStatus)campo=\(watchingStatus.rawValue.lowercased())") else {
+        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getTopAnimeByWatchingStatus)campo=\(watchingStatus.rawValue.lowercased())") else {
                 return
             }
             
