@@ -219,7 +219,7 @@ struct Rating: Identifiable, Codable {
     var created_at: String?
     var usuario: String?
     var email: String?
-    var spoler: Bool?
+    var spoiler: Bool?
     
 }
 

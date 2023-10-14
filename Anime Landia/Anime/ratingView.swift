@@ -49,8 +49,19 @@ struct ratingView: View {
                     NavigationStack {
                         AnimeRatingDetailsView(anime: anime)
                             .presentationDetents([.medium, .large])
+                            .onDisappear {
+                                // Esta acción se ejecutará cuando el Sheet se oculte
+                                if !isForUsersReview {
+                                    AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.mal_id ?? 0, isAverage: true, page: "1", completion: { rating in
+                                        if let average = rating.average {
+                                            animeRating = average
+                                        }
+                                    })
+                                }
+                            }
                     }
                 }
+                
                 .onAppear(perform: {
                     if !isForUsersReview {
                         AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.mal_id ?? 0, isAverage: true, page: "1", completion: { rating in

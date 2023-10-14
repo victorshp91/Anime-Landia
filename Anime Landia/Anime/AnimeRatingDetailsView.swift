@@ -17,7 +17,6 @@ struct AnimeRatingDetailsView: View {
     @State private var comment = ""
     @State private var spoiler = false // Inicialmente, no es spoiler
     
-    
     var body: some View {
         VStack(spacing: 0) {
             
@@ -28,48 +27,52 @@ struct AnimeRatingDetailsView: View {
                 ZStack(alignment:.center) {
                 
                     if let rating = ratings?.ratings {
+                        
                 ScrollView(.vertical, showsIndicators: false) {
                     
                     ForEach(rating, id: \.id) { rating in
                         VStack(alignment: .leading, spacing: 10) {
-                            
-                            HStack{
-                                Spacer()
-                                Button(action:{
+                            if rating.spoiler ?? false {
+                                VStack{
+                                    Text("Spoiler Alert")
                                     
-                                }){
-                                    Image(systemName: "x.circle.fill")
-                                        .foregroundStyle(.red)
-                                        .font(.title2)
+                                    Button(action:{
+                                        
+                                    } ) {
+                                        Text("Show Review")
+                                    }
                                 }
-                            }
-                            HStack{
-                                Text("@\(rating.usuario ?? "N/A")")
-                                    .font(.headline)
-                                Spacer()
-                                if let createdAt = rating.created_at {
-                                    Text(" \(formatDate(createdAt))")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
+                            } else {
+                                HStack{
+                                    Text("@\(rating.usuario ?? "N/A")")
+                                        .font(.headline)
+                                    Spacer()
+                                    if let createdAt = rating.created_at {
+                                        Text(" \(formatDate(createdAt))")
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                    }
                                 }
-                            }
-                            HStack {
+                                HStack {
+                                    
+                                    if let ratingValue = rating.rating {
+                                        ratingView(animeRating: Double(ratingValue) ?? 0.0, anime: Anime(), isForUsersReview: true)
+                                    }
+                                }
                                 
-                                if let ratingValue = rating.rating {
-                                    ratingView(animeRating: Double(ratingValue) ?? 0.0, anime: Anime(), isForUsersReview: true)
-                                }
+                                Text("\(rating.comment ?? "N/A")")
+                                    .font(.body)
+                                    .foregroundColor(.gray)
                             }
-                            
-                            Text("\(rating.comment ?? "N/A")")
-                                .font(.body)
-                                .foregroundColor(.gray)
                         }
                         .padding()
+                        .frame(maxWidth: .infinity)
                         .background(Color.white)
                         .cornerRadius(10)
-                       
+                        
                         .padding(.horizontal)
                         .padding(.top)
+                        
                     }
                 }.opacity(sendReview == true ? 0:1)
                     } else {
@@ -83,8 +86,11 @@ struct AnimeRatingDetailsView: View {
                                 .background(.cyan)
                         }
                     }
+                    
                     if sendReview {
+                        
                         formSendRiview()
+                        
                     }
             }
             
@@ -99,13 +105,27 @@ struct AnimeRatingDetailsView: View {
     
     func formSendRiview() -> some View {
         VStack(spacing: 10) {
-                   Text("Insertar una nueva reseña")
-                       .font(.title)
+            HStack{
+                VStack{
+                    Text("Your Rating")
+                        .font(.title)
                     
                     RatingView(rating: $rating)
+                }
+                
+                Spacer()
+                 WebImage(url: URL(string: anime.images?.jpg.image_url ?? "N/A"))
+                     .resizable()
+                     .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+                     .frame(maxWidth: 120, maxHeight: 180)
+                     .shadow(radius: 3)
+                     .scaledToFill()
+            }
 
-                   TextField("Comment", text: $comment)
-                       .textFieldStyle(RoundedBorderTextFieldStyle())
+            TextEditor(text: $comment)
+                .frame(maxHeight: 150) // Establece una altura mínima para mostrar múltiples líneas
+             
+                .cornerRadius(8) // Redondea las esquinas para un diseño más agradable
 
                    Toggle("Contiene Spoilers", isOn: $spoiler)
 
@@ -143,12 +163,6 @@ struct AnimeRatingDetailsView: View {
             
                }.frame(maxWidth: .infinity)
            
-            WebImage(url: URL(string: anime.images?.jpg.image_url ?? "N/A"))
-                .resizable()
-                .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
-                .frame(maxWidth: 200, maxHeight: 280)
-                .shadow(radius: 3)
-                .scaledToFill()
       Spacer()
         }.padding()
                     
@@ -157,45 +171,50 @@ struct AnimeRatingDetailsView: View {
     
     func headerView() -> some View{
         HStack{
-            if !sendReview && ((ratings?.ratings?.isEmpty) != nil) {
-                Text("\(ratings?.total_ratings ?? 0) Reviews")
-                Spacer()
-                Text("\(currentPage) of \(ratings?.total_pages ?? 0)")
-                HStack{
-                    
-                    Button(action: {
-                        currentPage -= 1
-                        loadData()
+            if AccountVm.sharedUserVM.userActual.isEmpty {
+                Text("Please Sign in to leave a review")
+                
+            } else {
+                if !sendReview && ((ratings?.ratings?.isEmpty) != nil) {
+                    Text("\(ratings?.total_ratings ?? 0) Reviews")
+                    Spacer()
+                    Text("\(currentPage) of \(ratings?.total_pages ?? 0)")
+                    HStack{
                         
-                    }){
-                        Image(systemName: "arrow.left.circle.fill")
-                    }.disabled(currentPage == 1)
-                    
-                    Button(action: {
-                        currentPage += 1
-                        loadData()
+                        Button(action: {
+                            currentPage -= 1
+                            loadData()
+                            
+                        }){
+                            Image(systemName: "arrow.left.circle.fill")
+                        }.disabled(currentPage == 1)
                         
-                    }){
-                        Image(systemName: "arrow.right.circle.fill")
-                    }.disabled(currentPage == ratings?.total_pages)
-                    
+                        Button(action: {
+                            currentPage += 1
+                            loadData()
+                            
+                        }){
+                            Image(systemName: "arrow.right.circle.fill")
+                        }.disabled(currentPage == ratings?.total_pages)
+                        
+                    }
+                }
+                // BOTON FOR ANIME TYPE SEARCH
+                Button(action: {
+                    withAnimation {
+                        sendReview = true
+                    }
+                }){
+                    Image(systemName: "plus.message.fill")
+                        .font(.title2)
                 }
             }
-            // BOTON FOR ANIME TYPE SEARCH
-            Button(action: {
-                withAnimation {
-                    sendReview = true
-                }
-            }){
-                Image(systemName: "plus.message.fill")
-                    .font(.title2)
-            }
-            
-        }.font(.title3)
-            .frame(maxWidth: .infinity)
-            .foregroundStyle(.white)
-            .padding()
-            .background(.cyan)
+            }.font(.title3)
+                .frame(maxWidth: .infinity)
+                .foregroundStyle(.white)
+                .padding()
+                .background(.cyan)
+        
     }
     
     func submitReview() {
