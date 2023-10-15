@@ -48,7 +48,7 @@ struct AnimeTopViewByWatchingStatus: View {
                     
                     LazyHStack{
                         Spacer()
-                        ForEach(allAnimes, id: \.mal_id) { anime in
+                        ForEach(allAnimes) { anime in
                             
                             NavigationLink(destination: AnimeDetailsView(anime: anime)) {
                                 

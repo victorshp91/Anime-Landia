@@ -57,13 +57,14 @@ struct AddNewFriendView: View {
             Spacer()
         }.padding(.horizontal)
             .navigationTitle("Searching Users")
+            .background(Color.gray.opacity(0.1))
     }
     
     func search() {
-        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.searchUsers)username=\(searchText)") else {
+        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.searchUsers)username=\(searchText)&user_id=\(AccountVm.sharedUserVM.userActual.first?.id ?? "0")") else {
             return
         }
-        
+        print(url)
         URLSession.shared.dataTask(with: url) { data, _, error in
             if let data = data {
                 do {

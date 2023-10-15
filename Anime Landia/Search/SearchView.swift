@@ -25,6 +25,7 @@ struct SearchView: View {
     @State private var characterData: [CharacterStruct.AnimeCharacter]?
     @State private var animeData: [Anime]?
     @State private var pagination: Pagination?
+    @State private var ratingAverage = [String:Double]() // LOS USO PARA GUARDAR EL RATING PARA LOS ANIMES QUE SE ESTAN PRESENTANDO EN LA BUSQUEDA. TIEN EL ID DEL ANIME COMO KEY Y EL RATING COMO VALUE
     
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
@@ -229,7 +230,9 @@ struct SearchView: View {
             .padding(.horizontal)
             .background(Color.gray.opacity(0.1))
             .navigationBarTitleDisplayMode(.large)
-            .onAppear(perform: {loadHistory()})
+            .onAppear(perform: {loadHistory()
+                print(ratingAverage)
+            })
             
         
     }
@@ -275,7 +278,7 @@ struct SearchView: View {
     func animeListView(animes: [Anime]) -> some View {
         
         LazyVStack(alignment:.leading, spacing: 10){
-            ForEach(animes) { anime in
+            ForEach(animes, id: \.mal_id) { anime in
                 
                     NavigationLink(destination: AnimeDetailsView(anime: anime)) {
                         HStack(alignment: .top){
@@ -285,7 +288,7 @@ struct SearchView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                                 .frame(maxWidth: 110, maxHeight: 150)
                                 .scaledToFill()
-                            
+                                
                             
                             
                             VStack(alignment: .leading){
@@ -307,7 +310,8 @@ struct SearchView: View {
                                         Spacer()
                                         Image(systemName: "star.fill")
                                             .foregroundStyle(.yellow)
-                                        Text(String(format: "%.2f", anime.score ?? 0)).bold()
+                                     
+                                        Text(String(format: "%.1f", ratingAverage["\(anime.mal_id ?? 0)"] ?? 0.0)).bold()
                                     }.padding(.bottom, 5)
                                         .font(.title2)
                                 }.padding(.horizontal,3)
@@ -357,11 +361,12 @@ struct SearchView: View {
             isSearching = true
         }
         // si el type de anime es all entonces el link es sin type
-        guard let url = URL(string: selectedAnimeType == .all ? "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=score&page=\(currentPage)" : "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=score&page=\(currentPage)&type=\(selectedAnimeType.rawValue.lowercased())") else {
+        guard let url = URL(string: selectedAnimeType == .all ? "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=asc&order_by=title&page=\(currentPage)" : "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=asc&order_by=title&page=\(currentPage)&type=\(selectedAnimeType.rawValue.lowercased())") else {
             return
         }
 
         URLSession.shared.dataTask(with: url) { (data, response, error) in
+            ratingAverage = [:]
             if let data = data {
                 do {
                     let decodedData = try JSONDecoder().decode(AnimeData.self, from: data)
@@ -369,7 +374,24 @@ struct SearchView: View {
                     DispatchQueue.main.async {
                         self.animeData = decodedData.data
                         self.pagination = decodedData.pagination
+                        
+                        // AGREGO EL RATING DE CADA ANIME POR EL ID EN EL ARREGLO DECLARADO ARRIBA QUE ES UN DICCIONARIO QUE CONTIENE EL ID DEL ANIME Y EL RATING
+                        
+                        if let animes = animeData{
+                            for anime in animes{
+                                AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.mal_id ?? 0, isAverage: true, page: "1", completion: { rating in
+                                    if let average = rating.average{
+                                        ratingAverage["\(anime.mal_id ?? 0)"] = average
+                                    }
+                                    
+                                    
+                                })
+                            }
+                        }
+                        
                     }
+                   
+                    
                 } catch {
                     print("Error al decodificar los datos: \(error)")
                 }
