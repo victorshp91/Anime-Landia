@@ -11,9 +11,6 @@ struct AboutView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 20) {
-                Text("About AnimeTracker Pro")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
                 
                 Image("logo")
                     
@@ -43,8 +40,15 @@ struct AboutView: View {
             }
             .padding()
         }
-        .background(Color.gray.opacity(0.1))
-        .navigationBarTitle("About", displayMode: .inline)
+        .background(Color("background"))
+        .toolbarBackground(
+            Color("barColor"),
+            for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .navigationTitle("About")
+        .foregroundStyle(.white)
+        
     }
     
     struct FeatureView: View {
@@ -67,8 +71,8 @@ struct AboutView: View {
             }
             
                 .padding()
-                .background(.white) // Replace with your background color
-                .foregroundStyle(.black)
+                .background(Color("barColor")) // Replace with your background color
+                .foregroundStyle(.white)
             .cornerRadius(10)
             
         }

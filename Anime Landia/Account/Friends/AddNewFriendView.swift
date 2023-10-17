@@ -56,8 +56,8 @@ struct AddNewFriendView: View {
             
             Spacer()
         }.padding(.horizontal)
-            .navigationTitle("Searching Users")
-            .background(Color.gray.opacity(0.1))
+           // .navigationTitle("Searching Users")
+            .background(Color("background"))
     }
     
     func search() {

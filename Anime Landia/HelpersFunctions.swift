@@ -56,6 +56,7 @@ class HelpersFunctions {
             ProgressView("LOADING...") // Muestra la animación de carga
                 .font(.callout).bold()
                 .fontWeight(.light)
+                .foregroundStyle(.white)
             Spacer()
         }
     }
@@ -77,7 +78,7 @@ class HelpersFunctions {
             
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            .background(Color.white)
+            .background(Color("barColor"))
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         

@@ -56,8 +56,11 @@ struct SignOutConfirmationView: View {
                     }
                 }
                 Spacer()
-            }
-            .padding()
+            }.padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color("background"))
+            
+            
         }
 }
 

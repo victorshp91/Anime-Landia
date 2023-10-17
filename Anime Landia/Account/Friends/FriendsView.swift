@@ -13,7 +13,9 @@ struct FriendsView: View {
     @State private var filteredUsers: [Usuario] = []
     var friendStatus: AccountVm.friendStatus
     var body: some View {
+        ScrollView(.vertical, showsIndicators: false) {
         VStack(alignment:.leading){
+            
             SearchTextField(searchingText: $searchText, onSearch: {
                 // Filtrar los usuarios en función del texto de búsqueda
                  
@@ -31,13 +33,13 @@ struct FriendsView: View {
                 
                 
             }, by: "user name")
-            ScrollView(.vertical, showsIndicators: false) {
+            
                 ForEach(searchText.isEmpty ? friends:filteredUsers, id: \.id) { friend in
                    FriendListView(friend: friend)
                 }
-            }
+        }.padding(.top)
             Spacer()
-        }.navigationTitle(friendStatus == .accepted ? "Friends":"Friend Requests")
+        }//.navigationTitle(friendStatus == .accepted ? "Friends":"Friend Requests")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if friendStatus == .accepted {
@@ -53,7 +55,13 @@ struct FriendsView: View {
                 getFriends()
             })
             .padding(.horizontal)
-            .background(Color.gray.opacity(0.1))
+            .navigationTitle("Friends")
+            .background(Color("background"))
+            .toolbarBackground(
+                Color("barColor"),
+                for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
     }
     
     func getFriends(){
@@ -90,6 +98,8 @@ struct FriendsView: View {
             VStack(alignment: .leading) {
                 
                 HStack{
+                    Image(systemName: "person.circle.fill")
+                        .font(.title2)
                     Text("@\(friend.usuario ?? "N/A")")
                         .bold()
                         .font(.callout)
@@ -130,9 +140,9 @@ struct FriendsView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity)
-                .background(.white)
+                .background(Color("barColor"))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
-                .foregroundStyle(.black)
+                .foregroundStyle(.white)
                 // Puedes mostrar otros campos de amigo aquí
             }
         

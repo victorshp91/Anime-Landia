@@ -17,8 +17,9 @@ struct TopCharactersView: View {
         VStack(alignment: .leading) {
             if let data = characterData {
                 Text("Top 10 Characters")
-                    .bold()
-                    .padding(.horizontal)
+                    .font(.title2)
+                .padding(.horizontal,8)
+                .bold()
                 ScrollView(.horizontal, showsIndicators: false){
                     
                     LazyHStack{
@@ -56,7 +57,7 @@ struct TopCharactersView: View {
             
         }
         .onAppear(perform: loadData)
-                .navigationTitle("Discover")
+             //   .navigationTitle("Discover")
     }
 
     func loadData() {

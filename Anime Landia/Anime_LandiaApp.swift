@@ -50,6 +50,8 @@ struct Anime_LandiaApp: App {
                     
                 
             }
+            .toolbarColorScheme(.dark, for: .navigationBar)
+
         }
     }
 }

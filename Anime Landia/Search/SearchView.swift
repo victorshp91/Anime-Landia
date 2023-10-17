@@ -31,205 +31,205 @@ struct SearchView: View {
     var body: some View {
         
         VStack(spacing: 0){
-            
-            SearchTextField(searchingText: $searchText, onSearch: {
-                
-                addNewSearch()
-                
-                currentPage = 1
-                withAnimation {
-                    isShowingPagination = true
-                }
-                if selectedOption == .character {
-                    
-                    loadCharacteres()
-                } else {
-                    
-                    loadAnimes()
-                }
-                withAnimation {
-                    showHistory = false
-                }
-                
-            }, onChange: {
-                if searchText.isEmpty {
-                    animeData = []
-                    characterData = []
-                    withAnimation {
-                        isShowingPagination = false
-                        showHistory = true
-                    }
-                }
-            }, by: "name").padding(.bottom)
-            
-            // SI PRESENTA HISTORY SI NO TODO NORMAL
-            if showHistory {
-              
-                VStack(alignment: .leading, spacing: 20){
-                    HStack{
-                        
-                        Text("Search History")
-                        Spacer()
-                        Button(action: {deleteItemHistory()}) {
-                            Image(systemName: "x.circle.fill")
-                                .foregroundStyle(colorScheme == .dark ? .white:.black)
-                                .font(.title2)
-                        }
-                    }
-                    ScrollView(.vertical, showsIndicators: false) {
-                        VStack(spacing: 10){
-                            ForEach(historySearch.reversed(), id: \.self) { item in
-                                Button(action: {
-                                    searchText = item
-                                    withAnimation {
-                                        showHistory = false
-                                        
-                                        isShowingPagination = true
-                                    }
-                                    if selectedOption == .anime {
-                                        loadAnimes()
-                                    } else {
-                                        loadCharacteres()
-                                    }
-                                }) {
-                                    HStack{
-                                        Image(systemName: "clock.arrow.2.circlepath")
-                                        Text(item)
-                                        Spacer()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    Spacer()
-                }
-                          
-                             
-                    
-                
-            } else {
-               
-            if isShowingPagination {
-                if let paginationData = pagination {
-                    HStack{
-                        Text("Results")
-                        Text("\(paginationData.items.total)")
-                            .bold()
-                        
-                        Spacer()
-                        Text("\(currentPage) of \(paginationData.last_visible_page)")
-                        HStack{
-                            
-                            Button(action: {
-                                currentPage -= 1
-                                if selectedOption == .character {
-                                    loadCharacteres()
-                                } else {
-                                    loadAnimes()
-                                }
-                            }){
-                                Image(systemName: "arrow.left.circle.fill")
-                            }.disabled(currentPage == 1)
-                            
-                            Button(action: {
-                                currentPage += 1
-                                if selectedOption == .character {
-                                    loadCharacteres()
-                                } else {
-                                    loadAnimes()
-                                }
-                            }){
-                                Image(systemName: "arrow.right.circle.fill")
-                            }.disabled(!paginationData.has_next_page)
-                            
-                        }
-                        // BOTON FOR ANIME TYPE SEARCH
-                        
-                       
-                            
-                            
-                            // Botón que presenta el menú
-                            Picker("Select type anime", selection: $selectedAnimeType) {
-                                ForEach(HelpersFunctions.filtreAnimeType.allCases) { option in
-                                    Text(option.rawValue.capitalized)
-                                        .tag(option)
-                                }
-                            }
-                            .pickerStyle(MenuPickerStyle()) // Use MenuPickerStyle to create a menu-like segmented control
-                            .onChange(of: selectedAnimeType) {
-                                // vulve a la primera pagina
-                                currentPage = 1
-                                // carga los animes
-                                loadAnimes()
-                                
-                            }.disabled(selectedOption == .anime ? false:true)
-                            
-                            
-                            
-                        
-                        
-                    }.font(.title3)
-                        .padding(.bottom)
-                }
-            }
-            Picker("Select Filter", selection: $selectedOption) {
-                ForEach(HelpersFunctions.searchingType.allCases) { option in
-                    Text(option.rawValue.capitalized)
-                        .tag(option)
-                }
-            } .pickerStyle(SegmentedPickerStyle()) // Estilo de segmento
-                .onChange(of: selectedOption) {
-                    // Aquí puedes realizar la acción que deseas cuando se selecciona una opción
-                    withAnimation {
-                        isSearching = false
-                    }
-                    characterData = []
-                    animeData = []
-                    selectedAnimeType = .all
-                    
-                    if selectedOption == .anime {
-                        loadAnimes()
-                    } else {
-                        loadCharacteres()
-                    }
-                    
-                }
-            
-            // MUESTRO LOS CARACTERES SI ES ESO QUE S EBUSCA
             ScrollView(.vertical, showsIndicators: false){
                 
-                
-                
-                if selectedOption == .character {
+                SearchTextField(searchingText: $searchText, onSearch: {
                     
-                    if let characteres = characterData {
-                        characterListView(characters: characteres)
-                    }else {
-                        if isSearching {
-                            HelpersFunctions().loadingView()
+                    addNewSearch()
+                    
+                    currentPage = 1
+                    withAnimation {
+                        isShowingPagination = true
+                    }
+                    if selectedOption == .character {
+                        
+                        loadCharacteres()
+                    } else {
+                        
+                        loadAnimes()
+                    }
+                    withAnimation {
+                        showHistory = false
+                    }
+                    
+                }, onChange: {
+                    if searchText.isEmpty {
+                        animeData = []
+                        characterData = []
+                        withAnimation {
+                            isShowingPagination = false
+                            showHistory = true
                         }
                     }
+                }, by: "name")
+                    .padding(.top)
+                // SI PRESENTA HISTORY SI NO TODO NORMAL
+                if showHistory {
+                    
+                    VStack(alignment: .leading, spacing: 20){
+                        HStack{
+                            
+                            Text("Search History")
+                            Spacer()
+                            Button(action: {deleteItemHistory()}) {
+                                Image(systemName: "x.circle.fill")
+                                    
+                            }
+                        }.foregroundStyle(.white)
+                            .font(.title2)
+                        ScrollView(.vertical, showsIndicators: false) {
+                            VStack(spacing: 10){
+                                ForEach(historySearch.reversed(), id: \.self) { item in
+                                    Button(action: {
+                                        searchText = item
+                                        withAnimation {
+                                            showHistory = false
+                                            
+                                            isShowingPagination = true
+                                        }
+                                        if selectedOption == .anime {
+                                            loadAnimes()
+                                        } else {
+                                            loadCharacteres()
+                                        }
+                                    }) {
+                                        HStack{
+                                            Image(systemName: "clock.arrow.2.circlepath")
+                                            Text(item)
+                                            Spacer()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        Spacer()
+                    }
+   
                 } else {
                     
-                    if let animes = animeData {
-                        
-                        animeListView(animes: animes)
-                        
-                    }else {
-                        if isSearching {
-                            HelpersFunctions().loadingView()
+                    if isShowingPagination {
+                        if let paginationData = pagination {
+                            HStack{
+                                Text("Results")
+                                Text("\(paginationData.items.total)")
+                                    .bold()
+                                
+                                Spacer()
+                                Text("\(currentPage) of \(paginationData.last_visible_page)")
+                                HStack{
+                                    
+                                    Button(action: {
+                                        currentPage -= 1
+                                        if selectedOption == .character {
+                                            loadCharacteres()
+                                        } else {
+                                            loadAnimes()
+                                        }
+                                    }){
+                                        Image(systemName: "arrow.left.circle.fill")
+                                    }.disabled(currentPage == 1)
+                                    
+                                    Button(action: {
+                                        currentPage += 1
+                                        if selectedOption == .character {
+                                            loadCharacteres()
+                                        } else {
+                                            loadAnimes()
+                                        }
+                                    }){
+                                        Image(systemName: "arrow.right.circle.fill")
+                                    }.disabled(!paginationData.has_next_page)
+                                    
+                                }
+                                // BOTON FOR ANIME TYPE SEARCH
+                                
+                                
+                                
+                                
+                                // Botón que presenta el menú
+                                Picker("Select type anime", selection: $selectedAnimeType) {
+                                    ForEach(HelpersFunctions.filtreAnimeType.allCases) { option in
+                                        Text(option.rawValue.capitalized)
+                                            .tag(option)
+                                    }
+                                }
+                                .pickerStyle(MenuPickerStyle()) // Use MenuPickerStyle to create a menu-like segmented control
+                                .onChange(of: selectedAnimeType) {
+                                    // vulve a la primera pagina
+                                    currentPage = 1
+                                    // carga los animes
+                                    loadAnimes()
+                                    
+                                }.disabled(selectedOption == .anime ? false:true)
+                                
+                                
+                                
+                                
+                                
+                            }.font(.title3)
+                           
+                                .foregroundStyle(.white)
                         }
                     }
+                    Picker("Select Filter", selection: $selectedOption) {
+                        ForEach(HelpersFunctions.searchingType.allCases) { option in
+                            Text(option.rawValue.capitalized)
+                                .tag(option)
+                        }
+                    } .pickerStyle(SegmentedPickerStyle()) // Estilo de segmento
+                        .onChange(of: selectedOption) {
+                            // Aquí puedes realizar la acción que deseas cuando se selecciona una opción
+                            withAnimation {
+                                isSearching = false
+                            }
+                            characterData = []
+                            animeData = []
+                            selectedAnimeType = .all
+                            currentPage = 1
+                            if selectedOption == .anime {
+                                loadAnimes()
+                            } else {
+                                loadCharacteres()
+                            }
+                            
+                        }
                     
-                }
-            }.font(.subheadline)
-            Spacer()
+                    // MUESTRO LOS CARACTERES SI ES ESO QUE S EBUSCA
+                    
+                    
+                    
+                    
+                    if selectedOption == .character {
+                        
+                        if let characteres = characterData {
+                            characterListView(characters: characteres)
+                        }else {
+                            if isSearching {
+                                HelpersFunctions().loadingView()
+                            }
+                        }
+                    } else {
+                        
+                        if let animes = animeData {
+                            
+                            animeListView(animes: animes)
+                            
+                        }else {
+                            if isSearching {
+                                HelpersFunctions().loadingView()
+                            }
+                        }
+                        
+                    }
+                }}.font(.subheadline)
             
+      
+            
+        
         }
-        }.navigationTitle("Search")
             .padding(.horizontal)
-            .background(Color.gray.opacity(0.1))
-            .navigationBarTitleDisplayMode(.large)
+            .background(Color("background"))
+           
             .onAppear(perform: {loadHistory()
                 print(ratingAverage)
             })
@@ -262,15 +262,15 @@ struct SearchView: View {
                         }
                             
                        Spacer()
-                    }.foregroundStyle(.black)
-                        .background(.white)
+                    }.foregroundStyle(.white)
+                        .background(Color("barColor"))
                         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                        
                        
                 }
             }
-        }.padding(.horizontal)
-            .padding(.top)
+        }
+           
     }
     
     // VISTA DE LA LISTA DE LOS ANIMES
@@ -282,43 +282,42 @@ struct SearchView: View {
                 
                     NavigationLink(destination: AnimeDetailsView(anime: anime)) {
                         HStack(alignment: .top){
-                            
-                            WebImage(url: URL(string: anime.images?.jpg.image_url ?? "NO DATA"))
-                                .resizable()
-                                .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
-                                .frame(maxWidth: 110, maxHeight: 150)
-                                .scaledToFill()
+                            ZStack(alignment: .topLeading) {
+                                WebImage(url: URL(string: anime.images?.jpg.image_url ?? "NO DATA"))
+                                    .resizable()
+                                    .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+                                    .frame(maxWidth: 110, maxHeight: 150)
+                                    .scaledToFill()
+                                Text("\(anime.type ?? "N/A")")
+                                    .padding(5)
+                                    .background(.red)
+                                    .foregroundStyle(.white)
+                            }
                                 
                             
                             
                             VStack(alignment: .leading){
                                 
-                                HStack{
-                                    Text("\(anime.type ?? "N/A")")
-                                        .padding(5)
-                                        .background(.red)
-                                        .foregroundStyle(.white)
-                                    Text("\(String(anime.episodes ?? 0)) Ep.")
-                                    
-                                    
-                                }
+                        
                                 VStack(alignment:.leading){
                                     Text("\(anime.title ?? "N/A")").bold()
                                         .multilineTextAlignment(.leading)
                                     Spacer()
                                     HStack{
+                                        Text("\(String(anime.episodes ?? 0)) Episodes")
+                                            
                                         Spacer()
                                         Image(systemName: "star.fill")
-                                            .foregroundStyle(.yellow)
+                                            .foregroundStyle(.cyan)
                                      
-                                        Text(String(format: "%.1f", ratingAverage["\(anime.mal_id ?? 0)"] ?? 0.0)).bold()
+                                        Text(String(format: "%.1f", ratingAverage["\(anime.mal_id ?? 0)"] ?? 0.0))
                                     }.padding(.bottom, 5)
-                                        .font(.title2)
+                                        .font(.title2).bold()
                                 }.padding(.horizontal,3)
                             }
                             Spacer()
-                        }.foregroundStyle(.black)
-                            .background(.white)
+                        }.foregroundStyle(.white)
+                            .background(Color("barColor"))
                             .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                         
                         
@@ -328,8 +327,7 @@ struct SearchView: View {
                  
                 
             }
-        }.padding(.horizontal)
-            .padding(.top)
+        }
         
     }
     
@@ -361,7 +359,7 @@ struct SearchView: View {
             isSearching = true
         }
         // si el type de anime es all entonces el link es sin type
-        guard let url = URL(string: selectedAnimeType == .all ? "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=asc&order_by=title&page=\(currentPage)" : "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=asc&order_by=title&page=\(currentPage)&type=\(selectedAnimeType.rawValue.lowercased())") else {
+        guard let url = URL(string: selectedAnimeType == .all ? "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)&sfw=true" : "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)&type=\(selectedAnimeType.rawValue.lowercased())&sfw=true") else {
             return
         }
 

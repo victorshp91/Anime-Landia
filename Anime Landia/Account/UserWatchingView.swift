@@ -24,8 +24,10 @@ struct UserWatchingView: View {
                     Text("By @\(friend.first?.usuario ?? "N/A")")
                         .font(.title)
                         .bold()
+                        .foregroundStyle(.white)
                     Spacer()
                 }.padding(.horizontal)
+                    .padding(.top)
             }
             if isLoading {
                 HelpersFunctions().loadingView()
@@ -60,8 +62,8 @@ struct UserWatchingView: View {
             
             
         }
-        .navigationTitle("\(isFor.rawValue.capitalized)")
-        .background(Color.gray.opacity(0.1))
+        //.navigationTitle("\(isFor.rawValue.capitalized)")
+        .background(Color("background"))
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -72,6 +74,12 @@ struct UserWatchingView: View {
                 
             }
         }
+        .navigationTitle(isFor.rawValue.capitalized)
+        .toolbarBackground(
+            Color("barColor"),
+            for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
 
      
             

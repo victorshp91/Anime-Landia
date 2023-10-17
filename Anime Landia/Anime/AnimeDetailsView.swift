@@ -78,7 +78,7 @@ struct AnimeDetailsView: View {
                     // RATING VIEW
                     ratingView(anime: anime)
                     // COMIENZA EL TITLO DE EL ANIME
-                    VStack(spacing: 5){
+                    VStack(spacing: 10){
                         
                         
                         // Status Numbers
@@ -112,9 +112,12 @@ struct AnimeDetailsView: View {
                                 isShowingFullSypnosis.toggle()
                             }
                         }) {
-                            Image(systemName: isShowingFullSypnosis ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
+                           
+                               
+                                Image(systemName: isShowingFullSypnosis ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
+                            .foregroundStyle(.white)
                                 .font(.system(size: 22))
-                                .foregroundStyle(colorScheme == .dark ? .white:.black)
+                                
                         }
                         
                         
@@ -148,14 +151,15 @@ struct AnimeDetailsView: View {
                         sectionTitle(title: "Streaming")
                         StreamingDetailsView(animeId: anime.mal_id ?? 0)
                         
-                    }.padding(.horizontal)
+                    }.foregroundStyle(.white)
                     Spacer()
                 }
                 
             }.padding(.horizontal,5)
+                .padding(.top)
            
         }
-            .background(Color.gray.opacity(0.1))
+            .background(Color("background"))
             .navigationTitle("Details")
             .onAppear(perform: {
                 print(anime.mal_id ?? "")
@@ -181,8 +185,11 @@ struct AnimeDetailsView: View {
                         
                     
                 }
-            }
-        
+            }.toolbarBackground(
+                Color("barColor"),
+                for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         
     }
     
@@ -190,11 +197,11 @@ struct AnimeDetailsView: View {
         HStack{
             Spacer()
             Text(title).font(.title3).bold()
-                .foregroundStyle(.black)
+                .foregroundStyle(.white)
             Spacer()
         }.padding(5)
-        .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
+            .background(Color("barColor"))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
     }
     
    
@@ -254,6 +261,9 @@ struct WatchingStatusNumbers:  View {
                     getWathingStatusNumbers()
                 
             })
+            .font(.title2)
+            .foregroundStyle(.white)
+           
         
     }
     

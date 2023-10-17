@@ -59,9 +59,9 @@ struct CharacterAnimeListView: View {
             
             Spacer()
             
-        }.foregroundStyle(.black)
+        }.foregroundStyle(.white)
         .onAppear(perform: loadData)
-                .navigationTitle("Discover")
+               // .navigationTitle("Discover")
     }
 
     func loadData() {

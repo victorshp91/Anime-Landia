@@ -25,6 +25,9 @@ struct WelcomeScreeView: View {
                 showLogo = true
             }
         })
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color("barColor"))
+        
         
     }
 }

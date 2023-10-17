@@ -25,7 +25,7 @@ struct SearchTextField: View {
                             }
             .onChange(of: searchingText) {
                 onChange()
-            }
+            }.foregroundStyle(.white)
         
             .overlay(
                 HStack {

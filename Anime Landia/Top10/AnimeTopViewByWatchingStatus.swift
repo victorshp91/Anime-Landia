@@ -19,29 +19,30 @@ struct AnimeTopViewByWatchingStatus: View {
                 VStack(alignment: .leading){
                     HStack{
                         Text("\(watchingStatus.rawValue.capitalized)")
-                            .bold()
+                            
                         Image(systemName: AnimeWatchingButton(animeId: 0, selectedOption: watchingStatus, changeOptionImageSize: 20).icoImage)
                             .font(.title2)
                             .foregroundStyle(AnimeWatchingButton(animeId: 0, selectedOption: watchingStatus, changeOptionImageSize: 20).iconColor)
-                    }
+                    }.font(.title2)
+                        
+                        .bold()
                     switch watchingStatus {
                     case .watching:
                         Text("Top 10 animes that the users are currently watching.")
                             .font(.caption)
-                            .foregroundColor(.secondary)
                     case .hold:
                         Text("Top 10 animes the users plan to watch in the near future.")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                 
                     case .completed:
                         Text("Top 10 animes the users have completed.")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                     
                     case .none:
                         Text("")
                     }
                     
-                }.padding(.horizontal)
+                }.padding(.horizontal,8)
                 
                 
                 ScrollView(.horizontal, showsIndicators: false){

@@ -13,7 +13,7 @@ struct AnimeRatingDetailsView: View {
     @State var ratings: RatingResponse?
     @State var currentPage = 1
     @State var sendReview = false
-    @State private var rating = 0
+    @State private var rating = 1
     @State private var comment = ""
     @State private var spoiler = false // Inicialmente, no es spoiler
     
@@ -22,7 +22,10 @@ struct AnimeRatingDetailsView: View {
             
             if !sendReview {
                 headerView()
+                
+              
             }
+            
                 // FORMULARIO PARA ENVIAR REVIEW
                 ZStack(alignment:.center) {
                 
@@ -30,6 +33,27 @@ struct AnimeRatingDetailsView: View {
                         
                 ScrollView(.vertical, showsIndicators: false) {
                     
+                        
+                        Button(action: {
+                            withAnimation {
+                                sendReview = true
+                            }
+                        }){HStack{
+                            Text("Leave your review")
+                            Image(systemName: "text.bubble.fill")
+                                .font(.largeTitle).bold()
+                                .foregroundStyle(.cyan)
+                        }.padding()
+                                .foregroundStyle(.white)
+                                
+                                .frame(maxWidth: .infinity)
+                                .background(Color("barColor"))    // Color de fondo en azul
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .padding()
+                        }
+                    
+                        
+                         
                     ForEach(rating, id: \.id) { rating in
                         VStack(alignment: .leading, spacing: 10) {
                             if rating.spoiler ?? false {
@@ -39,11 +63,13 @@ struct AnimeRatingDetailsView: View {
                                     Button(action:{
                                         
                                     } ) {
-                                        Text("Show Review")
+                                        Text("Show Review").foregroundStyle(.blue)
                                     }
                                 }
                             } else {
                                 HStack{
+                                    Image(systemName: "person.circle.fill")
+                                        .font(.title2)
                                     Text("@\(rating.usuario ?? "N/A")")
                                         .font(.headline)
                                     Spacer()
@@ -67,9 +93,9 @@ struct AnimeRatingDetailsView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.white)
+                        .background(Color("barColor"))
                         .cornerRadius(10)
-                        
+                        .foregroundStyle(.white)
                         .padding(.horizontal)
                         .padding(.top)
                         
@@ -95,7 +121,7 @@ struct AnimeRatingDetailsView: View {
             }
             
             Spacer()
-        } .background(Color.gray.opacity(0.1))
+        } .background(Color("background"))
         
 
         .onAppear {
@@ -104,12 +130,13 @@ struct AnimeRatingDetailsView: View {
     }
     
     func formSendRiview() -> some View {
-        VStack(spacing: 10) {
+        VStack(alignment: .leading, spacing: 10) {
             HStack{
+                Spacer()
                 VStack{
                     Text("Your Rating")
                         .font(.title)
-                    
+                        .foregroundStyle(.white)
                     RatingView(rating: $rating)
                 }
                 
@@ -120,14 +147,31 @@ struct AnimeRatingDetailsView: View {
                      .frame(maxWidth: 120, maxHeight: 180)
                      .shadow(radius: 3)
                      .scaledToFill()
-            }
-
+            }.font(.title2)
+                .padding(10)
+                    
+                .background(Color("barColor"))    // Color de fondo en azul
+                
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            Text("Write your review (optional)")
             TextEditor(text: $comment)
+                .scrollContentBackground(.hidden)
+                .foregroundStyle(.white)
+                .background(Color("barColor"))    // Color de fondo en azul
                 .frame(maxHeight: 150) // Establece una altura mínima para mostrar múltiples líneas
+                
              
                 .cornerRadius(8) // Redondea las esquinas para un diseño más agradable
 
-                   Toggle("Contiene Spoilers", isOn: $spoiler)
+                   Toggle("Spoilers!!!", isOn: $spoiler)
+                .tint(Color.cyan)
+                .foregroundStyle(.white)
+                .font(.title2)
+                    .padding(10)
+                        
+                    .background(Color("barColor"))    // Color de fondo en azul
+                    
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
 
             HStack{
                 Button(action: {
@@ -162,9 +206,16 @@ struct AnimeRatingDetailsView: View {
                     
             
                }.frame(maxWidth: .infinity)
+                .font(.title2)
+                    .padding(10)
+                        
+                    .background(Color("barColor"))    // Color de fondo en azul
+                    
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
            
       Spacer()
         }.padding()
+            .foregroundStyle(.white)
                     
         
     }
@@ -199,21 +250,14 @@ struct AnimeRatingDetailsView: View {
                         
                     }
                 }
-                // BOTON FOR ANIME TYPE SEARCH
-                Button(action: {
-                    withAnimation {
-                        sendReview = true
-                    }
-                }){
-                    Image(systemName: "plus.message.fill")
-                        .font(.title2)
-                }
+                
+                
             }
             }.font(.title3)
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(.white)
                 .padding()
-                .background(.cyan)
+                .background(Color("barColor"))
         
     }
     

@@ -16,13 +16,13 @@ struct HomeView: View {
                 RandomCharacterView()
              
                 Spacer()
-            }.padding(.horizontal)
+            }.padding()
+                
               
             
         }.frame(maxWidth: .infinity)
-
-           .navigationTitle("AnimeTracker Pro")
-           .background(Color.gray.opacity(0.1))
+            .navigationTitle("AnimeTracker Pro")
+           .background(Color("background"))
            .onAppear(perform: {
                print(AccountVm.sharedUserVM.userActual)
            })

@@ -24,7 +24,7 @@ struct AccountView: View {
                     Text("Welcome")
                     Text("\(userData.userActual.first?.usuario ?? "")")
                         .bold()
-                }
+                }.font(.title)
                 
                 Button(action: {
                     if AccountVm.sharedUserVM.userActual.isEmpty {
@@ -110,13 +110,13 @@ struct AccountView: View {
                                     
                                     Text("Thank you for using our app.")
                 }.font(.footnote)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.white)
                 Spacer()
-            }
+            }.padding(.top)
         }.padding(.horizontal)
-            .navigationTitle("MY ACCOUNT")
+            .foregroundStyle(.white)
           
-            .background(Color.gray.opacity(0.1))
+            .background(Color("background"))
       
     }
 }

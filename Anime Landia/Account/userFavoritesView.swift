@@ -72,8 +72,8 @@ struct userFavoritesView: View {
                 obtenerFavoritos()
             
         }
-        .navigationTitle(isFor == .anime ? "Favorites Anime":"Favorites Characters")
-        .background(Color.gray.opacity(0.1))
+        //.navigationTitle(isFor == .anime ? "Favorites Anime":"Favorites Characters")
+        .background(Color("background"))
         .toolbar(.hidden, for: .tabBar)
     }
     

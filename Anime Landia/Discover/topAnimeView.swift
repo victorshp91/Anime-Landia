@@ -25,8 +25,10 @@ struct topAnimeView: View {
         VStack(alignment: .leading) {
             if let data = animeData{
                 Text("Top 10 \(showing.rawValue)")
+                    .font(.title2)
+                    .padding(.horizontal,8)
                     .bold()
-                    .padding(.horizontal)
+                
                 
                 
                 ScrollView(.horizontal, showsIndicators: false){
@@ -38,7 +40,7 @@ struct topAnimeView: View {
                             NavigationLink(destination: AnimeDetailsView(anime: anime)) {
                                 
                                 VStack{
-                                    WebImage(url: URL(string: anime.images?.jpg.large_image_url ?? "NO DATA"))
+                                    WebImage(url: URL(string: anime.images?.jpg.image_url ?? "NO DATA"))
                                         .resizable()
                                         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                                         .frame(minWidth: 150, minHeight: 200)
@@ -73,7 +75,7 @@ struct topAnimeView: View {
             
         }
         .onAppear(perform: loadData)
-        .navigationTitle("Discover")
+       // .navigationTitle("Discover")
     }
     
     func loadData() {

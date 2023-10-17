@@ -25,10 +25,10 @@ struct DiscoverView: View {
                 
                     .navigationTitle("Discover")
                 Spacer()
-            }
+            }.padding(.top)
         }
-            .background(Color.gray.opacity(0.1))
-            .foregroundStyle(colorScheme == .dark ? .white:.black)
+            .background(Color("background"))
+            .foregroundStyle(.white)
     }
 }
 

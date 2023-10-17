@@ -166,7 +166,7 @@ struct SignUpView: View {
                 .padding()
                 .navigationBarTitle("", displayMode: .inline) // Ocultar el título de navegación
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.gray.opacity(0.1))
+                .background(Color("background"))
                 
             
         }

@@ -25,7 +25,7 @@ struct CharacterDetailsView: View {
                                .scaledToFill()
                                .frame(width: 250, height: 250)
                                .clipShape(Circle())
-                               .overlay(Circle().stroke(Color.cyan, lineWidth: 3)) // Optional: Add a border
+                               .overlay(Circle().stroke(Color("barColor"), lineWidth: 3)) // Optional: Add a border
                                .shadow(radius: 5)
                        }
                        
@@ -33,17 +33,18 @@ struct CharacterDetailsView: View {
                            Text(character.name ?? "N/A")
                                .font(.largeTitle)
                                .bold()
+                               .foregroundStyle(.white)
                            
                            // DESCRIPTION
                            Text(isShowingFullBio ? character.about ?? "N/A" : HelpersFunctions().truncateText(text: character.about ?? "N/A"))
                                .padding()
                                .font(.body)
-                               .foregroundColor(.black)
+                               .foregroundColor(.white)
                                .multilineTextAlignment(.leading)
                                .lineSpacing(5)
                                .fixedSize(horizontal: false, vertical: true)
                                .frame(maxWidth: .infinity)
-                               .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                               .background(RoundedRectangle(cornerRadius: 10).fill(Color("barColor")))
                                
                                
                            
@@ -55,21 +56,21 @@ struct CharacterDetailsView: View {
                            }) {
                                Image(systemName: isShowingFullBio ? "arrow.up.circle.fill" : "arrow.down.circle.fill")
                                    .font(.system(size: 22))
-                                   .foregroundStyle(colorScheme == .dark ? .white:.black)
+                                   .foregroundStyle(.white)
                            }
                            
                            CharacterAnimeListView(characterId: character.mal_id ?? 0)
                                .padding(.vertical)
                                .foregroundColor(.secondary)
                                
-                               .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                               .background(RoundedRectangle(cornerRadius: 10).fill(Color("barColor")))
                        }
                    }
                    .padding()
                    .frame(maxWidth: .infinity)
                }
               
-                .background(Color.gray.opacity(0.1))
+                .background(Color("background"))
                 .toolbar(.hidden, for: .tabBar)
             .navigationTitle("Details")
             .onAppear(perform: {
@@ -95,7 +96,11 @@ struct CharacterDetailsView: View {
                     
                     
                 }
-            }
+            }.toolbarBackground(
+                Color("barColor"),
+                for: .navigationBar)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         
     }
 }

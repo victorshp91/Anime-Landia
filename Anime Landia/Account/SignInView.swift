@@ -107,7 +107,7 @@ struct SignInView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.gray.opacity(0.1))
+            .background(Color("background"))
             .onDisappear(perform: {
                 email = ""
                 password = ""

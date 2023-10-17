@@ -24,12 +24,12 @@ struct TopTenView: View {
                 AnimeTopViewByWatchingStatus(watchingStatus: .completed)
                     .frame(height: 300)
                 
-                    .navigationTitle("Top 10")
+                    
                 Spacer()
-            }
+            }.padding(.top)
         }
-            .background(Color.gray.opacity(0.1))
-            .foregroundStyle(colorScheme == .dark ? .white:.black)
+            .background(Color("background"))
+            .foregroundStyle(.white)
     }
 }
 

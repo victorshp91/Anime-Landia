@@ -27,6 +27,7 @@ struct FavoriteButtonView: View {
                 .font(.title2)
                 .symbolEffect(.bounce, options: .speed(1).repeat(3), value: !favoritos.isEmpty)
                 .symbolEffect(.bounce.down, value: isFavorite)
+                .foregroundStyle(.cyan)
                 
         }
         .onAppear(perform: {

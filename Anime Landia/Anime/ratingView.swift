@@ -20,9 +20,12 @@ struct ratingView: View {
                     
                         Image(systemName: index < Int(animeRating) ? "star.fill" : "star")
                             .foregroundColor(Color.cyan)
+                            
                     
                 }
                 Text(String(format: "%.1f", animeRating)).bold()
+                    .foregroundStyle(.white
+                    )
                 Spacer()
                 if !isForUsersReview {
                     HStack {
@@ -39,10 +42,10 @@ struct ratingView: View {
                     }
                 }
                 
-            }
+            }.font(.title2)
             .padding(isForUsersReview ? 0:10)
                 
-            .background(Color.white)    // Color de fondo en azul
+            .background(Color("barColor"))    // Color de fondo en azul
             
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .sheet(isPresented: $showRatings) {
