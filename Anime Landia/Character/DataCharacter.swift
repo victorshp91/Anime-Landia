@@ -5,8 +5,8 @@ struct CharacterStruct {
     
     struct CharacterData: Codable {
         
-        let pagination: Pagination
-        let data: [AnimeCharacter]
+        let pagination: Pagination?
+        let data: [AnimeCharacter]?
     }
     
     struct OnlyCharacterData: Codable {

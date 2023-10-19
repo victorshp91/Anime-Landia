@@ -41,7 +41,7 @@ struct TabBarMenu: View {
             
                 NavigationStack {
                     TopTenView()
-                        .navigationTitle("Top 10")
+                        .navigationTitle("Top")
                         .toolbarBackground(
                             Color("barColor"),
                             for: .navigationBar)
@@ -50,7 +50,7 @@ struct TabBarMenu: View {
                 }
                     
                  .tabItem {
-                    Label("Top 10", systemImage: "10.circle.fill")
+                    Label("Top", systemImage: "trophy.fill")
                     
                 }
                 

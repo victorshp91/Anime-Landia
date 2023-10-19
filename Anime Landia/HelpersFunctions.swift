@@ -50,16 +50,7 @@ class HelpersFunctions {
         return truncatedText + (words.count > maxWords ? "" : "")
     }
     
-    func loadingView()-> some View{
-        HStack{
-            Spacer()
-            ProgressView("LOADING...") // Muestra la animación de carga
-                .font(.callout).bold()
-                .fontWeight(.light)
-                .foregroundStyle(.white)
-            Spacer()
-        }
-    }
+  
     
     struct NoDataView: View {
         var body: some View {

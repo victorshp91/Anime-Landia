@@ -88,18 +88,13 @@ struct FriendsView: View {
                    }.resume()
     }
     
-    func acceptFriend(){
-        
-    }
     
     func FriendListView(friend: Usuario) -> some View {
-        
-        
+
             VStack(alignment: .leading) {
                 
                 HStack{
-                    Image(systemName: "person.circle.fill")
-                        .font(.title2)
+                    UserProfilePictureView(userIdToFetch: friend.id ?? "N/A", width: 50, height: 50)
                     Text("@\(friend.usuario ?? "N/A")")
                         .bold()
                         .font(.callout)

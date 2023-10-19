@@ -66,7 +66,7 @@ struct topAnimeView: View {
                 // PARA QUE SOLO LO PRESENTE ARRIBA EL LOADING
                 if showing == showingTop.airing{
                     
-                    HelpersFunctions().loadingView()
+                    CustomLoadingView().padding() // Muestra el indicador de carga personalizado
                 }
                 
             }

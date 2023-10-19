@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 struct userFavoritesView: View {
     
     @State private var allAnimes: [Anime] = []
+    @State private var ratingAverage = [String:Double]()
     @State private var allCharacters: [CharacterStruct.AnimeCharacter] = []
     @State private var isLoading = false
     @State private var showNoData = false
@@ -20,7 +21,7 @@ struct userFavoritesView: View {
         ScrollView(.vertical, showsIndicators: false) {
             
             if isLoading {
-                HelpersFunctions().loadingView()
+                CustomLoadingView().padding() // Muestra el indicador de carga personalizado
             }
             if showNoData {
                 HelpersFunctions.NoDataView()
@@ -30,37 +31,15 @@ struct userFavoritesView: View {
             if isFor == .anime {
                 if  !allAnimes.isEmpty
                 {
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-                        ForEach(allAnimes.reversed(), id: \.id) { item in
-                            NavigationLink(destination: AnimeDetailsView(anime: item)) {
-                                WebImage(url: URL(string: item.images?.jpg.large_image_url  ?? ""))
-                                    .resizable()
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .frame(width: 150, height: 230)
-                                    .scaledToFill()
-                                    .shadow(radius: 5)
-                            }
-                        }
-                    }
-                    .padding()
+                    SearchView().animeListView(animes: allAnimes, ratingAverage: ratingAverage).padding()
                 }
             } else {
                 
                 if !allCharacters.isEmpty
                 {
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-                        ForEach(allCharacters.reversed(), id: \.id) { item in
-                            NavigationLink(destination: CharacterDetailsView(character: item)) {
-                                WebImage(url: URL(string: item.images?.jpg.image_url ?? ""))
-                                    .resizable()
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .frame(width: 150, height: 230)
-                                    .scaledToFill()
-                                    .shadow(radius: 5)
-                            }
-                        }
-                    }
-                    .padding()
+                    
+                    SearchView().characterListView(characters: allCharacters).padding()
+                  
                 }
 
                 
@@ -75,6 +54,13 @@ struct userFavoritesView: View {
         //.navigationTitle(isFor == .anime ? "Favorites Anime":"Favorites Characters")
         .background(Color("background"))
         .toolbar(.hidden, for: .tabBar)
+        .navigationTitle("Favorites")
+        .toolbarBackground(
+            Color("barColor"),
+            for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+
     }
     
     // Function to fetch the JSON data from the URL
@@ -93,6 +79,7 @@ struct userFavoritesView: View {
                               
                              
                               allAnimes.append(anime ?? .init())
+                              
                               
                           }
                       } else {
@@ -116,6 +103,7 @@ struct userFavoritesView: View {
     func obtenerFavoritos() {
         allAnimes = []
         allCharacters = []
+        ratingAverage = [:]
         
         withAnimation {
             isLoading = true
@@ -136,6 +124,16 @@ struct userFavoritesView: View {
                                             fetch(Id: idAnime)
                                             // pomemos de el estado del watching obtenido de la base de datos
                                         }
+                                    }
+                                    
+                                    for anime in decodedData{
+                                        AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.id_anime ?? 0, isAverage: true, page: "1", completion: { rating in
+                                            if let average = rating.average{
+                                                ratingAverage["\(anime.id_anime ?? 0)"] = average
+                                            }
+                                            
+                                            
+                                        })
                                     }
                                 } else {
                                     

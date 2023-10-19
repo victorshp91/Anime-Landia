@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AnimeData: Codable {
-    let pagination: Pagination?
+    let pagination: Pagination
     let data: [Anime]
 }
 
@@ -30,6 +30,7 @@ struct ItemCount: Codable {
 }
 
 struct Anime: Codable, Identifiable {
+    
     let mal_id: Int?
     let url: String?
     let images: Images?
@@ -213,6 +214,7 @@ struct RatingResponse: Decodable {
     let average: Double?
 }
 // PARA LOS DATOS DE LOS RATINGS
+
 struct Rating: Identifiable, Codable {
     var id: String?
     var user_id: String?
@@ -225,12 +227,24 @@ struct Rating: Identifiable, Codable {
     var spoiler: Bool?
     
 }
-
+// PARA SOLO LOS AVREAGE DE RATING
 struct RatingAverageResponse: Decodable {
     let average: Double
 }
 
 
+struct ButtonsGenre: Codable {
+    let mal_id: Int
+    let name: String?
+    let url: String?
+    var count: Int?
+    
+}
+
+struct GenreData: Codable {
+    
+    let data: [ButtonsGenre]
+}
 
 
 

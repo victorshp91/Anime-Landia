@@ -15,13 +15,13 @@ struct TopTenView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             
-            LazyVStack(alignment: .leading){
+            VStack(alignment: .leading){
             
-                AnimeTopViewByWatchingStatus(watchingStatus: .watching)
+                AnimeTopWatchingView()
                     .frame(height: 300)
-                AnimeTopViewByWatchingStatus(watchingStatus: .hold)
+                AnimeTopOnHoldView()
                     .frame(height: 300)
-                AnimeTopViewByWatchingStatus(watchingStatus: .completed)
+                AnimeTopCompletedView()
                     .frame(height: 300)
                 
                     

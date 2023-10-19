@@ -15,7 +15,23 @@ struct DiscoverView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(alignment: .leading){
+            // BOTONES CATEGORIAS
+            
+            NavigationLink(destination: AnimeCategoriesButtonsView()) {
+                HStack{
+                    
+                    Image(systemName: "square.grid.2x2.fill")
+                    Text("Discover all Genres")
+                }.frame(maxWidth: .infinity)
+                    .padding(10)
+                        .background(Color("barColor"))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .shadow(radius: 3)
+                        .padding([.top, .horizontal])
+            }
+                        
+                    
+            VStack(alignment: .leading){
                 topAnimeView(showing: .airing)
                     .frame(height: 300)
                 topAnimeView(showing: .upcoming)

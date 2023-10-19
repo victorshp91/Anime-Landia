@@ -1,55 +1,44 @@
 //
-//  AnimeTopView.swift
-//  Anime Landia
+//  AnimeTopOnHoldView.swift
+//  AnimeTracker Pro
 //
-//  Created by Victor Saint Hilaire on 10/9/23.
+//  Created by Victor Saint Hilaire on 10/17/23.
 //
 
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct AnimeTopViewByWatchingStatus: View {
-    @State private var animeWatchingStatus: [AnimeWatchingStatusTotals]?
-    @State private var allAnimes: [Anime] = []
-    var watchingStatus: HelpersFunctions.animeWatchingOptions
+struct AnimeTopOnHoldView: View {
     
+    @State private var allOnHoldTopAnime: [Anime] = []
+  
     var body: some View {
         VStack(alignment: .leading){
-            if !allAnimes.isEmpty {
+            if !allOnHoldTopAnime.isEmpty {
                 VStack(alignment: .leading){
                     HStack{
-                        Text("\(watchingStatus.rawValue.capitalized)")
+                        Text("On Hold")
                             
-                        Image(systemName: AnimeWatchingButton(animeId: 0, selectedOption: watchingStatus, changeOptionImageSize: 20).icoImage)
+                        Image(systemName: AnimeWatchingButton(animeId: 0, selectedOption: .hold, changeOptionImageSize: 20).icoImage)
                             .font(.title2)
-                            .foregroundStyle(AnimeWatchingButton(animeId: 0, selectedOption: watchingStatus, changeOptionImageSize: 20).iconColor)
+                            .foregroundStyle(AnimeWatchingButton(animeId: 0, selectedOption: .hold, changeOptionImageSize: 20).iconColor)
                     }.font(.title2)
                         
                         .bold()
-                    switch watchingStatus {
-                    case .watching:
-                        Text("Top 10 animes that the users are currently watching.")
+                   
+                    
+                        Text("Top animes that the users plan to watch in the near future")
                             .font(.caption)
-                    case .hold:
-                        Text("Top 10 animes the users plan to watch in the near future.")
-                            .font(.caption)
-                 
-                    case .completed:
-                        Text("Top 10 animes the users have completed.")
-                            .font(.caption)
-                     
-                    case .none:
-                        Text("")
-                    }
+                   
                     
                 }.padding(.horizontal,8)
                 
                 
                 ScrollView(.horizontal, showsIndicators: false){
                     
-                    LazyHStack{
+                    HStack{
                         Spacer()
-                        ForEach(allAnimes) { anime in
+                        ForEach(allOnHoldTopAnime) { anime in
                             
                             NavigationLink(destination: AnimeDetailsView(anime: anime)) {
                                 
@@ -68,7 +57,8 @@ struct AnimeTopViewByWatchingStatus: View {
                                             .truncationMode(.tail)
                                     
                                     Spacer()
-                                }.frame(maxWidth: 150)
+                                }.id(UUID())
+                                .frame(maxWidth: 150)
                                 
                             }
                             
@@ -82,7 +72,7 @@ struct AnimeTopViewByWatchingStatus: View {
              
             
                     
-                    HelpersFunctions().loadingView()
+                CustomLoadingView().padding() // Muestra el indicador de carga personalizado
                 
                 
             }
@@ -94,8 +84,8 @@ struct AnimeTopViewByWatchingStatus: View {
     }
     
     func getWatchingStatus() {
-        allAnimes = []
-        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getTopAnimeByWatchingStatus)campo=\(watchingStatus.rawValue.lowercased())") else {
+        allOnHoldTopAnime = []
+        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getTopAnimeByWatchingStatus)campo=\(HelpersFunctions.animeWatchingOptions.hold.rawValue.lowercased())") else {
                 return
             }
             
@@ -106,8 +96,6 @@ struct AnimeTopViewByWatchingStatus: View {
                         let decoder = JSONDecoder()
                         let decodedData = try decoder.decode([AnimeWatchingStatusTotals].self, from: data)
                         DispatchQueue.main.async {
-                            self.animeWatchingStatus = decodedData
-                            
                             for anime in decodedData {
                                 if let idAnime = anime.id_anime {
                                     fetch(Id: idAnime)
@@ -115,7 +103,7 @@ struct AnimeTopViewByWatchingStatus: View {
                                 }
                             }
                             
-                            print(allAnimes.count)
+                          
                             
                         }
                     } catch {
@@ -142,7 +130,7 @@ struct AnimeTopViewByWatchingStatus: View {
                           DispatchQueue.main.async {
                               
                              
-                              allAnimes.append(anime ?? .init())
+                              allOnHoldTopAnime.append(anime ?? .init())
                               
                           }
                       
@@ -154,9 +142,8 @@ struct AnimeTopViewByWatchingStatus: View {
               }
           }.resume()
       }
-    }
-
+}
 
 #Preview {
-    AnimeTopViewByWatchingStatus(watchingStatus: .watching)
+    AnimeTopOnHoldView()
 }

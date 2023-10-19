@@ -21,7 +21,7 @@ struct HomeView: View {
               
             
         }.frame(maxWidth: .infinity)
-            .navigationTitle("AnimeTracker Pro")
+            .navigationTitle("The social anime")
            .background(Color("background"))
            .onAppear(perform: {
                print(AccountVm.sharedUserVM.userActual)

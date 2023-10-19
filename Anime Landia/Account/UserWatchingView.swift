@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct UserWatchingView: View {
     @State private var allAnimes: [Anime] = []
+    @State private var ratingAverage = [String:Double]()
     @State private var isLoading = false
     @State private var showNoData = false
     var friend: [Usuario]
@@ -20,8 +21,9 @@ struct UserWatchingView: View {
         ScrollView(.vertical, showsIndicators: false) {
             // SI VIENE PARA PRESENTAR DEL AMIGO ENTONCES PRESENTA EL USUARIO DEL AMIGO
             if !friend.isEmpty {
-                HStack{
-                    Text("By @\(friend.first?.usuario ?? "N/A")")
+            VStack{
+                    UserProfilePictureView(userIdToFetch: friend.first?.id ?? "0", width: 100, height: 100)
+                    Text("@\(friend.first?.usuario ?? "N/A")")
                         .font(.title)
                         .bold()
                         .foregroundStyle(.white)
@@ -30,7 +32,7 @@ struct UserWatchingView: View {
                     .padding(.top)
             }
             if isLoading {
-                HelpersFunctions().loadingView()
+                CustomLoadingView().padding() // Muestra el indicador de carga personalizado
             }
             if showNoData {
                 HelpersFunctions.NoDataView()
@@ -38,19 +40,7 @@ struct UserWatchingView: View {
             }
             if !allAnimes.isEmpty {
                 
-                LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-                    ForEach(allAnimes, id: \.id) { item in
-                        NavigationLink(destination: AnimeDetailsView(anime: item)) {
-                            WebImage(url: URL(string: item.images?.jpg.large_image_url  ?? ""))
-                                .resizable()
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .frame(width: 150, height: 230)
-                                .scaledToFill()
-                                .shadow(radius: 5)
-                        }
-                    }
-                }
-                .padding()
+                SearchView().animeListView(animes: allAnimes, ratingAverage: ratingAverage).padding()
             }
             
         }
@@ -114,6 +104,7 @@ struct UserWatchingView: View {
     
     func obtenerFavoritos() {
         allAnimes = []
+        ratingAverage = [:]
         withAnimation {
             isLoading = true
         }
@@ -130,7 +121,7 @@ struct UserWatchingView: View {
        
         if let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatus)id_usuario=\(userID)&watching=\(isFor.rawValue.lowercased())"){
             
-            print(url)
+          
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if let data = data {
                     let decoder = JSONDecoder()
@@ -146,6 +137,18 @@ struct UserWatchingView: View {
                                     // pomemos de el estado del watching obtenido de la base de datos
                                 }
                             }
+                            
+                            
+                                for anime in decodedData{
+                                    AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.id_anime ?? 0, isAverage: true, page: "1", completion: { rating in
+                                        if let average = rating.average{
+                                            ratingAverage["\(anime.id_anime ?? 0)"] = average
+                                        }
+                                        
+                                        
+                                    })
+                                }
+                            
                           
                             isLoading = false
                             

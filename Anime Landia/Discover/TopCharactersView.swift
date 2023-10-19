@@ -49,7 +49,7 @@ struct TopCharactersView: View {
                     
                 }
             }else {
-                HelpersFunctions().loadingView()
+                CustomLoadingView().padding() // Muestra el indicador de carga personalizado
                 
             }
             

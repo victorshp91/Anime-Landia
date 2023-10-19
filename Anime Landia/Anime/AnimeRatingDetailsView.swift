@@ -13,9 +13,10 @@ struct AnimeRatingDetailsView: View {
     @State var ratings: RatingResponse?
     @State var currentPage = 1
     @State var sendReview = false
-    @State private var rating = 1
+    @State private var rating = 5
     @State private var comment = ""
-    @State private var spoiler = false // Inicialmente, no es spoiler
+    @State private var spoiler = false // Inicialmente, no es spoiler cuando envia un review
+    @State private var showSpoiler = false // Para mostrar o no todos los spoilers
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,95 +24,108 @@ struct AnimeRatingDetailsView: View {
             if !sendReview {
                 headerView()
                 
-              
             }
             
                 // FORMULARIO PARA ENVIAR REVIEW
                 ZStack(alignment:.center) {
                 
-                    if let rating = ratings?.ratings {
+                   
                         
                 ScrollView(.vertical, showsIndicators: false) {
                     
+                    if !AccountVm.sharedUserVM.userActual.isEmpty {
                         
                         Button(action: {
                             withAnimation {
                                 sendReview = true
                             }
-                        }){HStack{
-                            Text("Leave your review")
-                            Image(systemName: "text.bubble.fill")
-                                .font(.largeTitle).bold()
-                                .foregroundStyle(.cyan)
-                        }.padding()
+                        }){
+                            
+                            HStack{
+                                Text("Leave your review")
+                                Image(systemName: "text.bubble.fill")
+                                    .font(.largeTitle).bold()
+                                    .foregroundStyle(.cyan)
+                            }.padding()
                                 .foregroundStyle(.white)
-                                
+                            
                                 .frame(maxWidth: .infinity)
                                 .background(Color("barColor"))    // Color de fondo en azul
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                 .padding()
                         }
-                    
                         
-                         
-                    ForEach(rating, id: \.id) { rating in
-                        VStack(alignment: .leading, spacing: 10) {
-                            if rating.spoiler ?? false {
-                                VStack{
-                                    Text("Spoiler Alert")
-                                    
-                                    Button(action:{
-                                        
-                                    } ) {
-                                        Text("Show Review").foregroundStyle(.blue)
-                                    }
-                                }
-                            } else {
-                                HStack{
-                                    Image(systemName: "person.circle.fill")
-                                        .font(.title2)
-                                    Text("@\(rating.usuario ?? "N/A")")
-                                        .font(.headline)
-                                    Spacer()
-                                    if let createdAt = rating.created_at {
-                                        Text(" \(formatDate(createdAt))")
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                    }
-                                }
-                                HStack {
-                                    
-                                    if let ratingValue = rating.rating {
-                                        ratingView(animeRating: Double(ratingValue) ?? 0.0, anime: Anime(), isForUsersReview: true)
-                                    }
-                                }
-                                
-                                Text("\(rating.comment ?? "N/A")")
-                                    .font(.body)
-                                    .foregroundColor(.gray)
-                            }
+                    }
+            
+                    if let rating = ratings?.ratings {
+                        
+                        HStack{
+                            Spacer()
+                            Text("Show Spoilers").bold()
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(.yellow)
+                            Toggle("", isOn: $showSpoiler)
+                                .tint(.yellow)
                         }
                         .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color("barColor"))
-                        .cornerRadius(10)
-                        .foregroundStyle(.white)
-                        .padding(.horizontal)
-                        .padding(.top)
-                        
-                    }
-                }.opacity(sendReview == true ? 0:1)
-                    } else {
-                        if !sendReview  {
-                            Text("No Ratings Yet")
-                                .font(.headline)
-                            
                                 .foregroundStyle(.white)
+                                .background(Color("barColor"))    // Color de fondo en azul
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
                                 .padding()
-                                .frame(maxWidth:.infinity)
-                                .background(.cyan)
+                        
+                        ForEach(rating, id: \.id) { rating in
+                            VStack(alignment: .leading, spacing: 10) {
+                                if rating.spoiler == true  && showSpoiler == false{
+                                    VStack {
+                                        Image(systemName: "exclamationmark.triangle.fill")
+                                            .foregroundStyle(.yellow)
+                                        Text("Spoiler Alert").bold().foregroundStyle(.yellow)
+                                            .font(.title2)
+                                    }
+                                    
+                                } else {
+                                    HStack{
+                                        
+                                        UserProfilePictureView(userIdToFetch: rating.user_id, width: 50, height: 50)
+                                        Text("@\(rating.usuario ?? "N/A")")
+                                            .font(.headline)
+                                        Spacer()
+                                        if let createdAt = rating.created_at {
+                                            Text(" \(formatDate(createdAt))")
+                                                .font(.caption)
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                    HStack {
+                                        
+                                        if let ratingValue = rating.rating {
+                                            ratingView(animeRating: Double(ratingValue) ?? 0.0, anime: Anime(), isForUsersReview: true)
+                                        }
+                                        Spacer()
+                                        if rating.spoiler == true {
+                                            Image(systemName: "exclamationmark.triangle.fill")
+                                                .foregroundStyle(.yellow)
+                                        }
+                                        
+                                    }
+                                    
+                                    Text("\(rating.comment ?? "N/A")")
+                                        .font(.body)
+                                        .foregroundColor(.gray)
+                                }
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color("barColor"))
+                            .cornerRadius(10)
+                            .foregroundStyle(.white)
+                            .padding(.horizontal)
+                            .padding(.top)
+                            
                         }
                     }
+                }.opacity(sendReview == true ? 0:1)
+                    
                     
                     if sendReview {
                         
@@ -162,9 +176,12 @@ struct AnimeRatingDetailsView: View {
                 
              
                 .cornerRadius(8) // Redondea las esquinas para un diseño más agradable
-
-                   Toggle("Spoilers!!!", isOn: $spoiler)
-                .tint(Color.cyan)
+            HStack{
+                Toggle("Spoiler", isOn: $spoiler)
+                    .tint(Color.yellow)
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.yellow)
+            }
                 .foregroundStyle(.white)
                 .font(.title2)
                     .padding(10)
@@ -222,10 +239,7 @@ struct AnimeRatingDetailsView: View {
     
     func headerView() -> some View{
         HStack{
-            if AccountVm.sharedUserVM.userActual.isEmpty {
-                Text("Please Sign in to leave a review")
-                
-            } else {
+            
                 if !sendReview && ((ratings?.ratings?.isEmpty) != nil) {
                     Text("\(ratings?.total_ratings ?? 0) Reviews")
                     Spacer()
@@ -252,7 +266,7 @@ struct AnimeRatingDetailsView: View {
                 }
                 
                 
-            }
+            
             }.font(.title3)
                 .frame(maxWidth: .infinity)
                 .foregroundStyle(.white)

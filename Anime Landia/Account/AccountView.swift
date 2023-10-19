@@ -7,25 +7,65 @@
 
 import SwiftUI
 
+extension Image {
+    func asUIImage() -> UIImage {
+        let uiView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        let hostingController = UIHostingController(rootView: self)
+        uiView.addSubview(hostingController.view)
+
+        let renderer = UIGraphicsImageRenderer(size: uiView.bounds.size)
+        let uiImage = renderer.image { _ in
+            uiView.drawHierarchy(in: uiView.bounds, afterScreenUpdates: true)
+        }
+
+        hostingController.view.removeFromSuperview()
+
+        return uiImage
+    }
+}
+
 struct AccountView: View {
     
     var userData = AccountVm.sharedUserVM
     
     @State private var showLogin = false
     @State private var isShowingLogoutView = false
-
+    @State private var selectedImage: Image?
+    @State private var isPictureSaved = false
+       @State private var showImagePicker = false
    
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment:.leading){
-                HStack{
-                    Image(systemName: "person.circle.fill")
-                    Text("Welcome")
-                    Text("\(userData.userActual.first?.usuario ?? "")")
-                        .bold()
-                }.font(.title)
-                
+            VStack(alignment:.center){
+                if !AccountVm.sharedUserVM.userActual.isEmpty {
+                    VStack(alignment: .center){
+                        if selectedImage != nil && isPictureSaved == false {
+                            VStack{
+                                selectedImage?
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 100)
+                                    .clipShape(Circle())
+                                    .overlay(Circle().stroke(Color("barColor"), lineWidth: 3)) //
+                                Button("Save Picture") {
+                                    uploadPicture()
+                                }.foregroundStyle(.blue)
+                            }
+                            
+                        } else {
+                            UserProfilePictureView(userIdToFetch: userData.userActual.first?.id, width: 100, height: 100)
+                            Button("Change Picture") {
+                                self.showImagePicker = true
+                            }.foregroundStyle(.blue)
+                                .sheet(isPresented: $showImagePicker) {
+                                    ImagePicker(selectedImage: $selectedImage)
+                                }
+                        }
+                        Text("@\(userData.userActual.first?.usuario ?? "")")
+                            .bold()
+                    }.font(.title3)
+                }
                 Button(action: {
                     if AccountVm.sharedUserVM.userActual.isEmpty {
                         showLogin = true
@@ -119,6 +159,47 @@ struct AccountView: View {
             .background(Color("background"))
       
     }
+    
+    func uploadPicture() {
+        if let selectedImage = selectedImage, let imageData = selectedImage.asUIImage().jpegData(compressionQuality: 0.8) {
+            let userId = AccountVm.sharedUserVM.userActual.first?.id ?? "0"
+
+            // Create the URL for the PHP server with 'user_id' as a query parameter
+            let urlString = "https://rayjewelry.us/animeLandiaApi/save_profile_picture.php?user_id=\(userId)"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+
+            // Create a POST request
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+
+            // Set the content type to binary data
+            request.setValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+
+            // Set the image data as the request body
+            request.httpBody = imageData
+
+            // Realize the POST request
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error)")
+                } else if let data = data {
+                    if let responseString = String(data: data, encoding: .utf8) {
+                        withAnimation {
+                            isPictureSaved = true
+                        }
+                        print("Response: \(responseString)")
+                    }
+                }
+            }.resume()
+        }
+    }
+
+
+
+    
+    
 }
 
 #Preview {

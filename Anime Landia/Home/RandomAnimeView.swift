@@ -78,7 +78,7 @@ struct RandomAnimeView: View {
                 
                 
             } else {
-                HelpersFunctions().loadingView()
+                CustomLoadingView().padding() // Muestra el indicador de carga personalizado
             }
             Spacer()
         }.onAppear(perform: {
@@ -90,34 +90,51 @@ struct RandomAnimeView: View {
     }
     
     func loadData() {
-        
         guard let url = URL(string: "https://api.jikan.moe/v4/random/anime") else {
             return
         }
 
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                do {
-                    let decodedData = try JSONDecoder().decode(OnlyAnimeData.self, from: data)
-                    
-                    DispatchQueue.main.async {
-                        
-                        
-                         
-                            
+        var retryCount = 0
+        let maxRetries = 3 // Número máximo de intentos de retransmisión
+        let retryInterval = 2.0 // Tiempo de espera antes de reintentar (en segundos)
+
+        func performFetch() {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                if let data = data {
+                    do {
+                        let decodedData = try JSONDecoder().decode(OnlyAnimeData.self, from: data)
+
+                        DispatchQueue.main.async {
                             self.randomAnime = decodedData.data
-                            
-                        
-                        
+                        }
+                    } catch {
+                        print("Error al decodificar los datos: \(error)")
+                        retryIfNeeded()
                     }
-                } catch {
-                    print("Error al decodificar los datos: \(error)")
+                } else if let error = error {
+                    print("Error al cargar los datos: \(error)")
+                    retryIfNeeded()
                 }
-            } else if let error = error {
-                print("Error al cargar los datos: \(error)")
+            }.resume()
+        }
+
+        func retryIfNeeded() {
+            retryCount += 1
+            if retryCount < maxRetries {
+                // Si no hemos alcanzado el número máximo de reintentos, esperamos y volvemos a intentar
+                DispatchQueue.global().asyncAfter(deadline: .now() + retryInterval) {
+                    print("Retrying (attempt \(retryCount))...")
+                    performFetch()
+                }
+            } else {
+                print("Max retries reached. Unable to fetch data.")
             }
-        }.resume()
+        }
+
+        // Iniciar la primera solicitud
+        performFetch()
     }
+
 }
 
 #Preview {

@@ -28,7 +28,7 @@ struct SignUpView: View {
                 .font(.largeTitle)
                 .padding(.bottom, 20)
             if showLoading {
-                HelpersFunctions().loadingView()
+                CustomLoadingView().padding() // Muestra el indicador de carga personalizado
             }
             if showApiMessage {
                 

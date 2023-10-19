@@ -24,7 +24,7 @@
 		2F40BDC42AD24E6A0065ADCC /* SignOutConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F40BDC32AD24E6A0065ADCC /* SignOutConfirmationView.swift */; };
 		2F458D0B2AD38F4600F337D2 /* DataBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F458D0A2AD38F4600F337D2 /* DataBaseViewModel.swift */; };
 		2F458D0D2AD4D0B400F337D2 /* TopTenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F458D0C2AD4D0B400F337D2 /* TopTenView.swift */; };
-		2F458D102AD4D0DC00F337D2 /* AnimeTopViewByWatchingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F458D0F2AD4D0DC00F337D2 /* AnimeTopViewByWatchingStatus.swift */; };
+		2F458D102AD4D0DC00F337D2 /* AnimeTopWatchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F458D0F2AD4D0DC00F337D2 /* AnimeTopWatchingView.swift */; };
 		2F458D122AD4F28300F337D2 /* AnimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F458D112AD4F28300F337D2 /* AnimeViewModel.swift */; };
 		2F5F37452ACA4982002A752C /* RandomCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37442ACA4982002A752C /* RandomCharacterView.swift */; };
 		2F5F37472ACA51A4002A752C /* CharacterAnimeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F37462ACA51A4002A752C /* CharacterAnimeListView.swift */; };
@@ -33,6 +33,13 @@
 		2F6046EB2AC8A290000EDFCF /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6046EA2AC8A290000EDFCF /* DiscoverView.swift */; };
 		2F6046ED2AC8AC53000EDFCF /* DataCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6046EC2AC8AC53000EDFCF /* DataCharacter.swift */; };
 		2F6046EF2AC8AEA8000EDFCF /* TopCharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6046EE2AC8AEA8000EDFCF /* TopCharactersView.swift */; };
+		2F70C75D2ADF5F92005E2F24 /* AnimeTopCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F70C75C2ADF5F92005E2F24 /* AnimeTopCompletedView.swift */; };
+		2F70C75F2ADF61B6005E2F24 /* AnimeTopOnHoldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F70C75E2ADF61B6005E2F24 /* AnimeTopOnHoldView.swift */; };
+		2F70C7612ADF6A34005E2F24 /* UserProfilePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F70C7602ADF6A34005E2F24 /* UserProfilePictureView.swift */; };
+		2F70C7632ADF86A7005E2F24 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F70C7622ADF86A7005E2F24 /* ImagePicker.swift */; };
+		2F70C7652AE0BA44005E2F24 /* AnimeCategoriesButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F70C7642AE0BA44005E2F24 /* AnimeCategoriesButtonsView.swift */; };
+		2F70C7672AE0BC15005E2F24 /* AnimeByCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F70C7662AE0BC15005E2F24 /* AnimeByCategoryView.swift */; };
+		2F70C76B2AE0E857005E2F24 /* CustomLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F70C76A2AE0E857005E2F24 /* CustomLoadingView.swift */; };
 		2F7A4EDA2AC88B8600D4F2E8 /* Anime_LandiaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4ED92AC88B8600D4F2E8 /* Anime_LandiaApp.swift */; };
 		2F7A4EDC2AC88B8600D4F2E8 /* topAnimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4EDB2AC88B8600D4F2E8 /* topAnimeView.swift */; };
 		2F7A4EDE2AC88B8800D4F2E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F7A4EDD2AC88B8800D4F2E8 /* Assets.xcassets */; };
@@ -89,7 +96,7 @@
 		2F40BDC32AD24E6A0065ADCC /* SignOutConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutConfirmationView.swift; sourceTree = "<group>"; };
 		2F458D0A2AD38F4600F337D2 /* DataBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseViewModel.swift; sourceTree = "<group>"; };
 		2F458D0C2AD4D0B400F337D2 /* TopTenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTenView.swift; sourceTree = "<group>"; };
-		2F458D0F2AD4D0DC00F337D2 /* AnimeTopViewByWatchingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeTopViewByWatchingStatus.swift; sourceTree = "<group>"; };
+		2F458D0F2AD4D0DC00F337D2 /* AnimeTopWatchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeTopWatchingView.swift; sourceTree = "<group>"; };
 		2F458D112AD4F28300F337D2 /* AnimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeViewModel.swift; sourceTree = "<group>"; };
 		2F5F37442ACA4982002A752C /* RandomCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCharacterView.swift; sourceTree = "<group>"; };
 		2F5F37462ACA51A4002A752C /* CharacterAnimeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAnimeListView.swift; sourceTree = "<group>"; };
@@ -98,6 +105,13 @@
 		2F6046EA2AC8A290000EDFCF /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		2F6046EC2AC8AC53000EDFCF /* DataCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCharacter.swift; sourceTree = "<group>"; };
 		2F6046EE2AC8AEA8000EDFCF /* TopCharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCharactersView.swift; sourceTree = "<group>"; };
+		2F70C75C2ADF5F92005E2F24 /* AnimeTopCompletedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeTopCompletedView.swift; sourceTree = "<group>"; };
+		2F70C75E2ADF61B6005E2F24 /* AnimeTopOnHoldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeTopOnHoldView.swift; sourceTree = "<group>"; };
+		2F70C7602ADF6A34005E2F24 /* UserProfilePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePictureView.swift; sourceTree = "<group>"; };
+		2F70C7622ADF86A7005E2F24 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		2F70C7642AE0BA44005E2F24 /* AnimeCategoriesButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeCategoriesButtonsView.swift; sourceTree = "<group>"; };
+		2F70C7662AE0BC15005E2F24 /* AnimeByCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeByCategoryView.swift; sourceTree = "<group>"; };
+		2F70C76A2AE0E857005E2F24 /* CustomLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoadingView.swift; sourceTree = "<group>"; };
 		2F7A4ED62AC88B8600D4F2E8 /* AnimeTracker Pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AnimeTracker Pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F7A4ED92AC88B8600D4F2E8 /* Anime_LandiaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaApp.swift; sourceTree = "<group>"; };
 		2F7A4EDB2AC88B8600D4F2E8 /* topAnimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = topAnimeView.swift; sourceTree = "<group>"; };
@@ -153,6 +167,8 @@
 			children = (
 				2FFE54A82AD7960100F4C97A /* Friends */,
 				2F0AE3A22ACCFD0A001F4405 /* AccountView.swift */,
+				2F70C7622ADF86A7005E2F24 /* ImagePicker.swift */,
+				2F70C7602ADF6A34005E2F24 /* UserProfilePictureView.swift */,
 				2F40BDC32AD24E6A0065ADCC /* SignOutConfirmationView.swift */,
 				2F0AE3A42ACD043F001F4405 /* AnimeWatchingButton.swift */,
 				2F0AE3A62ACD203E001F4405 /* usuarioData.swift */,
@@ -170,7 +186,9 @@
 			isa = PBXGroup;
 			children = (
 				2F458D0C2AD4D0B400F337D2 /* TopTenView.swift */,
-				2F458D0F2AD4D0DC00F337D2 /* AnimeTopViewByWatchingStatus.swift */,
+				2F458D0F2AD4D0DC00F337D2 /* AnimeTopWatchingView.swift */,
+				2F70C75E2ADF61B6005E2F24 /* AnimeTopOnHoldView.swift */,
+				2F70C75C2ADF5F92005E2F24 /* AnimeTopCompletedView.swift */,
 			);
 			path = Top10;
 			sourceTree = "<group>";
@@ -210,6 +228,7 @@
 				2F7A4ED92AC88B8600D4F2E8 /* Anime_LandiaApp.swift */,
 				2FE2CC6A2AC8F0C200E4E1C1 /* TabBarMenu.swift */,
 				2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */,
+				2F70C76A2AE0E857005E2F24 /* CustomLoadingView.swift */,
 				2F40BDBF2AD2468E0065ADCC /* WelcomeScreeView.swift */,
 				2F458D0A2AD38F4600F337D2 /* DataBaseViewModel.swift */,
 				2F40BDC12AD248850065ADCC /* AboutView.swift */,
@@ -258,6 +277,8 @@
 				2F7A4EDB2AC88B8600D4F2E8 /* topAnimeView.swift */,
 				2F6046EE2AC8AEA8000EDFCF /* TopCharactersView.swift */,
 				2F6046EA2AC8A290000EDFCF /* DiscoverView.swift */,
+				2F70C7662AE0BC15005E2F24 /* AnimeByCategoryView.swift */,
+				2F70C7642AE0BA44005E2F24 /* AnimeCategoriesButtonsView.swift */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -444,14 +465,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FFE54A72AD795FA00F4C97A /* FriendsView.swift in Sources */,
-				2F458D102AD4D0DC00F337D2 /* AnimeTopViewByWatchingStatus.swift in Sources */,
+				2F458D102AD4D0DC00F337D2 /* AnimeTopWatchingView.swift in Sources */,
 				2F458D0D2AD4D0B400F337D2 /* TopTenView.swift in Sources */,
+				2F70C7632ADF86A7005E2F24 /* ImagePicker.swift in Sources */,
 				2F100CE02AD1B043009C0654 /* UserWatchingView.swift in Sources */,
 				2F6046EF2AC8AEA8000EDFCF /* TopCharactersView.swift in Sources */,
 				2F5F374C2ACA6C85002A752C /* SearchView.swift in Sources */,
 				2F40BDC22AD248850065ADCC /* AboutView.swift in Sources */,
 				2F06C95E2AD1057400BF5932 /* userFavoritesView.swift in Sources */,
 				2F3A73732ACE518B006BA7D9 /* FavoriteButtonView.swift in Sources */,
+				2F70C7672AE0BC15005E2F24 /* AnimeByCategoryView.swift in Sources */,
 				2FE2CC782AC90FBA00E4E1C1 /* RandomAnimeView.swift in Sources */,
 				2F40BDBA2AD1D78A0065ADCC /* AccountViewModel.swift in Sources */,
 				2F0AE3A52ACD043F001F4405 /* AnimeWatchingButton.swift in Sources */,
@@ -462,6 +485,7 @@
 				2FE2CC752AC90B5900E4E1C1 /* HomeView.swift in Sources */,
 				2F7A4EDC2AC88B8600D4F2E8 /* topAnimeView.swift in Sources */,
 				2F40BDBC2AD1EB3D0065ADCC /* SignInView.swift in Sources */,
+				2F70C7612ADF6A34005E2F24 /* UserProfilePictureView.swift in Sources */,
 				2FE2CC6B2AC8F0C300E4E1C1 /* TabBarMenu.swift in Sources */,
 				2F458D122AD4F28300F337D2 /* AnimeViewModel.swift in Sources */,
 				2FE2CC622AC8BEBF00E4E1C1 /* AnimeDetailsView.swift in Sources */,
@@ -470,16 +494,20 @@
 				2FE2CC712AC8FBE200E4E1C1 /* HelpersFunctions.swift in Sources */,
 				2F5F37492ACA69CD002A752C /* SearchTextField.swift in Sources */,
 				2F5F37472ACA51A4002A752C /* CharacterAnimeListView.swift in Sources */,
+				2F70C7652AE0BA44005E2F24 /* AnimeCategoriesButtonsView.swift in Sources */,
 				2F016FFD2ADAC1F800070FAA /* AddNewFriendView.swift in Sources */,
 				2F0AE3A32ACCFD0A001F4405 /* AccountView.swift in Sources */,
 				2F0170012ADAF92800070FAA /* AnimeRatingDetailsView.swift in Sources */,
 				2F0AE3A72ACD203E001F4405 /* usuarioData.swift in Sources */,
+				2F70C75F2ADF61B6005E2F24 /* AnimeTopOnHoldView.swift in Sources */,
 				2F458D0B2AD38F4600F337D2 /* DataBaseViewModel.swift in Sources */,
 				2FE2CC662AC8ECCE00E4E1C1 /* TrailerVideoView.swift in Sources */,
+				2F70C75D2ADF5F92005E2F24 /* AnimeTopCompletedView.swift in Sources */,
 				2F016FFF2ADADB6500070FAA /* ratingView.swift in Sources */,
 				2F7A4EDA2AC88B8600D4F2E8 /* Anime_LandiaApp.swift in Sources */,
 				2F5F37452ACA4982002A752C /* RandomCharacterView.swift in Sources */,
 				2F6046EB2AC8A290000EDFCF /* DiscoverView.swift in Sources */,
+				2F70C76B2AE0E857005E2F24 /* CustomLoadingView.swift in Sources */,
 				2FE2CC6F2AC8F59900E4E1C1 /* CharacterDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -639,7 +667,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Anime Landia/Anime_Landia.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Anime Landia/Preview Content\"";
 				DEVELOPMENT_TEAM = 8SB327NDUL;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -680,7 +708,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Anime Landia/Anime_Landia.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"Anime Landia/Preview Content\"";
 				DEVELOPMENT_TEAM = 8SB327NDUL;
 				ENABLE_HARDENED_RUNTIME = YES;

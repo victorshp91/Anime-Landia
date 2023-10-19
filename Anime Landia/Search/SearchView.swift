@@ -27,6 +27,7 @@ struct SearchView: View {
     @State private var pagination: Pagination?
     @State private var ratingAverage = [String:Double]() // LOS USO PARA GUARDAR EL RATING PARA LOS ANIMES QUE SE ESTAN PRESENTANDO EN LA BUSQUEDA. TIEN EL ID DEL ANIME COMO KEY Y EL RATING COMO VALUE
     
+    
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         
@@ -205,18 +206,18 @@ struct SearchView: View {
                             characterListView(characters: characteres)
                         }else {
                             if isSearching {
-                                HelpersFunctions().loadingView()
+                                CustomLoadingView().padding() // Muestra el indicador de carga personalizado
                             }
                         }
                     } else {
                         
                         if let animes = animeData {
                             
-                            animeListView(animes: animes)
+                            animeListView(animes: animes, ratingAverage: ratingAverage )
                             
                         }else {
                             if isSearching {
-                                HelpersFunctions().loadingView()
+                                CustomLoadingView().padding() // Muestra el indicador de carga personalizado
                             }
                         }
                         
@@ -230,8 +231,9 @@ struct SearchView: View {
             .padding(.horizontal)
             .background(Color("background"))
            
-            .onAppear(perform: {loadHistory()
-                print(ratingAverage)
+            .onAppear(perform: {
+                loadHistory()
+                
             })
             
         
@@ -275,7 +277,7 @@ struct SearchView: View {
     
     // VISTA DE LA LISTA DE LOS ANIMES
     
-    func animeListView(animes: [Anime]) -> some View {
+    func animeListView(animes: [Anime], ratingAverage: [String:Double]) -> some View {
         
         LazyVStack(alignment:.leading, spacing: 10){
             ForEach(animes, id: \.mal_id) { anime in
