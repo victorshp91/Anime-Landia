@@ -70,7 +70,7 @@ struct AnimeDetailsView: View {
                         
                     }.padding()
                         .foregroundStyle(.white)
-                        .background(.cyan)
+                        .background(Color("accountNavColor"))
                         
                         
                         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
@@ -134,7 +134,7 @@ struct AnimeDetailsView: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                                         .scaledToFit()
                                     Image(systemName: "play.circle.fill")
-                                        .foregroundStyle(.cyan)
+                                        .foregroundStyle(Color("accountNavColor"))
                                         .font(.system(size: 75))
                                         .sheet(isPresented: $showTrailer) {
                                             
@@ -181,7 +181,7 @@ struct AnimeDetailsView: View {
                                     
                             }
                             
-                        }.foregroundStyle(.cyan)
+                        }.foregroundStyle(Color("accountNavColor"))
                         
                     
                 }
@@ -227,7 +227,7 @@ struct WatchingStatusNumbers:  View {
                                     
                                     .font(.title2)
                                    
-                                    .foregroundColor(.cyan)
+                                    .foregroundColor(Color("accountNavColor"))
                                 
                          
                                 
@@ -255,10 +255,12 @@ struct WatchingStatusNumbers:  View {
                         .foregroundStyle(AnimeWatchingButton(animeId: 0, selectedOption: .completed, changeOptionImageSize: 20).iconColor)
                     Text("\(numbers.completed)")
                 }
-            }
+                } else {
+                    CustomLoadingView()
+                }
             }.onAppear(perform: {
                 
-                    getWathingStatusNumbers()
+                getWatchingStatusNumbers()
                 
             })
             .font(.title2)
@@ -267,27 +269,37 @@ struct WatchingStatusNumbers:  View {
         
     }
     
-    func getWathingStatusNumbers() {
+    func getWatchingStatusNumbers() {
         guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatusNumbers)id_anime=\(idAnime)") else {
-                print("Invalid URL")
+            print("Invalid URL")
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error fetching data: \(error)")
                 return
             }
 
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                if let data = data {
-                    do {
-                        let decodedData = try JSONDecoder().decode([AnimeWatchingStatusTotals].self, from: data)
-                        DispatchQueue.main.async {
-                            self.watchingNumbers = decodedData
-                        }
-                    } catch {
-                        print("Error decoding JSON: \(error)")
-                    }
-                } else if let error = error {
-                    print("Error fetching data: \(error)")
+            guard let data = data else {
+                print("No data received.")
+                return
+            }
+
+            do {
+                let decodedData = try JSONDecoder().decode([AnimeWatchingStatusTotals].self, from: data)
+                DispatchQueue.main.async {
+                    self.watchingNumbers = decodedData
                 }
-            }.resume()
+            } catch {
+                print("Error decoding JSON: \(error)")
+            }
         }
+
+        task.resume()
+    }
+
+
 }
     
     

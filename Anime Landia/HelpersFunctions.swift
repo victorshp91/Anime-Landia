@@ -50,7 +50,19 @@ class HelpersFunctions {
         return truncatedText + (words.count > maxWords ? "" : "")
     }
     
-  
+    // Función para formatear una fecha en una cadena de texto
+    func formatDate(_ date: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date = dateFormatter.date(from: date) {
+            let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .short)
+            return formattedDate
+        }
+        
+        return "N/A"
+    }
+    
     
     struct NoDataView: View {
         var body: some View {

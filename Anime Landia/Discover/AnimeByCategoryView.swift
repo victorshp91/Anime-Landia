@@ -18,35 +18,31 @@ struct AnimeByCategoryView: View {
     @State var currentPage = 1
     
         var body: some View {
+            
             VStack{
                 ScrollView{
                     
                     if let paginationData = pagination {
                         HStack{
-                            
+                            Button(action: {
+                                currentPage -= 1
+                                
+                                loadAnimes()
+                                
+                            }){
+                                Image(systemName: "arrow.left.circle.fill")
+                            }.disabled(currentPage == 1)
+                            Spacer()
                             Text("\(currentPage) of \(paginationData.last_visible_page)")
-                            
-                            HStack{
+                            Spacer()
+                            Button(action: {
+                                currentPage += 1
                                 
-                                Button(action: {
-                                    currentPage -= 1
-                                    
-                                    loadAnimes()
-                                    
-                                }){
-                                    Image(systemName: "arrow.left.circle.fill")
-                                }.disabled(currentPage == 1)
+                                loadAnimes()
                                 
-                                Button(action: {
-                                    currentPage += 1
-                                    
-                                    loadAnimes()
-                                    
-                                }){
-                                    Image(systemName: "arrow.right.circle.fill")
-                                }.disabled(!paginationData.has_next_page)
-                                
-                            }
+                            }){
+                                Image(systemName: "arrow.right.circle.fill")
+                            }.disabled(!paginationData.has_next_page)
                             
                         }.font(.title)
                             .padding(10)
@@ -63,20 +59,19 @@ struct AnimeByCategoryView: View {
                             SearchView().animeListView(animes: animes, ratingAverage: ratingAverage )
                                 .padding(.horizontal)
                             
-                        }else {
-                            
-                            CustomLoadingView().padding() // Muestra el indicador de carga personalizado
                         }
+                    } else {
+                        CustomLoadingView().padding() // Muestra el indicador de carga personalizado
                     }
                     
                     
                 }
             }.onAppear(perform: {
                 loadAnimes()
-            })
+            }).frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationTitle("\(category.name ?? "N/A")")
                 .background(Color("background"))
-                .frame(maxHeight: .infinity)
+                
                 .foregroundStyle(.white)
                 .toolbarBackground(
                     Color("barColor"),
@@ -86,122 +81,71 @@ struct AnimeByCategoryView: View {
                 
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        OrderByMenu()
+                        AnimeVM.OrderAnimeByMenuView.init(orderBy: $orderBy, sortBy: $sort, action: {
+                            loadAnimes()
+                        })
                         
                     }
                 }
         }
-    
-    func OrderByMenu() -> some View {
-        Menu {
-            Section(header: Text("Order By")) {
-                ForEach(AnimeVM.orderBy.allCases) { option in
-                    Button(action: {
-                        orderBy = option.rawValue.lowercased()
-                        loadAnimes()
-                    }) {
-                        HStack {
-                            switch option {
-                            case .end_date:
-                                Text("End Date")
-                            case .mal_id:
-                                Text("ID")
-                            case .title:
-                                Text("Title")
-                            case .start_date:
-                                Text("Start Date")
-                            case .episodes:
-                                Text("Total Episodes")
-                            case .popularity:
-                                Text("Pupularity")
-                            }
-                            
-                            if option.rawValue.lowercased() == orderBy.lowercased() {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundStyle(.green)
-                            }
-                        }
-                    }
-                }
-            }
-            
-            Section(header: Text("Sort")) {
-                
-                Button(action: {
-                    sort = "asc"
-                    loadAnimes()
-                }) {
-                    HStack{
-                    Text("Ascending")
-                        if sort == "asc" {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(.green)
-                        }
-                }
-                }
-                
-                Button(action: {
-                    sort = "desc"
-                    loadAnimes()
-                }) {
-                    HStack{
-                    Text("Descending")
-                        if sort == "desc" {
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(.green)
-                        }
-                }
-                }
-           
-            }
-        } label: {
-            Image(systemName: "line.3.horizontal.decrease.circle.fill")
-                .font(.title2)
-        }
-    }
     
     func loadAnimes() {
-    
-        // si el type de anime es all entonces el link es sin type
-        guard let url = URL(string: "https://api.jikan.moe/v4/anime?genres=\(category.mal_id)&page=\(currentPage)&order_by=\(orderBy)&sort=\(sort)&sfw=true") else {
+        // Construir la URL de la API
+        guard let url = makeAPIURL() else {
             return
         }
-        print(url)
+        
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            ratingAverage = [:]
-            if let data = data {
-                do {
-                    let decodedData = try JSONDecoder().decode(AnimeData.self, from: data)
-                    
-                    DispatchQueue.main.async {
-                        self.animeData = decodedData.data
-                        self.pagination = decodedData.pagination
-                        
-                        // AGREGO EL RATING DE CADA ANIME POR EL ID EN EL ARREGLO DECLARADO ARRIBA QUE ES UN DICCIONARIO QUE CONTIENE EL ID DEL ANIME Y EL RATING
-                        
-                        if let animes = animeData{
-                            for anime in animes{
-                                AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.mal_id ?? 0, isAverage: true, page: "1", completion: { rating in
-                                    if let average = rating.average{
-                                        ratingAverage["\(anime.mal_id ?? 0)"] = average
-                                    }
-                                    
-                                    
-                                })
-                            }
-                        }
-                        
+            DispatchQueue.main.async {
+                ratingAverage = [:] // Reiniciar el diccionario de ratings
+                
+                if let data = data {
+                    do {
+                        let decodedData = try JSONDecoder().decode(AnimeData.self, from: data)
+                        updateUI(with: decodedData)
+                    } catch {
+                        print("Error al decodificar los datos: \(error)")
                     }
-                   
-                    
-                } catch {
-                    print("Error al decodificar los datos: \(error)")
+                } else if let error = error {
+                    print("Error al cargar los datos: \(error)")
                 }
-            } else if let error = error {
-                print("Error al cargar los datos: \(error)")
             }
         }.resume()
     }
+
+    func makeAPIURL() -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.jikan.moe"
+        components.path = "/v4/anime"
+        
+        var queryItems = [URLQueryItem]()
+        queryItems.append(URLQueryItem(name: "genres", value: "\(category.mal_id)"))
+        queryItems.append(URLQueryItem(name: "page", value: "\(currentPage)"))
+        queryItems.append(URLQueryItem(name: "order_by", value: orderBy))
+        queryItems.append(URLQueryItem(name: "sort", value: sort))
+        queryItems.append(URLQueryItem(name: "sfw", value: "true"))
+        
+        components.queryItems = queryItems
+        
+        return components.url
+    }
+
+    func updateUI(with decodedData: AnimeData) {
+        self.animeData = decodedData.data
+        self.pagination = decodedData.pagination
+        
+        if let animes = animeData {
+            for anime in animes {
+                AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.mal_id ?? 0, isAverage: true, page: "1") { rating in
+                    if let average = rating.average {
+                        ratingAverage["\(anime.mal_id ?? 0)"] = average
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 #Preview {

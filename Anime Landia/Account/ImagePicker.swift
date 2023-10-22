@@ -35,8 +35,8 @@ struct ImagePicker: UIViewControllerRepresentable {
                 parent.selectedImage = Image(uiImage: uiImage)
             }
             
-            
-            picker.dismiss(animated: true)
+           
+          //  picker.dismiss(animated: true)
         }
         
         

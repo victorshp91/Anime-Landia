@@ -28,6 +28,7 @@ class DataBaseViewModel {
     let searchUsers = "search_user.php?"
     let addNewFriend = "send_friend_request.php?"
     let getAnimeRating = "get_anime_rating.php?" 
+    let getRatingFeed = "get_review_feed.php?"
     
     
  // https://rayjewelry.us/animeLandiaApi/change_watching_status_numbers.php?id_anime=9367&campo=watching&accion=disminuir

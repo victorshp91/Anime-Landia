@@ -19,11 +19,12 @@ struct AnimeCategoriesButtonsView: View {
                             NavigationLink(destination: AnimeByCategoryView(category: category)) {
                                 HStack{
                                     Text(category.name ?? "N/A")
+                                    Spacer()
                                     Text("\(category.count ?? 0)")
                                         .padding(10)
                                         .background(.black)
                                         .clipShape(RoundedRectangle(cornerRadius: 5))
-                                }
+                                }.frame(maxWidth: .infinity)
                                 .padding(10)
                                 .background(Color("barColor"))
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -57,50 +58,54 @@ struct AnimeCategoriesButtonsView: View {
         }
 
     func fetchData() {
-            if let url = URL(string: "https://api.jikan.moe/v4/genres/anime") {
-                var retryCount = 0
-                let maxRetries = 3 // Número máximo de intentos de retransmisión
-                let retryInterval = 2.0 // Tiempo de espera antes de reintentar (en segundos)
+        guard let url = URL(string: "https://api.jikan.moe/v4/genres/anime") else {
+            return
+        }
+        
+        var retryCount = 0
+        let maxRetries = 3
+        let retryInterval = 2.0
 
-                func performFetch() {
-                    URLSession.shared.dataTask(with: url) { data, response, error in
-                        if let data = data {
-                            do {
-                                let genreData = try JSONDecoder().decode(GenreData.self, from: data)
-                                DispatchQueue.main.async {
-                                    self.categories = genreData.data
-                                }
-                                withAnimation {
-                                    isLoading = false
-                                }
-                            } catch {
-                                print("Decoding error: \(error)")
-                                retryIfNeeded()
-                            }
-                        } else if let error = error {
-                            print("Network error: \(error)")
-                            retryIfNeeded()
-                        }
-                    }.resume()
-                }
-
-                func retryIfNeeded() {
-                    retryCount += 1
-                    if retryCount < maxRetries {
-                        // Si no hemos alcanzado el número máximo de reintentos, esperamos y volvemos a intentar
-                        DispatchQueue.global().asyncAfter(deadline: .now() + retryInterval) {
-                            print("Retrying (attempt \(retryCount))...")
-                            performFetch()
-                        }
-                    } else {
-                        print("Max retries reached. Unable to fetch data.")
+        func performFetch() {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                DispatchQueue.main.async {
+                    withAnimation {
+                        self.isLoading = false
                     }
                 }
+                
+                if let data = data {
+                    do {
+                        let genreData = try JSONDecoder().decode(GenreData.self, from: data)
+                        self.categories = genreData.data
+                    } catch {
+                        print("Decoding error: \(error)")
+                        retryNeeded()
+                    }
+                } else if let error = error {
+                    print("Network error: \(error)")
+                    retryNeeded()
+                }
+            }.resume()
+        }
 
-                // Iniciar la primera solicitud
-                performFetch()
+        func retryNeeded() {
+            retryCount += 1
+            if retryCount < maxRetries {
+                DispatchQueue.global().asyncAfter(deadline: .now() + retryInterval) {
+                    print("Retrying (attempt \(retryCount))...")
+                    performFetch()
+                }
+            } else {
+                print("Max retries reached. Unable to fetch data.")
             }
         }
+
+        // Iniciar la primera solicitud
+        performFetch()
+    }
+
+
     }
 
 

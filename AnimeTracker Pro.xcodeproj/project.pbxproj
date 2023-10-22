@@ -49,6 +49,7 @@
 		2F7A4EF82AC88B8800D4F2E8 /* Anime_LandiaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4EF72AC88B8800D4F2E8 /* Anime_LandiaUITestsLaunchTests.swift */; };
 		2F7A4F052AC88BB200D4F2E8 /* DataAnime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7A4F042AC88BB200D4F2E8 /* DataAnime.swift */; };
 		2F7A4F0A2AC896F800D4F2E8 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2F7A4F092AC896F800D4F2E8 /* SDWebImageSwiftUI */; };
+		2FCCEFD42AE4366400DDA96D /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCCEFD32AE4366400DDA96D /* Feed.swift */; };
 		2FE2CC622AC8BEBF00E4E1C1 /* AnimeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC612AC8BEBF00E4E1C1 /* AnimeDetailsView.swift */; };
 		2FE2CC642AC8DE1F00E4E1C1 /* StreamingDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC632AC8DE1F00E4E1C1 /* StreamingDetailsView.swift */; };
 		2FE2CC662AC8ECCE00E4E1C1 /* TrailerVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC652AC8ECCE00E4E1C1 /* TrailerVideoView.swift */; };
@@ -56,7 +57,7 @@
 		2FE2CC6B2AC8F0C300E4E1C1 /* TabBarMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC6A2AC8F0C200E4E1C1 /* TabBarMenu.swift */; };
 		2FE2CC6F2AC8F59900E4E1C1 /* CharacterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC6E2AC8F59900E4E1C1 /* CharacterDetailsView.swift */; };
 		2FE2CC712AC8FBE200E4E1C1 /* HelpersFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */; };
-		2FE2CC752AC90B5900E4E1C1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC742AC90B5900E4E1C1 /* HomeView.swift */; };
+		2FE2CC752AC90B5900E4E1C1 /* RandomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC742AC90B5900E4E1C1 /* RandomView.swift */; };
 		2FE2CC782AC90FBA00E4E1C1 /* RandomAnimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE2CC772AC90FBA00E4E1C1 /* RandomAnimeView.swift */; };
 		2FFE54A72AD795FA00F4C97A /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFE54A62AD795FA00F4C97A /* FriendsView.swift */; };
 /* End PBXBuildFile section */
@@ -124,13 +125,14 @@
 		2F7A4EF52AC88B8800D4F2E8 /* Anime_LandiaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaUITests.swift; sourceTree = "<group>"; };
 		2F7A4EF72AC88B8800D4F2E8 /* Anime_LandiaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anime_LandiaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2F7A4F042AC88BB200D4F2E8 /* DataAnime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAnime.swift; sourceTree = "<group>"; };
+		2FCCEFD32AE4366400DDA96D /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		2FE2CC612AC8BEBF00E4E1C1 /* AnimeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeDetailsView.swift; sourceTree = "<group>"; };
 		2FE2CC632AC8DE1F00E4E1C1 /* StreamingDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingDetailsView.swift; sourceTree = "<group>"; };
 		2FE2CC652AC8ECCE00E4E1C1 /* TrailerVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerVideoView.swift; sourceTree = "<group>"; };
 		2FE2CC6A2AC8F0C200E4E1C1 /* TabBarMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarMenu.swift; sourceTree = "<group>"; };
 		2FE2CC6E2AC8F59900E4E1C1 /* CharacterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsView.swift; sourceTree = "<group>"; };
 		2FE2CC702AC8FBE200E4E1C1 /* HelpersFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpersFunctions.swift; sourceTree = "<group>"; };
-		2FE2CC742AC90B5900E4E1C1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		2FE2CC742AC90B5900E4E1C1 /* RandomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomView.swift; sourceTree = "<group>"; };
 		2FE2CC772AC90FBA00E4E1C1 /* RandomAnimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAnimeView.swift; sourceTree = "<group>"; };
 		2FFE54A62AD795FA00F4C97A /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,6 +207,7 @@
 		2F7A4ECD2AC88B8600D4F2E8 = {
 			isa = PBXGroup;
 			children = (
+				2FCCEFD32AE4366400DDA96D /* Feed.swift */,
 				2F7A4ED82AC88B8600D4F2E8 /* Anime Landia */,
 				2F7A4EEA2AC88B8800D4F2E8 /* Anime LandiaTests */,
 				2F7A4EF42AC88B8800D4F2E8 /* Anime LandiaUITests */,
@@ -235,7 +238,7 @@
 				2F458D0E2AD4D0C400F337D2 /* Top10 */,
 				2F0AE3A12ACCFCC2001F4405 /* Account */,
 				2F5F374A2ACA6BDC002A752C /* Search */,
-				2FE2CC762AC90F6D00E4E1C1 /* Home */,
+				2FE2CC762AC90F6D00E4E1C1 /* Random */,
 				2FE2CC602AC8BE9A00E4E1C1 /* Discover */,
 				2FE2CC6C2AC8F47300E4E1C1 /* Anime */,
 				2FE2CC6D2AC8F58700E4E1C1 /* Character */,
@@ -307,14 +310,14 @@
 			path = Character;
 			sourceTree = "<group>";
 		};
-		2FE2CC762AC90F6D00E4E1C1 /* Home */ = {
+		2FE2CC762AC90F6D00E4E1C1 /* Random */ = {
 			isa = PBXGroup;
 			children = (
-				2FE2CC742AC90B5900E4E1C1 /* HomeView.swift */,
+				2FE2CC742AC90B5900E4E1C1 /* RandomView.swift */,
 				2FE2CC772AC90FBA00E4E1C1 /* RandomAnimeView.swift */,
 				2F5F37442ACA4982002A752C /* RandomCharacterView.swift */,
 			);
-			path = Home;
+			path = Random;
 			sourceTree = "<group>";
 		};
 		2FFE54A82AD7960100F4C97A /* Friends */ = {
@@ -482,7 +485,7 @@
 				2F7A4F052AC88BB200D4F2E8 /* DataAnime.swift in Sources */,
 				2F6046ED2AC8AC53000EDFCF /* DataCharacter.swift in Sources */,
 				2F40BDC02AD2468E0065ADCC /* WelcomeScreeView.swift in Sources */,
-				2FE2CC752AC90B5900E4E1C1 /* HomeView.swift in Sources */,
+				2FE2CC752AC90B5900E4E1C1 /* RandomView.swift in Sources */,
 				2F7A4EDC2AC88B8600D4F2E8 /* topAnimeView.swift in Sources */,
 				2F40BDBC2AD1EB3D0065ADCC /* SignInView.swift in Sources */,
 				2F70C7612ADF6A34005E2F24 /* UserProfilePictureView.swift in Sources */,
@@ -507,6 +510,7 @@
 				2F7A4EDA2AC88B8600D4F2E8 /* Anime_LandiaApp.swift in Sources */,
 				2F5F37452ACA4982002A752C /* RandomCharacterView.swift in Sources */,
 				2F6046EB2AC8A290000EDFCF /* DiscoverView.swift in Sources */,
+				2FCCEFD42AE4366400DDA96D /* Feed.swift in Sources */,
 				2F70C76B2AE0E857005E2F24 /* CustomLoadingView.swift in Sources */,
 				2FE2CC6F2AC8F59900E4E1C1 /* CharacterDetailsView.swift in Sources */,
 			);

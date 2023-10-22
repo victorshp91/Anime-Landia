@@ -26,7 +26,8 @@ struct SearchView: View {
     @State private var animeData: [Anime]?
     @State private var pagination: Pagination?
     @State private var ratingAverage = [String:Double]() // LOS USO PARA GUARDAR EL RATING PARA LOS ANIMES QUE SE ESTAN PRESENTANDO EN LA BUSQUEDA. TIEN EL ID DEL ANIME COMO KEY Y EL RATING COMO VALUE
-    
+    @State private var orderBy = "episodes"
+    @State private var sort = "desc"
     
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
@@ -60,6 +61,7 @@ struct SearchView: View {
                         withAnimation {
                             isShowingPagination = false
                             showHistory = true
+                            selectedAnimeType = .all
                         }
                     }
                 }, by: "name")
@@ -110,15 +112,8 @@ struct SearchView: View {
                     
                     if isShowingPagination {
                         if let paginationData = pagination {
-                            HStack{
-                                Text("Results")
-                                Text("\(paginationData.items.total)")
-                                    .bold()
-                                
-                                Spacer()
-                                Text("\(currentPage) of \(paginationData.last_visible_page)")
+                      
                                 HStack{
-                                    
                                     Button(action: {
                                         currentPage -= 1
                                         if selectedOption == .character {
@@ -126,50 +121,55 @@ struct SearchView: View {
                                         } else {
                                             loadAnimes()
                                         }
+                                      
+                                        
                                     }){
                                         Image(systemName: "arrow.left.circle.fill")
                                     }.disabled(currentPage == 1)
-                                    
+                                    Spacer()
+                                    Text("\(currentPage) of \(paginationData.last_visible_page)")
+                                    Spacer()
                                     Button(action: {
                                         currentPage += 1
+                                        
                                         if selectedOption == .character {
                                             loadCharacteres()
                                         } else {
                                             loadAnimes()
                                         }
+                                        
                                     }){
                                         Image(systemName: "arrow.right.circle.fill")
                                     }.disabled(!paginationData.has_next_page)
                                     
-                                }
+                                    // Botón que presenta el menú
+                                    Picker("Select type anime", selection: $selectedAnimeType) {
+                                        ForEach(HelpersFunctions.filtreAnimeType.allCases) { option in
+                                            Text(option.rawValue.capitalized)
+                                                .tag(option)
+                                        }
+                                    }
+                                    .pickerStyle(MenuPickerStyle()) // Use MenuPickerStyle to create a menu-like segmented control
+                                    .onChange(of: selectedAnimeType) {
+                                        // vulve a la primera pagina
+                                        currentPage = 1
+                                        // carga los animes
+                                        loadAnimes()
+                                        
+                                    }.disabled(selectedOption == .anime ? false:true)
+                                    
+                                }.font(.title)
+                                    .padding(10)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color("barColor"))
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                   
+                                
+                                    .foregroundStyle(.white)
+                               
                                 // BOTON FOR ANIME TYPE SEARCH
                                 
-                                
-                                
-                                
-                                // Botón que presenta el menú
-                                Picker("Select type anime", selection: $selectedAnimeType) {
-                                    ForEach(HelpersFunctions.filtreAnimeType.allCases) { option in
-                                        Text(option.rawValue.capitalized)
-                                            .tag(option)
-                                    }
-                                }
-                                .pickerStyle(MenuPickerStyle()) // Use MenuPickerStyle to create a menu-like segmented control
-                                .onChange(of: selectedAnimeType) {
-                                    // vulve a la primera pagina
-                                    currentPage = 1
-                                    // carga los animes
-                                    loadAnimes()
-                                    
-                                }.disabled(selectedOption == .anime ? false:true)
-                                
-                                
-                                
-                                
-                                
-                            }.font(.title3)
-                           
-                                .foregroundStyle(.white)
+                        
                         }
                     }
                     Picker("Select Filter", selection: $selectedOption) {
@@ -235,6 +235,19 @@ struct SearchView: View {
                 loadHistory()
                 
             })
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if animeData != nil {
+                        if selectedOption == .anime  {
+                            AnimeVM.OrderAnimeByMenuView.init(orderBy: $orderBy, sortBy: $sort, action: {
+                                currentPage = 1
+                                loadAnimes()
+                                
+                            })
+                        }
+                    }
+                }
+            }
             
         
     }
@@ -310,7 +323,7 @@ struct SearchView: View {
                                             
                                         Spacer()
                                         Image(systemName: "star.fill")
-                                            .foregroundStyle(.cyan)
+                                            .foregroundStyle(Color("accountNavColor"))
                                      
                                         Text(String(format: "%.1f", ratingAverage["\(anime.mal_id ?? 0)"] ?? 0.0))
                                     }.padding(.bottom, 5)
@@ -334,99 +347,87 @@ struct SearchView: View {
     }
     
     func loadCharacteres() {
-        isSearching = true
-        guard let url = URL(string: "https://api.jikan.moe/v4/characters?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)") else {
-            return
+        guard let url = characterSearchURL() else { return }
+        fetchData(from: url, decodingType: CharacterStruct.CharacterData.self) { (data) in
+            self.characterData = data?.data
         }
-
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                do {
-                    let decodedData = try JSONDecoder().decode(CharacterStruct.CharacterData.self, from: data)
-                    DispatchQueue.main.async {
-                        self.characterData = decodedData.data
-                        self.pagination = decodedData.pagination
-                    }
-                } catch {
-                    print("Error al decodificar los datos: \(error)")
-                }
-            } else if let error = error {
-                print("Error al cargar los datos: \(error)")
-            }
-        }.resume()
     }
-    
+
     func loadAnimes() {
-        withAnimation {
-            isSearching = true
+        withAnimation { isSearching = true }
+        guard let url = animeSearchURL() else { return }
+        ratingAverage = [:]
+        fetchData(from: url, decodingType: AnimeData.self) { (data) in
+            self.pagination = data?.pagination
+            self.animeData = data?.data
+            if let animes = data {
+                addAverageRatings(for: animes.data)
+            }
+           
         }
-        // si el type de anime es all entonces el link es sin type
-        guard let url = URL(string: selectedAnimeType == .all ? "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)&sfw=true" : "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)&type=\(selectedAnimeType.rawValue.lowercased())&sfw=true") else {
-            return
-        }
+    }
 
+    private func characterSearchURL() -> URL? {
+        return URL(string: "https://api.jikan.moe/v4/characters?q=\(searchText)&sort=desc&order_by=favorites&page=\(currentPage)")
+    }
+
+    private func animeSearchURL() -> URL? {
+        let typeParam = selectedAnimeType == .all ? "" : "&type=\(selectedAnimeType.rawValue.lowercased())"
+        return URL(string: "https://api.jikan.moe/v4/anime?q=\(searchText)&sort=\(sort)&order_by=\(orderBy)&page=\(currentPage)&sfw=true\(typeParam)")
+    }
+
+    private func fetchData<T: Decodable>(from url: URL?, decodingType: T.Type, completion: @escaping (T?) -> Void) {
+        guard let url = url else { return }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            ratingAverage = [:]
             if let data = data {
                 do {
-                    let decodedData = try JSONDecoder().decode(AnimeData.self, from: data)
-                    
+                    let decodedData = try JSONDecoder().decode(decodingType, from: data)
                     DispatchQueue.main.async {
-                        self.animeData = decodedData.data
-                        self.pagination = decodedData.pagination
-                        
-                        // AGREGO EL RATING DE CADA ANIME POR EL ID EN EL ARREGLO DECLARADO ARRIBA QUE ES UN DICCIONARIO QUE CONTIENE EL ID DEL ANIME Y EL RATING
-                        
-                        if let animes = animeData{
-                            for anime in animes{
-                                AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.mal_id ?? 0, isAverage: true, page: "1", completion: { rating in
-                                    if let average = rating.average{
-                                        ratingAverage["\(anime.mal_id ?? 0)"] = average
-                                    }
-                                    
-                                    
-                                })
-                            }
-                        }
-                        
+                        completion(decodedData)
                     }
-                   
-                    
                 } catch {
-                    print("Error al decodificar los datos: \(error)")
+                    print("Error decoding data: \(error)")
                 }
             } else if let error = error {
-                print("Error al cargar los datos: \(error)")
+                print("Error fetching data: \(error)")
             }
         }.resume()
     }
-    
+
+    private func addAverageRatings(for animes: [Anime]?) {
+        guard let animes = animes else { return }
+        for anime in animes {
+            AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.mal_id ?? 0, isAverage: true, page: "1") { rating in
+                if let average = rating.average {
+                    ratingAverage["\(anime.mal_id ?? 0)"] = average
+                }
+            }
+        }
+    }
+
     private func addNewSearch() {
         if historySearch.count >= maxSearchSize {
-                    // Si el array ha alcanzado el límite, elimina el elemento más antiguo
             historySearch.removeFirst()
-                }
+        }
         historySearch.append(searchText)
-                        saveHistory()
+        saveHistory()
     }
-    
-    // Función para cargar los datos desde UserDefaults
-        private func loadHistory() {
-            if let savedStringArray = UserDefaults.standard.array(forKey: "historySearch") as? [String] {
-                historySearch = savedStringArray
-            }
+
+    private func loadHistory() {
+        if let savedStringArray = UserDefaults.standard.array(forKey: "historySearch") as? [String] {
+            historySearch = savedStringArray
         }
-    
-    // Función para guardar los datos en UserDefaults
-        private func saveHistory() {
-            UserDefaults.standard.set(historySearch, forKey: "historySearch")
-        }
-    
-    // Función para eliminar un elemento de la lista hisotru
-        private func deleteItemHistory() {
-            historySearch.removeAll()
-            saveHistory()
-        }
+    }
+
+    private func saveHistory() {
+        UserDefaults.standard.set(historySearch, forKey: "historySearch")
+    }
+
+    private func deleteItemHistory() {
+        historySearch.removeAll()
+        saveHistory()
+    }
+
 }
 
 #Preview {

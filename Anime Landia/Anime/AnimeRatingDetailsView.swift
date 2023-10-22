@@ -45,7 +45,7 @@ struct AnimeRatingDetailsView: View {
                                 Text("Leave your review")
                                 Image(systemName: "text.bubble.fill")
                                     .font(.largeTitle).bold()
-                                    .foregroundStyle(.cyan)
+                                    .foregroundStyle(Color("accountNavColor"))
                             }.padding()
                                 .foregroundStyle(.white)
                             
@@ -86,12 +86,12 @@ struct AnimeRatingDetailsView: View {
                                 } else {
                                     HStack{
                                         
-                                        UserProfilePictureView(userIdToFetch: rating.user_id, width: 50, height: 50)
+                                        UserProfilePictureView(userIdToFetch: rating.user_id ?? "0", width: 50, height: 50)
                                         Text("@\(rating.usuario ?? "N/A")")
                                             .font(.headline)
                                         Spacer()
                                         if let createdAt = rating.created_at {
-                                            Text(" \(formatDate(createdAt))")
+                                            Text(" \(HelpersFunctions().formatDate(createdAt))")
                                                 .font(.caption)
                                                 .foregroundColor(.gray)
                                         }
@@ -277,55 +277,47 @@ struct AnimeRatingDetailsView: View {
     
     func submitReview() {
         let baseURL = "https://rayjewelry.us/animeLandiaApi/send_review.php"
-        print("MMG")
-      
         let urlString = "\(baseURL)?anime_id=\(anime.mal_id ?? 0)&user_id=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&rating=\(rating)&comment=\(comment)&spoiler=\(spoiler ? 1 : 0)"
         
         print(urlString)
-        if let url = URL(string: urlString) {
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    print("Error en la solicitud: \(error)")
-                } else {
-                    if let data = data, let responseString = String(data: data, encoding: .utf8) {
-                        print("Respuesta del servidor: \(responseString)")
-                        withAnimation {
-                            sendReview = false
-                        }
-                        loadData()
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error en la solicitud: \(error)")
+                return
+            }
+            
+            if let data = data, let responseString = String(data: data, encoding: .utf8) {
+                print("Respuesta del servidor: \(responseString)")
+                DispatchQueue.main.async {
+                    withAnimation {
+                        sendReview = false
                     }
+                    loadData()
                 }
-            }.resume()
+            }
+        }.resume()
+    }
+
+    func loadData() {
+        guard let animeId = anime.mal_id else {
+            print("Anime ID is nil.")
+            return
+        }
+        
+        AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: animeId, isAverage: false, page: "\(currentPage)") { fetchedRatings in
+            self.ratings = fetchedRatings
         }
     }
 
-    
-    func loadData() {
-        
-        // Realiza una solicitud HTTP para obtener las calificaciones
-        AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId:  anime.mal_id ?? 0, isAverage: false, page: String("\(currentPage)"), completion: {
-            fetchedRatings in
-            ratings = fetchedRatings
-          
-        })
-        
-    }
-    
-    // Función para formatear una fecha en una cadena de texto
-    func formatDate(_ date: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        if let date = dateFormatter.date(from: date) {
-            let formattedDate = DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .short)
-            return formattedDate
-        }
-        
-        return "N/A"
-    }
 }
 
 struct RatingView: View {
@@ -337,7 +329,7 @@ struct RatingView: View {
                 Image(systemName: index <= rating ? "star.fill" : "star")
                     .resizable()
                     .frame(width: 30, height: 30)
-                    .foregroundColor(.cyan)
+                    .foregroundColor(Color("accountNavColor"))
                     .onTapGesture {
                         rating = index
                     }

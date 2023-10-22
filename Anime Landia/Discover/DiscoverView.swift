@@ -11,25 +11,11 @@ struct DiscoverView: View {
     
     // PARA MANEJAR EL COLOR DEL DARK MODE
     
-    @Environment(\.colorScheme) var colorScheme
+
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            // BOTONES CATEGORIAS
-            
-            NavigationLink(destination: AnimeCategoriesButtonsView()) {
-                HStack{
-                    
-                    Image(systemName: "square.grid.2x2.fill")
-                    Text("Discover all Genres")
-                }.frame(maxWidth: .infinity)
-                    .padding(10)
-                        .background(Color("barColor"))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .shadow(radius: 3)
-                        .padding([.top, .horizontal])
-            }
-                        
+              
                     
             VStack(alignment: .leading){
                 topAnimeView(showing: .airing)
@@ -42,6 +28,22 @@ struct DiscoverView: View {
                     .navigationTitle("Discover")
                 Spacer()
             }.padding(.top)
+        }.toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                
+                
+                NavigationLink(destination: AnimeCategoriesButtonsView()) {
+                    HStack{
+                        
+                        Image(systemName: "square.grid.2x2.fill")
+                        Text("Genres")
+                    }
+                    
+                    .foregroundStyle(Color("accountNavColor"))
+                    
+                }
+                
+            }
         }
             .background(Color("background"))
             .foregroundStyle(.white)

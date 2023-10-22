@@ -89,7 +89,7 @@ struct CharacterDetailsView: View {
                             Image(systemName: "square.and.arrow.up.circle.fill")
                             
                                 .font(.title2)
-                                .foregroundStyle(.cyan)
+                                .foregroundStyle(Color("accountNavColor"))
                                 
                         }
                     }

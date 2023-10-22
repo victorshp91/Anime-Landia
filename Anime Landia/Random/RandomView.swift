@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct RandomView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack{
@@ -51,5 +51,5 @@ struct HomeView: View {
    }
 
 #Preview {
-    HomeView()
+    RandomView()
 }

@@ -15,55 +15,60 @@ struct ratingView: View {
     
 
         var body: some View {
-            HStack {
-                ForEach(0..<5) { index in
-                    
-                        Image(systemName: index < Int(animeRating) ? "star.fill" : "star")
-                            .foregroundColor(Color.cyan)
-                            
-                    
-                }
-                Text(String(format: "%.1f", animeRating)).bold()
-                    .foregroundStyle(.white
-                    )
-                Spacer()
-                if !isForUsersReview {
+            
+            VStack{
+              
                     HStack {
-                        Button(action: {
-                            showRatings = true
-                        }) {
-                            Image(systemName: "ellipsis.message.fill")
+                        ForEach(0..<5) { index in
+                            
+                            Image(systemName: index < Int(animeRating) ? "star.fill" : "star")
+                                .foregroundColor(Color("accountNavColor"))
+                            
                             
                         }
-                        .padding(10)
-                        .background(Color.cyan)
-                        .foregroundColor(Color.white)
-                        .cornerRadius(10)
-                    }
-                }
-                
-            }.font(.title2)
-            .padding(isForUsersReview ? 0:10)
-                
-            .background(Color("barColor"))    // Color de fondo en azul
-            
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .sheet(isPresented: $showRatings) {
-                    NavigationStack {
-                        AnimeRatingDetailsView(anime: anime)
-                            .presentationDetents([.medium, .large])
-                            .onDisappear {
-                                // Esta acción se ejecutará cuando el Sheet se oculte
-                                if !isForUsersReview {
-                                    AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.mal_id ?? 0, isAverage: true, page: "1", completion: { rating in
-                                        if let average = rating.average {
-                                            animeRating = average
-                                        }
-                                    })
+                        Text(String(format: "%.1f", animeRating)).bold()
+                            .foregroundStyle(.white
+                            )
+                        Spacer()
+                        if !isForUsersReview {
+                            HStack {
+                                Button(action: {
+                                    showRatings = true
+                                }) {
+                                    Image(systemName: "ellipsis.message.fill")
+                                    
                                 }
+                                .padding(10)
+                                .background(Color("accountNavColor"))
+                                .foregroundColor(Color.white)
+                                .cornerRadius(10)
                             }
-                    }
-                }
+                        }
+                        
+                    }.font(.title2)
+                        .padding(isForUsersReview ? 0:10)
+                    
+                        .background(Color("barColor"))    // Color de fondo en azul
+                    
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .sheet(isPresented: $showRatings) {
+                            NavigationStack {
+                                AnimeRatingDetailsView(anime: anime)
+                                    .presentationDetents([.medium, .large])
+                                    .onDisappear {
+                                        // Esta acción se ejecutará cuando el Sheet se oculte
+                                        if !isForUsersReview {
+                                            AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.mal_id ?? 0, isAverage: true, page: "1", completion: { rating in
+                                                if let average = rating.average {
+                                                    animeRating = average
+                                                }
+                                            })
+                                        }
+                                    }
+                            }
+                        }
+                
+            }
                 
                 .onAppear(perform: {
                     if !isForUsersReview {

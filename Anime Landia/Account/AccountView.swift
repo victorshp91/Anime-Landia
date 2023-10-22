@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImage
 
 extension Image {
     func asUIImage() -> UIImage {
@@ -50,11 +51,14 @@ struct AccountView: View {
                                     .overlay(Circle().stroke(Color("barColor"), lineWidth: 3)) //
                                 Button("Save Picture") {
                                     uploadPicture()
+                                    SDImageCache.shared.clearMemory()
+                                    SDImageCache.shared.clearDisk()
+                                    SDImageCache.shared.clear(with: .all)
                                 }.foregroundStyle(.blue)
                             }
                             
                         } else {
-                            UserProfilePictureView(userIdToFetch: userData.userActual.first?.id, width: 100, height: 100)
+                            UserProfilePictureView(userIdToFetch: userData.userActual.first?.id ?? "0", width: 100, height: 100)
                             Button("Change Picture") {
                                 self.showImagePicker = true
                             }.foregroundStyle(.blue)
@@ -101,10 +105,10 @@ struct AccountView: View {
                    
                     Text("Favorites").bold().font(.title2)
                     NavigationLink(destination: userFavoritesView(isFor: .character)){
-                        HelpersFunctions.BotonMenuAccount(icono: "star.circle.fill", titulo: "My Favorites Characters", color: .cyan)
+                        HelpersFunctions.BotonMenuAccount(icono: "star.circle.fill", titulo: "My Favorites Characters", color: Color("accountNavColor"))
                     }
                     NavigationLink(destination: userFavoritesView(isFor: .anime)) {
-                        HelpersFunctions.BotonMenuAccount(icono: "star.fill", titulo: "My Favorites Animes", color: .cyan)
+                        HelpersFunctions.BotonMenuAccount(icono: "star.fill", titulo: "My Favorites Animes", color: Color("accountNavColor"))
                     }
                     
                     Text("Anime").bold().font(.title2)
@@ -129,12 +133,12 @@ struct AccountView: View {
                 
                 Text("Share").bold().font(.title2)
                 ShareLink(item: URL(string: "https://apps.apple.com/us/app/data-ball-z/id1672899053")!) {
-                    HelpersFunctions.BotonMenuAccount(icono: "shareplay", titulo: "Share this app", color: .cyan)
+                    HelpersFunctions.BotonMenuAccount(icono: "shareplay", titulo: "Share this app", color: Color("accountNavColor"))
                     
                 }
                 Text("About").bold().font(.title2)
                 NavigationLink(destination: AboutView()){
-                    HelpersFunctions.BotonMenuAccount(icono: "info.circle.fill", titulo: "About", color: .cyan)
+                    HelpersFunctions.BotonMenuAccount(icono: "info.circle.fill", titulo: "About", color: Color("accountNavColor"))
                 }
                 Text("Disclaimer").bold().font(.title2)
                 VStack(alignment:.leading, spacing: 10){

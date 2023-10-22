@@ -8,11 +8,24 @@
 import Foundation
 import Observation
 
-@Observable class AccountVm {
+class AccountVm: ObservableObject {
     
     static let sharedUserVM = AccountVm()
     
-    var userActual = [Usuario]()
+    @Published var userActual: [Usuario] = []
+    
+    init() {
+           // Load user data from UserDefaults or wherever you store it
+           if let encodedData = UserDefaults.standard.data(forKey: "userData") {
+               let decoder = JSONDecoder()
+               do {
+                   let usuario = try decoder.decode(Usuario.self, from: encodedData)
+                   self.userActual = [usuario]
+               } catch {
+                   print("Error decoding user data: \(error)")
+               }
+           }
+       }
     
     enum friendStatus: String {
         case accepted = "accepted"

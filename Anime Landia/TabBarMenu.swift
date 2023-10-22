@@ -12,7 +12,8 @@ struct TabBarMenu: View {
         TabView {
             Group {
                 NavigationStack{
-                    HomeView()
+                    Feed()
+                        .navigationTitle("Reviews Feed")
                         
                         .toolbarBackground(
                          Color("barColor"),
@@ -20,8 +21,22 @@ struct TabBarMenu: View {
                         .toolbarColorScheme(.dark, for: .navigationBar)
                         .toolbarBackground(.visible, for: .navigationBar)
                 }
+                
+                .tabItem {
+                    Label("Feed", systemImage: "newspaper.fill")
+                }
+                   
+                NavigationStack{
+                    RandomView()
+                        .background(Color("background"))
+                        .toolbarBackground(
+                         Color("barColor"),
+                         for: .navigationBar)
+                        .toolbarColorScheme(.dark, for: .navigationBar)
+                        .toolbarBackground(.visible, for: .navigationBar)
+                }
                  .tabItem {
-                    Label("Home", systemImage: "circle.circle.fill")
+                    Label("Random", systemImage: "shuffle.circle.fill")
                     
                 }
                 NavigationStack {
@@ -69,20 +84,7 @@ struct TabBarMenu: View {
                 }
                 
                 
-                
-                NavigationStack {
-                    AccountView()
-                        .navigationTitle("Account")
-                        .toolbarBackground(
-                            Color("barColor"),
-                            for: .navigationBar)
-                        .toolbarColorScheme(.dark, for: .navigationBar)
-                        .toolbarBackground(.visible, for: .navigationBar)
-                }
-                 .tabItem {
-                    Label("Account", systemImage: "person.circle.fill")
-                    
-                }
+    
             }.toolbarBackground(.visible, for: .tabBar)
 
                 .toolbarBackground(

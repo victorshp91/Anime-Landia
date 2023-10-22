@@ -45,7 +45,7 @@ struct FriendsView: View {
                     if friendStatus == .accepted {
                         
                         NavigationLink(destination: AddNewFriendView()){
-                            Image(systemName: "plus.circle.fill").foregroundColor(.cyan).font(.title2)
+                            Image(systemName: "plus.circle.fill").foregroundColor((Color("accountNavColor"))).font(.title2)
                         }
                     }
                     
@@ -64,29 +64,7 @@ struct FriendsView: View {
             .toolbarBackground(.visible, for: .navigationBar)
     }
     
-    func getFriends(){
-        
-        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getUserFriends)user_id=\(AccountVm.sharedUserVM.userActual.first?.id ?? "")&status=\(friendStatus.rawValue.lowercased())") else {
-                       return
-                   }
-
-        print(url)
-                   URLSession.shared.dataTask(with: url) { data, _, error in
-                       if let data = data {
-                           do {
-                               let decoder = JSONDecoder()
-                               let friends = try decoder.decode([Usuario].self, from: data)
-                               DispatchQueue.main.async {
-                                   self.friends = friends
-                               }
-                           } catch {
-                               print("Error de decodificación: \(error)")
-                           }
-                       } else if let error = error {
-                           print("Error de solicitud: \(error)")
-                       }
-                   }.resume()
-    }
+ 
     
     
     func FriendListView(friend: Usuario) -> some View {
@@ -144,26 +122,72 @@ struct FriendsView: View {
         
     }
     
-    func updateFriendRequest(userId1: String, userId2: String, newStatus : String) {
-        guard let url = URL(string: "https://rayjewelry.us/animeLandiaApi/accept_reject_friend.php") else {
-                            return
-                        }
-                        
-                        var request = URLRequest(url: url)
-                        request.httpMethod = "POST"
-                        request.httpBody = "user_id1=\(userId1)&user_id2=\(userId2)&new_status=\(newStatus)".data(using: .utf8)
-                        
-                        URLSession.shared.dataTask(with: request) { data, response, error in
-                            if let data = data {
-                                if let responseString = String(data: data, encoding: .utf8) {
-                                    print(responseString)
-                                    // Manejar la respuesta JSON del servidor aquí si es necesario
-                                }
-                            } else if let error = error {
-                                print("Error: \(error)")
-                            }
-                        }.resume()
+    func getFriends() {
+        guard let url = friendListURL(for: friendStatus) else {
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let data = data {
+                do {
+                    let friends = try decodeFriends(data: data)
+                    DispatchQueue.main.async {
+                        self.friends = friends
                     }
+                } catch {
+                    print("Error de decodificación: \(error)")
+                }
+            } else if let error = error {
+                print("Error de solicitud: \(error)")
+            }
+        }.resume()
+    }
+
+    func updateFriendRequest(userId1: String, userId2: String, newStatus: String) {
+        guard friendRequestURL() != nil else {
+            return
+        }
+
+        let request = makeFriendRequestURLRequest(userId1: userId1, userId2: userId2, newStatus: newStatus)
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print(responseString)
+                    // Manejar la respuesta JSON del servidor aquí si es necesario
+                }
+            } else if let error = error {
+                print("Error: \(error)")
+            }
+        }.resume()
+    }
+
+    private func friendListURL(for status: AccountVm.friendStatus) -> URL? {
+        guard let userID = AccountVm.sharedUserVM.userActual.first?.id else {
+            return nil
+        }
+        
+        let statusString = status.rawValue.lowercased()
+        let urlString = "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getUserFriends)user_id=\(userID)&status=\(statusString)"
+        
+        return URL(string: urlString)
+    }
+
+    private func decodeFriends(data: Data) throws -> [Usuario] {
+        let decoder = JSONDecoder()
+        return try decoder.decode([Usuario].self, from: data)
+    }
+
+    private func friendRequestURL() -> URL? {
+        return URL(string: "https://rayjewelry.us/animeLandiaApi/accept_reject_friend.php")
+    }
+
+    private func makeFriendRequestURLRequest(userId1: String, userId2: String, newStatus: String) -> URLRequest {
+        var request = URLRequest(url: friendRequestURL()!)
+        request.httpMethod = "POST"
+        request.httpBody = "user_id1=\(userId1)&user_id2=\(userId2)&new_status=\(newStatus)".data(using: .utf8)
+        return request
+    }
     }
 
 

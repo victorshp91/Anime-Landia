@@ -47,7 +47,7 @@ struct UserWatchingView: View {
         .frame(maxWidth: .infinity)
         .onAppear {
             
-            obtenerFavoritos()
+            obtenerFavoritos(isFor: isFor)
             
             
             
@@ -78,95 +78,74 @@ struct UserWatchingView: View {
     
     // Function to fetch the JSON data from the URL
     private func fetch(Id: Int) {
-        
-        guard let url = URL(string:"https://api.jikan.moe/v4/anime/\(Id)") else {
+        guard let url = URL(string: "https://api.jikan.moe/v4/anime/\(Id)") else {
             return
         }
 
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        URLSession.shared.dataTask(with: url) { data, _, error in
             if let data = data {
                 do {
-                    
                     let animeResponse = try JSONDecoder().decode(OnlyAnimeData.self, from: data)
                     let anime = animeResponse.data
                     DispatchQueue.main.async {
-                        
                         self.allAnimes.append(anime ?? .init())
-                        
                     }
                 } catch {
-                    
                     print("Error decoding JSON: \(error)")
                 }
             }
         }.resume()
     }
-    
-    func obtenerFavoritos() {
+
+    func obtenerFavoritos(isFor: HelpersFunctions.animeWatchingOptions) {
         allAnimes = []
         ratingAverage = [:]
-        withAnimation {
-            isLoading = true
-        }
-        var userID = ""
         
-        if friend.isEmpty {
-            // Si el usuario está conectado, asigna el ID del usuario actual
-            userID = AccountVm.sharedUserVM.userActual.first?.id ?? ""
-        } else {
-            // Si el usuario no está conectado, asigna un valor predeterminado o lo que sea necesario
-            userID = friend.first?.id ?? "N/A"
+            isLoading = true
+        
+        
+        let userID = friend.isEmpty ? AccountVm.sharedUserVM.userActual.first?.id ?? "N/A" : friend.first?.id ?? "N/A"
+        
+        guard let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatus)id_usuario=\(userID)&watching=\(isFor.rawValue.lowercased())") else {
+            return
         }
-
-       
-        if let url = URL(string: "\(DataBaseViewModel.sharedDataBaseVM.Dominio)\(DataBaseViewModel.sharedDataBaseVM.getAnimeWatchingStatus)id_usuario=\(userID)&watching=\(isFor.rawValue.lowercased())"){
-            
-          
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data {
-                    let decoder = JSONDecoder()
-                    do {
-                        let decodedData = try decoder.decode([Favorito].self, from: data)
-                        
-                        DispatchQueue.main.async {
-                            
+        
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let data = data {
+                let decoder = JSONDecoder()
+                do {
+                    let decodedData = try decoder.decode([Favorito].self, from: data)
                     
-                            for favorito in decodedData {
-                                if let idAnime = favorito.id_anime {
-                                    fetch(Id: idAnime)
-                                    // pomemos de el estado del watching obtenido de la base de datos
+                    DispatchQueue.main.async {
+                        for favorito in decodedData {
+                            if let idAnime = favorito.id_anime {
+                                fetch(Id: idAnime)
+                            }
+                        }
+                        
+                        for anime in decodedData {
+                            AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.id_anime ?? 0, isAverage: true, page: "1") { rating in
+                                if let average = rating.average {
+                                    ratingAverage["\(anime.id_anime ?? 0)"] = average
                                 }
                             }
-                            
-                            
-                                for anime in decodedData{
-                                    AnimeVM.sharedAnimeVM.fetchRatingsForAnime(animeId: anime.id_anime ?? 0, isAverage: true, page: "1", completion: { rating in
-                                        if let average = rating.average{
-                                            ratingAverage["\(anime.id_anime ?? 0)"] = average
-                                        }
-                                        
-                                        
-                                    })
-                                }
-                            
-                          
-                            isLoading = false
-                            
-                            
                         }
-                    } catch {
+                        
                         isLoading = false
-                        showNoData = true
-                        print("Error al decodificar el JSON: \(error)")
                     }
-                } else if let error = error {
+                } catch {
                     isLoading = false
                     showNoData = true
-                    print("Error en la solicitud HTTP: \(error)")
+                    print("Error al decodificar el JSON: \(error)")
                 }
-            }.resume()
-        }
+            } else if let error = error {
+                isLoading = false
+                showNoData = true
+                print("Error en la solicitud HTTP: \(error)")
+            }
+        }.resume()
     }
+
     
 }
 

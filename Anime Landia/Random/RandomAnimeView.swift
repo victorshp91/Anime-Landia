@@ -71,7 +71,7 @@ struct RandomAnimeView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.cyan)
+                        .background(Color("accountNavColor"))
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .shadow(radius: 5)
@@ -96,27 +96,7 @@ struct RandomAnimeView: View {
 
         var retryCount = 0
         let maxRetries = 3 // Número máximo de intentos de retransmisión
-        let retryInterval = 2.0 // Tiempo de espera antes de reintentar (en segundos)
-
-        func performFetch() {
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data {
-                    do {
-                        let decodedData = try JSONDecoder().decode(OnlyAnimeData.self, from: data)
-
-                        DispatchQueue.main.async {
-                            self.randomAnime = decodedData.data
-                        }
-                    } catch {
-                        print("Error al decodificar los datos: \(error)")
-                        retryIfNeeded()
-                    }
-                } else if let error = error {
-                    print("Error al cargar los datos: \(error)")
-                    retryIfNeeded()
-                }
-            }.resume()
-        }
+        let retryInterval = 3.0 // Tiempo de espera antes de reintentar (en segundos)
 
         func retryIfNeeded() {
             retryCount += 1
@@ -131,9 +111,22 @@ struct RandomAnimeView: View {
             }
         }
 
+        func performFetch() {
+            AnimeVM.sharedAnimeVM.fetchData(from: url, resultType: OnlyAnimeData.self) { result in
+                switch result {
+                case .success(let decodedData):
+                    self.randomAnime = decodedData.data
+                case .failure(let error):
+                    print("Error al cargar los datos: \(error)")
+                    retryIfNeeded()
+                }
+            }
+        }
+
         // Iniciar la primera solicitud
         performFetch()
     }
+
 
 }
 

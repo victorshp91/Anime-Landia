@@ -30,7 +30,7 @@ struct StreamingDetailsView: View {
                                 }
                             }.padding()
                                 
-                                .background(.cyan)
+                                .background(Color("accountNavColor"))
                                 .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                                 .foregroundStyle(.white)
                         }

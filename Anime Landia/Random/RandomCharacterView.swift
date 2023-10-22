@@ -69,7 +69,7 @@ struct RandomCharacterView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.cyan)
+                        .background(Color("accountNavColor"))
                         .foregroundColor(.white)
                         .cornerRadius(10)
                         .shadow(radius: 5)

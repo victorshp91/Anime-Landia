@@ -25,7 +25,7 @@ struct AnimeWatchingButton: View {
         case .hold:
             return Color.gray
         case .none:
-            return .cyan
+            return Color("accountNavColor")
         }
     }
     

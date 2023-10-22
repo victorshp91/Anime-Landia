@@ -31,6 +31,8 @@ struct ItemCount: Codable {
 
 struct Anime: Codable, Identifiable {
     
+    
+    
     let mal_id: Int?
     let url: String?
     let images: Images?
@@ -70,7 +72,7 @@ struct Anime: Codable, Identifiable {
     var myRatingAverage: Double?
     
     var id: Int? {
-        return mal_id
+        return (mal_id ?? 0)+Int.random(in: 1...10000)
     }
     
     init(id: Int? = nil,mal_id: Int? = nil, url: String? = nil, images: Images? = nil, trailer: Trailer? = nil, approved: Bool? = nil, titles: [Title]? = nil, title: String? = nil, title_english: String? = nil, title_japanese: String? = nil, title_synonyms: [String]? = nil, type: String? = nil, source: String? = nil, episodes: Int? = nil, status: String? = nil, airing: Bool? = nil, aired: Aired? = nil, duration: String? = nil, rating: String? = nil, score: Double? = nil, scored_by: Int? = nil, rank: Int? = nil, popularity: Int? = nil, members: Int? = nil, favorites: Int? = nil, synopsis: String? = nil, background: String? = nil, season: String? = nil, year: Int? = nil, broadcast: Broadcast? = nil, producers: [Producer]? = nil, licensors: [Licensor]? = nil, studios: [Studio]? = nil, genres: [Genre]? = nil, explicit_genres: [Genre]? = nil, themes: [Genre]? = nil, demographics: [Genre]? = nil, myRatingAverage: Double? = nil) {
